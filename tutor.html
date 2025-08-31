@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutor Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
+  <style>
+    .status-pending { background-color: #fef3c7; color: #92400e; }
+    .status-under-review { background-color: #dbeafe; color: #1e40af; }
+    .status-checking-balance { background-color: #fecaca; color: #991b1b; }
+    .status-assigned { background-color: #d1fae5; color: #065f46; }
+    .status-in-progress { background-color: #e0e7ff; color: #3730a3; }
+    .status-completed { background-color: #dcfce7; color: #166534; }
+    .status-cancelled { background-color: #f3f4f6; color: #6b7280; }
+    
+    .sidebar {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    /* Bottom nav for mobile like student.html */
+    .tutor-bottom-nav { display: none; }
+    @media (max-width: 1023px) {
+      .tutor-bottom-nav { display: flex; }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+<!-- Header (Mobile only) -->
+<header class="bg-white shadow-md fixed top-0 left-0 right-0 z-20 px-4 py-3 flex items-center justify-center lg:hidden">
+  <h1 id="tutor-section-title" class="text-xl font-semibold text-gray-800">Dashboard Overview</h1>
+</header>
+
+<!-- Bottom Navigation for small screens -->
+<nav class="tutor-bottom-nav fixed bottom-0 left-0 right-0 bg-gray-800 text-white justify-around items-center p-2 lg:hidden z-20">
+  <button onclick="showSection('overview', event)" class="flex flex-col items-center">
+    <i class="fas fa-home text-xl"></i>
+  </button>
+  <button onclick="showSection('assignments', event)" class="flex flex-col items-center">
+    <i class="fas fa-tasks text-xl"></i>
+  </button>
+  <button onclick="showSection('students', event)" class="flex flex-col items-center">
+    <i class="fas fa-users text-xl"></i>
+  </button>
+  <button onclick="showSection('payments', event)" class="flex flex-col items-center">
+    <i class="fas fa-credit-card text-xl"></i>
+  </button>
+  <button onclick="showSection('chat', event)" class="flex flex-col items-center relative">
+    <i class="fas fa-comments text-xl"></i>
+    <span id="tutor-chat-badge-mobile" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] rounded-full px-1.5 py-0.5 hidden">0</span>
+  </button>
+</nav>
+  
+  <!-- Sidebar -->
+  <div class="sidebar hidden lg:block fixed left-0 top-0 h-full w-64 text-white p-6 shadow-lg">
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold">Tutor Dashboard</h1>
+      <p class="text-blue-200 text-sm">Manage assignments & students</p>
+    </div>
+    
+    <nav class="space-y-2" id="tutor-sidebar-nav">
+      <a href="#" onclick="showSection('overview', event)" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link active">
+        <i class="fas fa-home"></i>
+        <span>Overview</span>
+      </a>
+      <a href="#" onclick="showSection('assignments', event)" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link">
+        <i class="fas fa-tasks"></i>
+        <span>Assignments</span>
+      </a>
+      <a href="#" onclick="showSection('students', event)" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link">
+        <i class="fas fa-users"></i>
+        <span>Students</span>
+      </a>
+      <a href="#" onclick="showSection('payments', event)" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link">
+        <i class="fas fa-credit-card"></i>
+        <span>Payment Approvals</span>
+      </a>
+      <a href="#" onclick="showSection('chat', event)" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link relative" id="tutor-chat-nav">
+        <i class="fas fa-comments"></i>
+        <span>Chat</span>
+        <span id="tutor-chat-badge" class="ml-auto bg-red-600 text-white text-xs rounded-full px-2 py-0.5 hidden">0</span>
+      </a>
+    </nav>
+    
+    <div class="hidden lg:block absolute bottom-6 left-6 right-6">
+      <div class="bg-white bg-opacity-20 rounded-lg p-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 bg-white bg-opacity-30 rounded-full flex items-center justify-center">
+            <i class="fas fa-user text-white"></i>
+          </div>
+          <div>
+            <p class="font-semibold" id="tutorName">Tutor</p>
+            <p class="text-blue-200 text-sm">Administrator</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="p-4 pt-20 lg:pt-8 lg:ml-64 lg:p-8">
+    
+    <!-- Overview Section -->
+    <section id="overview" class="space-y-6">
+      <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-bold text-gray-800">Dashboard Overview</h2>
+        <button onclick="refreshData()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+          <i class="fas fa-sync-alt mr-2"></i>Refresh
+        </button>
+      </div>
+      
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <!-- Chat Summary Card (optional) -->
+        <div class="bg-white p-6 rounded-lg shadow card-hover transition duration-300 col-span-1 md:col-span-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xl font-semibold text-gray-800">Student Chats</h3>
+            <button onclick="showSection('chat')" class="px-3 py-2 bg-blue-600 text-white rounded">Open Chat</button>
+          </div>
+          <p class="text-sm text-gray-600 mt-2">View and reply to messages in the dedicated Chat section.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow card-hover transition duration-300">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-600 text-sm">Total Assignments</p>
+              <p class="text-2xl font-bold text-gray-800" id="totalAssignments">0</p>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full">
+              <i class="fas fa-tasks text-blue-600 text-xl"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow card-hover transition duration-300">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-600 text-sm">Pending Review</p>
+              <p class="text-2xl font-bold text-orange-600" id="pendingReview">0</p>
+            </div>
+            <div class="bg-orange-100 p-3 rounded-full">
+              <i class="fas fa-clock text-orange-600 text-xl"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow card-hover transition duration-300">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-600 text-sm">Active Students</p>
+              <p class="text-2xl font-bold text-green-600" id="activeStudents">0</p>
+            </div>
+            <div class="bg-green-100 p-3 rounded-full">
+              <i class="fas fa-users text-green-600 text-xl"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow card-hover transition duration-300">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-600 text-sm">Pending Payments</p>
+              <p class="text-2xl font-bold text-purple-600" id="pendingPayments">0</p>
+            </div>
+            <div class="bg-purple-100 p-3 rounded-full">
+              <i class="fas fa-credit-card text-purple-600 text-xl"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Recent Activity -->
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Recent Activity</h3>
+        <div id="recentActivity" class="space-y-3">
+          <!-- Activity items will be loaded here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Assignments Section -->
+    <section id="assignments" class="space-y-6 hidden">
+      <!-- Mobile filter placement -->
+      <div class="lg:hidden">
+        <label class="block text-sm text-gray-600 mb-1">Filter status</label>
+        <select id="statusFilterMobile" class="w-full border rounded-lg px-3 py-2">
+          <option value="all">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="under-review">Under Review</option>
+          <option value="checking-balance">Checking Balance</option>
+          <option value="assigned">Assigned</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+      <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-bold text-gray-800">Assignments Management</h2>
+        <div class="flex space-x-2">
+          <select id="statusFilter" onchange="filterAssignments()" class="border rounded-lg px-3 py-2">
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="under-review">Under Review</option>
+            <option value="checking-balance">Checking Balance</option>
+            <option value="assigned">Assigned</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+      </div>
+      
+      <div id="assignmentsList" class="space-y-4">
+        <!-- Assignments will be loaded here -->
+      </div>
+    </section>
+
+    <!-- Students Section -->
+    <section id="students" class="space-y-6 hidden">
+      <!-- Mobile helper text -->
+      <p class="lg:hidden text-sm text-gray-500">Scroll horizontally to see more cards.</p>
+      <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-bold text-gray-800">Students Management</h2>
+      </div>
+      
+      <div id="studentsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Students will be loaded here -->
+      </div>
+    </section>
+
+    <!-- Payments Section -->
+    <section id="payments" class="space-y-6 hidden">
+      <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-bold text-gray-800">Payment Approvals</h2>
+      </div>
+      
+      <div id="paymentsList" class="space-y-4">
+        <!-- Pending payments will be loaded here -->
+      </div>
+    </section>
+
+    <!-- Chat Section -->
+    <section id="chat" class="space-y-6 hidden">
+      <h2 class="text-3xl font-bold text-gray-800">Student Chats</h2>
+      
+      <!-- Step 1: Students (avatars) -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-sm font-medium">Students</div>
+          <div class="text-xs text-gray-500" id="tutor-chat-selected-student-label">Select a student</div>
+        </div>
+        <div id="tutor-chat-students" class="flex gap-4 overflow-x-auto pb-2">
+          <!-- Avatars inserted here -->
+        </div>
+      </div>
+
+      <!-- Step 2: Assignments for selected student -->
+      <div id="tutor-chat-assignments-wrap" class="hidden">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-sm font-medium">Assignments for <span id="tutor-chat-student-name" class="font-semibold">-</span></div>
+          <button class="text-xs text-blue-600 hover:underline" onclick="resetChatSteps()">Change student</button>
+        </div>
+        <div id="tutor-chat-assignments-for-student" class="flex gap-2 overflow-x-auto pb-2"></div>
+        <div class="text-xs text-gray-500">Tap an assignment to open chat</div>
+      </div>
+
+      <!-- Desktop helper (optional) -->
+      <div class="hidden lg:block text-sm text-gray-500">Tip: Use the flow above to open chat in a popup.</div>
+
+      <audio id="tutor-new-message-audio" src="audio/receive.mp3" preload="auto"></audio>
+      <audio id="tutor-send-audio" src="audio/send.mp3" preload="auto"></audio>
+    </section>
+  </div>
+
+  <!-- Tutor Chat Modal (popup when assignment clicked) -->
+  <div id="tutorChatModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg w-full max-w-2xl mx-4">
+      <div class="flex items-center justify-between px-4 py-3 border-b">
+        <div>
+          <div class="text-sm text-gray-500">Chatting about</div>
+          <div id="tutor-chat-modal-title" class="font-semibold">-</div>
+        </div>
+        <button onclick="closeTutorChatModal()" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <div class="p-4">
+        <div id="tutor-chat-history-modal" class="bg-gray-50 border rounded p-3 h-96 overflow-y-auto space-y-2"></div>
+        <div class="mt-2 flex items-center">
+          <input id="tutor-chat-input-modal" class="flex-1 border rounded p-2" placeholder="Type a message..." />
+          <button id="tutor-send-modal" class="ml-2 px-3 py-2 bg-blue-600 text-white rounded">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assignment Details Modal -->
+  <div id="assignmentModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-2xl font-bold text-gray-800">Assignment Details</h3>
+        <button onclick="closeAssignmentModal()" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      
+      <div id="assignmentDetails">
+        <!-- Assignment details will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- File Upload Modal -->
+  <div id="uploadModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-bold text-gray-800">Upload Completed Files</h3>
+        <button onclick="closeUploadModal()" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="hidden" id="uploadAssignmentId" name="assignmentId">
+        <input type="hidden" id="uploadTutorId" name="tutorId" value="">
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Select Files</label>
+          <input type="file" id="completedFiles" name="files" multiple accept=".pdf,.doc,.docx,.txt,.zip,.rar" 
+                 class="w-full border border-gray-300 rounded-lg p-2">
+          <p class="text-xs text-gray-500 mt-1">Supported formats: PDF, DOC, DOCX, TXT, ZIP, RAR</p>
+        </div>
+        
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Comments (Optional)</label>
+          <textarea id="tutorComments" name="comments" rows="3" 
+                    class="w-full border border-gray-300 rounded-lg p-2" 
+                    placeholder="Add any comments for the student..."></textarea>
+        </div>
+        
+        <div class="flex space-x-3">
+          <button type="submit" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700">
+            <i class="fas fa-upload mr-2"></i>Upload & Complete
+          </button>
+          <button type="button" onclick="closeUploadModal()" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:3002';
+    let currentAssignments = [];
+    let currentStudents = [];
+    let currentPayments = [];
+
+    // Initialize dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      loadTutorProfile();
+      loadOverviewData();
+      loadAssignments();
+      loadStudents();
+      loadPendingPayments();
+      
+      // init unread map
+      window.tutorUnread = new Map(); // assignmentId -> count
+
+      // Set up periodic refresh for real-time updates
+      setInterval(() => {
+        loadOverviewData();
+        loadAssignments();
+        loadPendingPayments();
+        loadTutorChatStudents();
+        refreshTutorUnreadCounts();
+        if(tutorActiveAssignment) loadTutorMessages();
+      }, 15000); // Refresh every 15 seconds
+
+      // Chat modal init
+      document.getElementById('tutor-send-modal').addEventListener('click', tutorSendMessageModal);
+      document.getElementById('tutor-chat-input-modal').addEventListener('input', toggleTutorSendButtonModal);
+      toggleTutorSendButtonModal();
+
+      // Load chat students first step
+      loadTutorChatStudents();
+      // Prime unread counts immediately on load
+      refreshTutorUnreadCounts();
+    });
+
+    // Unread helpers for Tutor
+    async function updateTutorSidebarBadge(){
+      const total = Array.from(window.tutorUnread?.values()||[]).reduce((a,b)=>a+b,0);
+      const el = document.getElementById('tutor-chat-badge');
+      const elMobile = document.getElementById('tutor-chat-badge-mobile');
+      if(el){
+        if(total>0){ el.textContent = String(total); el.classList.remove('hidden'); }
+        else { el.classList.add('hidden'); }
+      }
+      if(elMobile){
+        if(total>0){ elMobile.textContent = String(total); elMobile.classList.remove('hidden'); }
+        else { elMobile.classList.add('hidden'); }
+      }
+      // Also update per-student badges by aggregating assignment-level unread counts
+      try {
+        const container = document.getElementById('tutor-chat-students');
+        if (!container) return;
+        const studentButtons = Array.from(container.querySelectorAll('button[data-stu-id]'));
+        // Build a map studentId -> unreadCount
+        const assignments = Array.from(window.tutorUnread?.keys()||[]);
+        const studentUnreadMap = new Map();
+        // We need the mapping of assignment -> student. Fetch quickly if we have none loaded
+        // Use cached assignments from the assignments section if available
+        const cached = window.currentAssignments || [];
+        const mapAssignToStudent = new Map();
+        cached.forEach(a => {
+          const sid = a && a.userId ? (a.userId.id || a.userId._id || a.userId) : null;
+          if (a && a.id && sid) mapAssignToStudent.set(String(a.id), String(sid));
+        });
+        // If no assignments cached yet, fetch once to build the map
+        if (mapAssignToStudent.size === 0) {
+          try {
+            const res = await fetch(`${API_BASE}/tutor/assignments`);
+            const data = await res.json();
+            const arr = Array.isArray(data.assignments) ? data.assignments : [];
+            arr.forEach(a => {
+              const sid = a && a.userId ? (a.userId.id || a.userId._id || a.userId) : null;
+              if (a && a.id && sid) mapAssignToStudent.set(String(a.id), String(sid));
+            });
+          } catch(_) { /* ignore */ }
+        }
+        assignments.forEach(aid => {
+          const count = window.tutorUnread.get(aid) || 0;
+          const sid = mapAssignToStudent.get(String(aid));
+          if (!sid || count<=0) return;
+          studentUnreadMap.set(sid, (studentUnreadMap.get(sid)||0) + count);
+        });
+        studentButtons.forEach(btn => {
+          const sid = String(btn.dataset.stuId);
+          const count = studentUnreadMap.get(sid) || 0;
+          const badge = btn.querySelector('.student-unread-badge');
+          if (!badge) return;
+          if (count>0) { badge.textContent = String(count); badge.classList.remove('hidden'); }
+          else { badge.classList.add('hidden'); }
+        });
+      } catch(_) { /* ignore */ }
+    }
+    function updateTutorListBadge(assignmentId){
+      const selectorId = String(assignmentId).replace(/"/g,'\\"');
+      // Update badges in the per-student assignment list (current chat flow)
+      const buttons = document.querySelectorAll(`#tutor-chat-assignments-for-student button[data-id="${selectorId}"]`);
+      const count = window.tutorUnread?.get(String(assignmentId))||0;
+      buttons.forEach((button) => {
+        if(!button) return;
+        const badge = button.querySelector('.assignment-unread-badge');
+        if(!badge) return;
+        if(count>0){ badge.textContent = String(count); badge.classList.remove('hidden'); }
+        else { badge.classList.add('hidden'); }
+      });
+    }
+
+    // LocalStorage helpers for last-read timestamps per assignment (tutor side)
+    function getTutorLastReadMap(){
+      try{ return JSON.parse(localStorage.getItem('tutorLastRead')||'{}')||{}; }catch(_){ return {}; }
+    }
+    function setTutorLastRead(assignmentId, ts){
+      const map = getTutorLastReadMap();
+      map[String(assignmentId)] = ts || Date.now();
+      localStorage.setItem('tutorLastRead', JSON.stringify(map));
+    }
+    function getTutorLastRead(assignmentId){
+      const map = getTutorLastReadMap();
+      const v = map[String(assignmentId)];
+      return typeof v === 'number' ? v : 0;
+    }
+
+    function incrementTutorUnread(assignmentId){
+      const id = String(assignmentId);
+      // If chat section is visible and this assignment is active, do not count as unread
+      const chatVisible = !document.getElementById('chat').classList.contains('hidden');
+      if(chatVisible && tutorActiveAssignment && String(tutorActiveAssignment.id)===id) return;
+      const current = window.tutorUnread.get(id)||0;
+      window.tutorUnread.set(id, current+1);
+      updateTutorListBadge(id);
+      updateTutorSidebarBadge();
+    }
+    function clearTutorUnread(assignmentId){
+      if(!assignmentId) return;
+      const id = String(assignmentId);
+      // Update last read timestamp
+      setTutorLastRead(id, Date.now());
+      if(window.tutorUnread.has(id)) window.tutorUnread.set(id,0);
+      updateTutorListBadge(id);
+      updateTutorSidebarBadge();
+    }
+
+    // Poll to compute unread counts using last-read timestamps
+    async function refreshTutorUnreadCounts(){
+      try{
+        let assignments = window.currentAssignments || [];
+        // If we have no cached assignments yet, fetch them once so badges can compute
+        if(assignments.length===0){
+          try{
+            const res = await fetch(`${API_BASE}/tutor/assignments`);
+            const data = await res.json();
+            assignments = Array.isArray(data.assignments) ? data.assignments : [];
+            if(assignments.length>0){ window.currentAssignments = assignments; }
+          }catch(_){ /* ignore fetch error; proceed with empty */ }
+        }
+        if(assignments.length===0) { updateTutorSidebarBadge(); return; }
+        await Promise.all(assignments.map(async (a)=>{
+          const id = String(a.id || a._id);
+          if(!id) return;
+          try{
+            const res = await fetch(`${API_BASE}/messages?assignmentId=${encodeURIComponent(id)}`);
+            const data = await res.json();
+            if(!data.success) return;
+            const lastRead = getTutorLastRead(id);
+            const count = (data.messages||[]).filter(m=> m.sender==='student' && new Date(m.createdAt).getTime() > lastRead).length;
+            window.tutorUnread.set(id, count);
+            updateTutorListBadge(id);
+          }catch(_){ /* ignore per-assignment error */ }
+        }));
+        updateTutorSidebarBadge();
+      }catch(_){ /* ignore */ }
+    }
+
+    let tutorActiveAssignment = null; // { id, title, studentId, tutorId }
+    let sseEventSource = null;
+    let tutorSeenMessageIds = new Set();
+
+    // Removed Socket.IO implementation to prevent duplicate messages
+    // Using SSE only for real-time messaging
+
+    function startTutorSSE(){
+      if (sseEventSource) { try { sseEventSource.close(); } catch(_){} sseEventSource = null; }
+      if (!tutorActiveAssignment) return;
+      // Don't reset tutorSeenMessageIds here - it's reset when switching assignments and populated by loadTutorMessages
+      const url = `${API_BASE}/messages/stream?assignmentId=${encodeURIComponent(tutorActiveAssignment.id)}`;
+      sseEventSource = new EventSource(url);
+      sseEventSource.onmessage = (evt) => {
+        try {
+          const data = JSON.parse(evt.data);
+          if (data?.type === 'message' && data.message) {
+            const m = data.message;
+            if (String(m.assignmentId) !== String(tutorActiveAssignment.id)) return;
+            // Deduplicate by message id
+            if (m._id && tutorSeenMessageIds.has(m._id)) return;
+            if (m._id) tutorSeenMessageIds.add(m._id);
+            const me = m.sender === 'tutor';
+            const align = me ? 'text-right' : 'text-left';
+            const bubble = me ? 'bg-blue-600 text-white ml-auto' : 'bg-gray-200 text-black';
+            const append = (history)=>{ if(!history) return; history.innerHTML += `<div class="${align}"><div class="inline-block ${bubble} p-2 rounded max-w-[80%]">${m.content}<div class="text-xs opacity-70 mt-1">${new Date(m.createdAt).toLocaleString()}</div></div></div>`; history.scrollTop = history.scrollHeight; };
+            append(document.getElementById('tutor-chat-history'));
+            append(document.getElementById('tutor-chat-history-mobile'));
+            append(document.getElementById('tutor-chat-history-modal'));
+            if (!me) {
+              const chatVisible = !document.getElementById('chat').classList.contains('hidden');
+              if(chatVisible && tutorActiveAssignment && String(tutorActiveAssignment.id)===String(m.assignmentId)){
+                // mark as read immediately
+                setTutorLastRead(m.assignmentId, new Date(m.createdAt).getTime() || Date.now());
+                clearTutorUnread(m.assignmentId);
+              } else {
+                // increment unread for this assignment when tutor is not currently viewing this chat
+                incrementTutorUnread(m.assignmentId);
+                document.getElementById('tutor-new-message-audio')?.play().catch(()=>{});
+              }
+            }
+          }
+        } catch (_){ }
+      };
+    }
+
+    // Step 1: load students as avatars for chat flow
+    async function loadTutorChatStudents(){
+      try{
+        const res = await fetch(`${API_BASE}/tutor/students`);
+        const data = await res.json();
+        const row = document.getElementById('tutor-chat-students');
+        if(!data.success){ if(row) row.innerHTML = '<div class="text-sm text-red-600">Failed to load students</div>'; return; }
+        const students = data.students||[];
+        row.innerHTML = students.map(s=>{
+          const initials = (s.name||'S').split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase();
+          const avatar = s.profileImageId ? `<img src="${API_BASE}/file/${s.profileImageId}" class="w-12 h-12 rounded-full object-cover"/>` : `<div class="w-12 h-12 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-semibold">${initials}</div>`;
+          return `<button class="flex flex-col items-center shrink-0 relative" data-stu-id="${s.id}" data-stu-name="${s.name}">
+            <div class="relative">
+              ${avatar}
+              <span class="student-unread-badge absolute -top-1 -right-1 bg-red-600 text-white text-[10px] rounded-full px-1.5 py-0.5 hidden">0</span>
+            </div>
+            <span class="text-xs mt-1 max-w-[5rem] truncate">${s.name}</span>
+          </button>`;
+        }).join('');
+        row.querySelectorAll('button[data-stu-id]').forEach(btn=>{
+          btn.addEventListener('click', ()=> selectChatStudent(btn.dataset.stuId, btn.dataset.stuName));
+        });
+        // After rendering students, update their unread badges using current counts
+        updateTutorSidebarBadge();
+      }catch(e){ const row = document.getElementById('tutor-chat-students'); if(row) row.innerHTML = '<div class="text-sm text-red-600">Network error</div>'; }
+    }
+
+    function resetChatSteps(){
+      document.getElementById('tutor-chat-assignments-wrap').classList.add('hidden');
+      document.getElementById('tutor-chat-selected-student-label').textContent = 'Select a student';
+      document.getElementById('tutor-chat-assignments-for-student').innerHTML='';
+    }
+
+    async function selectChatStudent(studentId, name){
+      document.getElementById('tutor-chat-selected-student-label').textContent = `Selected: ${name}`;
+      document.getElementById('tutor-chat-student-name').textContent = name;
+      const wrap = document.getElementById('tutor-chat-assignments-wrap');
+      wrap.classList.remove('hidden');
+      // Load assignments for this student
+      try{
+        const res = await fetch(`${API_BASE}/tutor/assignments`);
+        const data = await res.json();
+        const list = document.getElementById('tutor-chat-assignments-for-student');
+        if(!data.success){ list.innerHTML = '<div class="text-sm text-red-600">Failed to load assignments</div>'; return; }
+        const itemsArr = (data.assignments||[])
+          .filter(a=> {
+            const sid = a && a.userId ? (a.userId.id || a.userId._id || a.userId) : null;
+            return String(sid) === String(studentId);
+          });
+        const items = itemsArr.map(a=>{
+            const sid = a && a.userId ? (a.userId.id || a.userId._id || a.userId) : '';
+            const tid = a && a.assignedTutor ? (a.assignedTutor.id || a.assignedTutor._id || a.assignedTutor) : '';
+            return `<button class="shrink-0 text-left p-2 border rounded hover:bg-gray-50 relative" data-id="${a.id}" data-title="${a.assignmentTitle}" data-student="${sid}" data-tutor="${tid}">
+              <span class="assignment-unread-badge absolute -top-1 -right-1 bg-red-600 text-white text-[10px] rounded-full px-1.5 py-0.5 hidden">0</span>
+              <div class="font-medium truncate max-w-[12rem]">${a.assignmentTitle}</div>
+              <div class="text-[10px] text-gray-500">${a.status}</div>
+            </button>`;
+          }).join('');
+        list.innerHTML = items || '<div class="text-sm text-gray-500">No assignments for this student</div>';
+        list.querySelectorAll('button[data-id]').forEach(btn=>{
+          btn.addEventListener('click', ()=> openTutorChatModal({ id: btn.dataset.id, title: btn.dataset.title, studentId: btn.dataset.student, tutorId: btn.dataset.tutor }));
+        });
+        // Seed per-assignment badges now based on current unread map
+        try{
+          itemsArr.forEach(a=>{
+            const count = window.tutorUnread?.get(String(a.id))||0;
+            const chip = list.querySelector(`button[data-id="${a.id}"] .assignment-unread-badge`);
+            if(chip){ if(count>0){ chip.textContent=String(count); chip.classList.remove('hidden'); } else { chip.classList.add('hidden'); } }
+          });
+        }catch(_){}
+      }catch(e){ document.getElementById('tutor-chat-assignments-for-student').innerHTML = '<div class="text-sm text-red-600">Network error</div>'; }
+    }
+
+    function openTutorChatModal(assign){
+      tutorActiveAssignment = assign;
+      tutorSeenMessageIds = new Set();
+      document.getElementById('tutor-chat-modal-title').textContent = assign.title;
+      document.getElementById('tutorChatModal').classList.remove('hidden');
+      clearTutorUnread(assign.id);
+      // Also hide the per-assignment unread chip immediately
+      const chip = document.querySelector(`#tutor-chat-assignments-for-student button[data-id="${assign.id}"] .assignment-unread-badge`);
+      if(chip) chip.classList.add('hidden');
+      loadTutorMessages();
+      startTutorSSE();
+      toggleTutorSendButtonModal();
+    }
+    function closeTutorChatModal(){
+      document.getElementById('tutorChatModal').classList.add('hidden');
+      // Mark messages as read when closing the modal for the active assignment
+      if (tutorActiveAssignment) {
+        clearTutorUnread(tutorActiveAssignment.id);
+      }
+    }
+
+    function toggleTutorSendButtonModal(){
+      const input = document.getElementById('tutor-chat-input-modal');
+      const btn = document.getElementById('tutor-send-modal');
+      if(!input || !btn) return;
+      const canSend = !!input.value.trim() && !!tutorActiveAssignment;
+      btn.disabled = !canSend;
+      if(canSend){ btn.classList.remove('bg-gray-400','cursor-not-allowed'); btn.classList.add('bg-blue-600'); }
+      else { btn.classList.add('bg-gray-400','cursor-not-allowed'); btn.classList.remove('bg-blue-600'); }
+    }
+
+    async function tutorSendMessageModal(){
+      const input = document.getElementById('tutor-chat-input-modal');
+      if(!input) return;
+      const content = input.value.trim();
+      const tutorId = localStorage.getItem('tutorId') || '';
+      if(!content || !tutorActiveAssignment){ return; }
+      try{
+        const effectiveTutorId = tutorActiveAssignment.tutorId || tutorId || '';
+        const res = await fetch(`${API_BASE}/messages`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ assignmentId: tutorActiveAssignment.id, studentId: tutorActiveAssignment.studentId, tutorId: effectiveTutorId, sender: 'tutor', content }) });
+        const data = await res.json();
+        if(!data.success){ console.error('Failed to send'); }
+        document.getElementById('tutor-send-audio')?.play().catch(()=>{});
+      }catch(e){ console.error('Network error'); }
+      finally {
+        input.value='';
+        toggleTutorSendButtonModal();
+      }
+    }
+
+    // Deprecated direct chat list (kept for compatibility, can be repurposed)
+    async function loadTutorChatAssignments(){ /* no-op now that we use student-first flow */ }
+
+    async function loadTutorMessages(){
+      const history = document.getElementById('tutor-chat-history');
+      const historyMobile = document.getElementById('tutor-chat-history-mobile');
+      if(!tutorActiveAssignment){ 
+        if(history) history.innerHTML = '<div class="text-sm text-gray-500">Select an assignment</div>'; 
+        if(historyMobile) historyMobile.innerHTML = '<div class="text-sm text-gray-500">Select an assignment</div>'; 
+        return; 
+      }
+      if(history) history.innerHTML = '<div class="text-sm text-gray-500">Loading...</div>';
+      if(historyMobile) historyMobile.innerHTML = '<div class="text-sm text-gray-500">Loading...</div>';
+      try{
+        const res = await fetch(`${API_BASE}/messages?assignmentId=${encodeURIComponent(tutorActiveAssignment.id)}`);
+        const data = await res.json();
+        if(!data.success){ 
+          if(history) history.innerHTML = '<div class="text-sm text-red-600">Failed to load</div>'; 
+          if(historyMobile) historyMobile.innerHTML = '<div class="text-sm text-red-600">Failed to load</div>'; 
+          return; 
+        }
+        const render = (target)=>{
+          if(!target) return;
+          target.innerHTML = '';
+          (data.messages||[]).forEach(m=>{
+            if (m._id) tutorSeenMessageIds.add(m._id);
+            const me = m.sender === 'tutor';
+            const align = me ? 'text-right' : 'text-left';
+            const bubble = me ? 'bg-blue-600 text-white ml-auto' : 'bg-gray-200 text-black';
+            target.innerHTML += `<div class="${align}"><div class="inline-block ${bubble} p-2 rounded max-w-[80%]">${m.content}<div class="text-xs opacity-70 mt-1">${new Date(m.createdAt).toLocaleString()}</div></div></div>`;
+          });
+          target.scrollTop = target.scrollHeight;
+        };
+        render(history);
+        render(historyMobile);
+        render(document.getElementById('tutor-chat-history-modal'));
+        // Opening messages means they are read
+        clearTutorUnread(tutorActiveAssignment.id);
+      }catch(e){ 
+        if(history) history.innerHTML = '<div class="text-sm text-red-600">Network error</div>'; 
+        if(historyMobile) historyMobile.innerHTML = '<div class="text-sm text-red-600">Network error</div>'; 
+        const hm = document.getElementById('tutor-chat-history-modal'); if(hm) hm.innerHTML = '<div class="text-sm text-red-600">Network error</div>';
+      }
+    }
+
+    function toggleTutorSendButton(){
+      const input = document.getElementById('tutor-chat-input');
+      const btn = document.getElementById('tutor-send');
+      const canSend = !!input.value.trim() && !!tutorActiveAssignment; // allow send when assignment chosen
+      btn.disabled = !canSend;
+      if(canSend){ btn.classList.remove('bg-gray-400','cursor-not-allowed'); btn.classList.add('bg-blue-600'); }
+      else { btn.classList.add('bg-gray-400','cursor-not-allowed'); btn.classList.remove('bg-blue-600'); }
+    }
+
+    function toggleTutorSendButtonMobile(){
+      const input = document.getElementById('tutor-chat-input-mobile');
+      const btn = document.getElementById('tutor-send-mobile');
+      if(!input || !btn) return;
+      const canSend = !!input.value.trim() && !!tutorActiveAssignment;
+      btn.disabled = !canSend;
+      if(canSend){ btn.classList.remove('bg-gray-400','cursor-not-allowed'); btn.classList.add('bg-blue-600'); }
+      else { btn.classList.add('bg-gray-400','cursor-not-allowed'); btn.classList.remove('bg-blue-600'); }
+    }
+
+    async function tutorSendMessage(){
+      const input = document.getElementById('tutor-chat-input');
+      const content = input.value.trim();
+      const tutorId = localStorage.getItem('tutorId') || '';
+      if(!content || !tutorActiveAssignment){ return; }
+      try{
+        const effectiveTutorId = tutorActiveAssignment.tutorId || tutorId || '';
+        const res = await fetch(`${API_BASE}/messages`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ assignmentId: tutorActiveAssignment.id, studentId: tutorActiveAssignment.studentId, tutorId: effectiveTutorId, sender: 'tutor', content }) });
+        const data = await res.json();
+        if(!data.success){ console.error('Failed to send'); }
+        document.getElementById('tutor-send-audio')?.play().catch(()=>{});
+      }catch(e){ console.error('Network error'); }
+      finally {
+        input.value='';
+        toggleTutorSendButton();
+        toggleTutorSendButtonMobile();
+      }
+    }
+
+    async function tutorSendMessageMobile(){
+      const input = document.getElementById('tutor-chat-input-mobile');
+      if(!input) return;
+      const content = input.value.trim();
+      const tutorId = localStorage.getItem('tutorId') || '';
+      if(!content || !tutorActiveAssignment){ return; }
+      try{
+        const effectiveTutorId = tutorActiveAssignment.tutorId || tutorId || '';
+        const res = await fetch(`${API_BASE}/messages`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ assignmentId: tutorActiveAssignment.id, studentId: tutorActiveAssignment.studentId, tutorId: effectiveTutorId, sender: 'tutor', content }) });
+        const data = await res.json();
+        if(!data.success){ console.error('Failed to send'); }
+        document.getElementById('tutor-send-audio')?.play().catch(()=>{});
+      }catch(e){ console.error('Network error'); }
+      finally {
+        input.value='';
+        toggleTutorSendButtonMobile();
+        toggleTutorSendButton();
+      }
+    }
+
+    // Load tutor profile
+    async function loadTutorProfile() {
+      try {
+        // In a real app, this would get the tutor ID from authentication
+        const tutorId = localStorage.getItem('tutorId');
+        if (!tutorId || tutorId.length !== 24) return;
+        const response = await fetch(`${API_BASE}/tutor/profile/${tutorId}`);
+        const result = await response.json();
+        
+        if (result.success) {
+          document.getElementById('tutorName').textContent = result.tutor.name || 'Tutor';
+        }
+      } catch (error) {
+        console.error('Error loading tutor profile:', error);
+      }
+    }
+
+    // Navigation
+    function showSection(sectionId, event) {
+      // Hide all sections
+      document.querySelectorAll('section').forEach(section => {
+        section.classList.add('hidden');
+      });
+      
+      // Show selected section
+      document.getElementById(sectionId).classList.remove('hidden');
+      
+      // Update header title
+      const titleMap = {
+        overview: 'Dashboard Overview',
+        assignments: 'Assignments',
+        students: 'Students',
+        payments: 'Payment Approvals',
+        chat: 'Student Chats'
+      };
+      const header = document.getElementById('tutor-section-title');
+      if (header) header.textContent = titleMap[sectionId] || 'Tutor Dashboard';
+      
+      // Update desktop sidebar active state
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active', 'bg-white', 'bg-opacity-20');
+      });
+      if(event && event.target){
+        const linkEl = event.target.closest('.nav-link');
+        if (linkEl) linkEl.classList.add('active', 'bg-white', 'bg-opacity-20');
+      }
+      
+      // If chat section is opened, mark unread for active assignment as read
+      if(sectionId === 'chat'){
+        clearTutorUnread(tutorActiveAssignment?.id);
+      }
+    }
+
+    // Load overview data
+    async function loadOverviewData() {
+      try {
+        const [assignmentsRes, studentsRes, paymentsRes] = await Promise.all([
+          fetch(`${API_BASE}/tutor/assignments`),
+          fetch(`${API_BASE}/tutor/students`),
+          fetch(`${API_BASE}/tutor/pending-payments`)
+        ]);
+
+        const assignmentsData = await assignmentsRes.json();
+        const studentsData = await studentsRes.json();
+        const paymentsData = await paymentsRes.json();
+
+        if (assignmentsData.success) {
+          const assignments = Array.isArray(assignmentsData.assignments) ? assignmentsData.assignments : [];
+          document.getElementById('totalAssignments').textContent = assignments.length;
+          document.getElementById('pendingReview').textContent = 
+            assignments.filter(a => ['pending', 'under-review', 'checking-balance'].includes(a.status)).length;
+        }
+
+        if (studentsData.success) {
+          const students = Array.isArray(studentsData.students) ? studentsData.students : [];
+          document.getElementById('activeStudents').textContent = students.length;
+        }
+
+        if (paymentsData.success) {
+          const payments = Array.isArray(paymentsData.payments) ? paymentsData.payments : [];
+          document.getElementById('pendingPayments').textContent = payments.length;
+        }
+
+        // Load recent activity
+        loadRecentActivity();
+
+      } catch (error) {
+        console.error('Error loading overview data:', error);
+      }
+    }
+
+    // Load recent activity (compose from assignments + pending payments)
+    async function loadRecentActivity() {
+      const activityContainer = document.getElementById('recentActivity');
+      try {
+        const [assignmentsRes, pendingPaymentsRes] = await Promise.all([
+          fetch(`${API_BASE}/tutor/assignments`),
+          fetch(`${API_BASE}/tutor/pending-payments`)
+        ]);
+        const assignmentsData = await assignmentsRes.json();
+        const pendingPaymentsData = await pendingPaymentsRes.json();
+        const activities = [];
+
+        if (assignmentsData.success) {
+          (assignmentsData.assignments||[]).slice(0,50).forEach(a => {
+            if (a.createdAt) activities.push({
+              ts: new Date(a.createdAt).getTime(),
+              icon: 'fas fa-plus-circle text-blue-500',
+              text: `New assignment submitted by ${a.studentName||a.userId?.name||'Student'} — ${a.assignmentTitle}`
+            });
+            if (Array.isArray(a.completedFiles) && a.completedFiles.length>0) {
+              const latest = a.completedFiles[a.completedFiles.length-1];
+              activities.push({
+                ts: new Date(latest.uploadedAt||a.updatedAt||a.createdAt).getTime(),
+                icon: 'fas fa-upload text-purple-500',
+                text: `Completed work uploaded for ${a.assignmentTitle}`
+              });
+            }
+          });
+        }
+
+        if (pendingPaymentsData.success) {
+          (pendingPaymentsData.payments||[]).forEach(p => {
+            activities.push({
+              ts: new Date(p.createdAt).getTime(),
+              icon: 'fas fa-credit-card text-yellow-500',
+              text: `Payment awaiting approval — ${p.user?.name||'Student'} • $${Number(p.amount||0).toFixed(2)} (${String(p.method||'').toUpperCase()})`
+            });
+          });
+        }
+
+        activities.sort((a,b)=>b.ts-a.ts);
+        const top = activities.slice(0,10);
+        if (top.length===0) {
+          activityContainer.innerHTML = '<div class="text-sm text-gray-500">No recent activity</div>';
+          return;
+        }
+        activityContainer.innerHTML = top.map(ev => `
+          <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+            <i class="${ev.icon}"></i>
+            <span class="text-sm text-gray-700">${ev.text}</span>
+            <span class="text-xs text-gray-400 ml-auto">${new Date(ev.ts).toLocaleString()}</span>
+          </div>
+        `).join('');
+      } catch (e) {
+        activityContainer.innerHTML = '<div class="text-sm text-red-600">Failed to load recent activity</div>';
+      }
+    }
+
+    // Load assignments
+    async function loadAssignments() {
+      try {
+        const response = await fetch(`${API_BASE}/tutor/assignments`);
+        const result = await response.json();
+
+        if (result.success) {
+          currentAssignments = result.assignments;
+          displayAssignments(currentAssignments);
+        }
+      } catch (error) {
+        console.error('Error loading assignments:', error);
+      }
+    }
+
+    // Display assignments
+    function displayAssignments(assignments) {
+      const container = document.getElementById('assignmentsList');
+      
+      const safeAssignments = Array.isArray(assignments) ? assignments : [];
+      if (safeAssignments.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8">
+            <i class="fas fa-tasks text-4xl text-gray-400 mb-4"></i>
+            <p class="text-gray-600">No assignments found</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = safeAssignments.map(assignment => `
+        <div class="bg-white rounded-lg shadow p-6 card-hover transition duration-300">
+          <div class="flex justify-between items-start mb-4">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-gray-800">${assignment.assignmentTitle}</h3>
+              <p class="text-sm text-gray-600">Student: ${assignment.studentName || assignment.userId?.name || 'Unknown'}</p>
+              <p class="text-sm text-gray-600">Subject: ${assignment.subject} | Type: ${assignment.orderType}</p>
+            </div>
+            <span class="status-${assignment.status} px-3 py-1 rounded-full text-sm font-medium">
+              ${getStatusText(assignment.status)}
+            </span>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-sm">
+            <div>
+              <span class="text-gray-500">Deadline:</span>
+              <p class="font-medium">${new Date(assignment.deadline).toLocaleDateString()}</p>
+            </div>
+            <div>
+              <span class="text-gray-500">Pages:</span>
+              <p class="font-medium">${assignment.pages || 'N/A'}</p>
+            </div>
+            <div>
+              <span class="text-gray-500">Cost:</span>
+              <p class="font-medium">$${Number(assignment.totalCost || 0).toFixed(2)}</p>
+            </div>
+            <div>
+              <span class="text-gray-500">Files:</span>
+              <p class="font-medium">${Array.isArray(assignment.files) ? assignment.files.length : 0}</p>
+            </div>
+          </div>
+          
+          <div class="flex space-x-2">
+            <button onclick="viewAssignment('${assignment.id}')" 
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">
+              <i class="fas fa-eye mr-1"></i>View Details
+            </button>
+            
+            ${assignment.status === 'pending' || assignment.status === 'under-review' ? `
+              <button onclick="updateAssignmentStatus('${assignment.id}', 'checking-balance')" 
+                      class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 text-sm">
+                <i class="fas fa-credit-card mr-1"></i>Check Balance
+              </button>
+            ` : ''}
+            
+            ${assignment.status === 'checking-balance' ? `
+              <button onclick="updateAssignmentStatus('${assignment.id}', 'assigned')" 
+                      class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 text-sm">
+                <i class="fas fa-check mr-1"></i>Assign
+              </button>
+            ` : ''}
+            
+            ${assignment.status === 'assigned' ? `
+              <button onclick="updateAssignmentStatus('${assignment.id}', 'in-progress')" 
+                      class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm">
+                <i class="fas fa-play mr-1"></i>Start Work
+              </button>
+            ` : ''}
+            
+            ${assignment.status === 'in-progress' ? `
+              <button onclick="openUploadModal('${assignment.id}')" 
+                      class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 text-sm">
+                <i class="fas fa-upload mr-1"></i>Upload Completed
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Filter assignments
+    function filterAssignments() {
+      const status = document.getElementById('statusFilter').value;
+      const filtered = status === 'all' ? currentAssignments : 
+                      currentAssignments.filter(a => a.status === status);
+      displayAssignments(filtered);
+    }
+
+    // Get status text
+    function getStatusText(status) {
+      const statusMap = {
+        'pending': 'Pending',
+        'under-review': 'Under Review',
+        'checking-balance': 'Checking Balance',
+        'assigned': 'Assigned',
+        'in-progress': 'In Progress',
+        'completed': 'Completed',
+        'cancelled': 'Cancelled'
+      };
+      return statusMap[status] || status;
+    }
+
+    // View assignment details
+    function viewAssignment(assignmentId) {
+      const assignment = currentAssignments.find(a => a.id === assignmentId);
+      if (!assignment) return;
+
+      const modal = document.getElementById('assignmentModal');
+      const details = document.getElementById('assignmentDetails');
+      
+      details.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h4 class="font-semibold text-gray-800 mb-3">Assignment Information</h4>
+            <div class="space-y-2 text-sm">
+              <p><strong>Title:</strong> ${assignment.assignmentTitle}</p>
+              <p><strong>Subject:</strong> ${assignment.subject}</p>
+              <p><strong>Type:</strong> ${assignment.orderType}</p>
+              <p><strong>Category:</strong> ${assignment.category}</p>
+              <p><strong>Pages:</strong> ${assignment.pages || 'N/A'}</p>
+              <p><strong>Cost:</strong> $${assignment.totalCost.toFixed(2)}</p>
+              <p><strong>Deadline:</strong> ${new Date(assignment.deadline).toLocaleString()}</p>
+              <p><strong>Status:</strong> <span class="status-${assignment.status} px-2 py-1 rounded text-xs">${getStatusText(assignment.status)}</span></p>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="font-semibold text-gray-800 mb-3">Student Information</h4>
+            <div class="space-y-2 text-sm">
+              <p><strong>Name:</strong> ${assignment.studentName || assignment.userId?.name || 'Unknown'}</p>
+              <p><strong>Email:</strong> ${assignment.studentEmail || assignment.userId?.email || 'N/A'}</p>
+            </div>
+            
+            ${assignment.assignedTutor ? `
+              <h4 class="font-semibold text-gray-800 mb-3 mt-4">Assigned Tutor</h4>
+              <div class="space-y-2 text-sm">
+                <p><strong>Name:</strong> ${assignment.assignedTutor.name}</p>
+                <p><strong>Email:</strong> ${assignment.assignedTutor.email}</p>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+        
+        <div class="mt-6">
+          <h4 class="font-semibold text-gray-800 mb-3">Description</h4>
+          <p class="text-sm text-gray-600 bg-gray-50 p-4 rounded-lg">${assignment.description}</p>
+        </div>
+        
+        ${assignment.additionalRequirements ? `
+          <div class="mt-4">
+            <h4 class="font-semibold text-gray-800 mb-3">Additional Requirements</h4>
+            <p class="text-sm text-gray-600 bg-gray-50 p-4 rounded-lg">${assignment.additionalRequirements}</p>
+          </div>
+        ` : ''}
+        
+        ${Array.isArray(assignment.files) && assignment.files.length > 0 ? `
+          <div class="mt-4">
+            <h4 class="font-semibold text-gray-800 mb-3">Uploaded Files</h4>
+            <div class="space-y-2">
+              ${assignment.files.map(file => `
+                <div class="flex items-center space-x-2 bg-gray-50 p-2 rounded">
+                  <i class="fas fa-file text-gray-500"></i>
+                  <span class="text-sm">${file.originalName}</span>
+                  <a href="${API_BASE}/file/${file.filename}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">
+                    <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+        
+        ${Array.isArray(assignment.completedFiles) && assignment.completedFiles.length > 0 ? `
+          <div class="mt-4">
+            <h4 class="font-semibold text-gray-800 mb-3">Completed Files</h4>
+            <div class="space-y-2">
+              ${assignment.completedFiles.map(file => `
+                <div class="flex items-center space-x-2 bg-green-50 p-2 rounded">
+                  <i class="fas fa-file-check text-green-500"></i>
+                  <span class="text-sm">${file.originalName}</span>
+                  <a href="${API_BASE}/file/${file.filename}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">
+                    <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+        
+        ${assignment.tutorComments ? `
+          <div class="mt-4">
+            <h4 class="font-semibold text-gray-800 mb-3">Tutor Comments</h4>
+            <p class="text-sm text-gray-600 bg-blue-50 p-4 rounded-lg">${assignment.tutorComments}</p>
+          </div>
+        ` : ''}
+      `;
+      
+      modal.classList.remove('hidden');
+    }
+
+    // Close assignment modal
+    function closeAssignmentModal() {
+      document.getElementById('assignmentModal').classList.add('hidden');
+    }
+
+    // Update assignment status
+    async function updateAssignmentStatus(assignmentId, newStatus) {
+      try {
+        const response = await fetch(`${API_BASE}/tutor/update-assignment-status`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            assignmentId,
+            status: newStatus
+          })
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          loadAssignments(); // Refresh assignments
+          loadOverviewData(); // Refresh overview stats
+        } else {
+          alert('Failed to update assignment status: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error updating assignment status:', error);
+        alert('Error updating assignment status');
+      }
+    }
+
+    // Open upload modal
+    function openUploadModal(assignmentId) {
+      document.getElementById('uploadAssignmentId').value = assignmentId;
+      document.getElementById('uploadModal').classList.remove('hidden');
+    }
+
+    // Close upload modal
+    function closeUploadModal() {
+      document.getElementById('uploadModal').classList.add('hidden');
+      document.getElementById('uploadForm').reset();
+    }
+
+    // Handle file upload form
+    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+    const tId = localStorage.getItem('tutorId');
+    if (tId && tId.length === 24) {
+      document.getElementById('uploadTutorId').value = tId;
+    }
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const assignmentId = formData.get('assignmentId');
+      
+      try {
+        const response = await fetch(`${API_BASE}/tutor/upload-completed-files/${assignmentId}`, {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          closeUploadModal();
+          loadAssignments(); // Refresh assignments
+          loadOverviewData(); // Refresh overview stats
+          alert('Files uploaded successfully!');
+        } else {
+          alert('Failed to upload files: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error uploading files:', error);
+        alert('Error uploading files');
+      }
+    });
+
+    // Load students
+    async function loadStudents() {
+      try {
+        const response = await fetch(`${API_BASE}/tutor/students`);
+        const result = await response.json();
+
+        if (result.success) {
+          currentStudents = result.students;
+          displayStudents(currentStudents);
+        }
+      } catch (error) {
+        console.error('Error loading students:', error);
+      }
+    }
+
+    // Display students
+    function displayStudents(students) {
+      const container = document.getElementById('studentsList');
+      
+      container.innerHTML = students.map(student => `
+        <div class="bg-white rounded-lg shadow p-6 card-hover transition duration-300">
+          <div class="flex items-center space-x-4 mb-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+              <i class="fas fa-user text-blue-600 text-xl"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800">${student.name}</h3>
+              <p class="text-sm text-gray-600">${student.email}</p>
+            </div>
+          </div>
+          
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-500">Balance:</span>
+              <span class="font-medium text-green-600">$${Number(student.balance || 0).toFixed(2)}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Total Assignments:</span>
+              <span class="font-medium">${student.stats?.totalAssignments ?? 0}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Completed:</span>
+              <span class="font-medium text-green-600">${student.stats?.completedAssignments ?? 0}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Active:</span>
+              <span class="font-medium text-blue-600">${student.stats?.activeAssignments ?? 0}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Total Spent:</span>
+              <span class="font-medium">$${Number(student.stats?.totalSpent || 0).toFixed(2)}</span>
+            </div>
+          </div>
+          
+          <div class="mt-4 pt-4 border-t border-gray-200">
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>Joined: ${new Date(student.createdAt).toLocaleDateString()}</span>
+              <span>Last Login: ${student.lastLogin ? new Date(student.lastLogin).toLocaleDateString() : 'Never'}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Load pending payments
+    async function loadPendingPayments() {
+      try {
+        const response = await fetch(`${API_BASE}/tutor/pending-payments`);
+        const result = await response.json();
+
+        if (result.success) {
+          currentPayments = result.payments;
+          displayPendingPayments(currentPayments);
+        }
+      } catch (error) {
+        console.error('Error loading pending payments:', error);
+      }
+    }
+
+    // Display pending payments
+    function displayPendingPayments(payments) {
+      const container = document.getElementById('paymentsList');
+      
+      if (payments.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8">
+            <i class="fas fa-credit-card text-4xl text-gray-400 mb-4"></i>
+            <p class="text-gray-600">No pending payments</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = payments.map(payment => `
+        <div class="bg-white rounded-lg shadow p-6 card-hover transition duration-300">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="font-semibold text-gray-800">${payment.user.name}</h3>
+              <p class="text-sm text-gray-600">${payment.user.email}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-lg font-bold text-green-600">$${payment.amount.toFixed(2)}</p>
+              <p class="text-sm text-gray-500">${payment.method.toUpperCase()}</p>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <p class="text-sm text-gray-600"><strong>Reference:</strong> ${payment.reference}</p>
+            <p class="text-sm text-gray-600"><strong>Submitted:</strong> ${new Date(payment.createdAt).toLocaleString()}</p>
+          </div>
+          
+          ${payment.proofFile ? `
+            <div class="mb-4">
+              <p class="text-sm text-gray-600 mb-2"><strong>Proof of Payment:</strong></p>
+              <a href="${API_BASE}/file/${payment.proofFile.filename}" download 
+                 class="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800">
+                <i class="fas fa-file-image"></i>
+                <span>${payment.proofFile.originalName}</span>
+                <i class="fas fa-external-link-alt text-xs"></i>
+              </a>
+            </div>
+          ` : ''}
+          
+          <div class="flex space-x-3">
+            <button onclick="approvePayment('${payment.id}')" 
+                    class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700">
+              <i class="fas fa-check mr-2"></i>Approve
+            </button>
+            <button onclick="rejectPayment('${payment.id}')" 
+                    class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700">
+              <i class="fas fa-times mr-2"></i>Reject
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Approve payment
+    async function approvePayment(paymentId) {
+      if (!confirm('Are you sure you want to approve this payment?')) return;
+      
+      try {
+        const response = await fetch(`${API_BASE}/tutor/approve-payment`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            paymentId,
+            tutorId: localStorage.getItem('tutorId')
+          })
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          loadPendingPayments(); // Refresh payments
+          loadOverviewData(); // Refresh overview stats
+          alert('Payment approved successfully!');
+        } else {
+          alert('Failed to approve payment: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error approving payment:', error);
+        alert('Error approving payment');
+      }
+    }
+
+    // Reject payment
+    async function rejectPayment(paymentId) {
+      const reason = prompt('Please provide a reason for rejection:');
+      if (!reason) return;
+      
+      try {
+        const response = await fetch(`${API_BASE}/tutor/reject-payment`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            paymentId,
+            tutorId: localStorage.getItem('tutorId'),
+            reason
+          })
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          loadPendingPayments(); // Refresh payments
+          loadOverviewData(); // Refresh overview stats
+          alert('Payment rejected successfully!');
+        } else {
+          alert('Failed to reject payment: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error rejecting payment:', error);
+        alert('Error rejecting payment');
+      }
+    }
+
+    // Refresh all data
+    function refreshData() {
+      loadOverviewData();
+      loadAssignments();
+      loadStudents();
+      loadPendingPayments();
+    }
+  </script>
+</body>
+</html>

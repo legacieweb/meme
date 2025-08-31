@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Settings Test - Final Version</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .dark { background-color: #0f172a; color: #e2e8f0; }
+        .dark select { background-color: #1f2937; color: #e2e8f0; border-color: #374151; }
+        .dark input[type="range"] { background-color: #374151; }
+        .dark .text-gray-600 { color: #9ca3af; }
+        .dark .bg-gray-50 { background-color: #1f2937; }
+        .dark .border { border-color: #374151; }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-lg mx-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">Audio Settings Test</h1>
+            <button onclick="toggleDarkMode()" class="bg-gray-800 text-white px-3 py-1 rounded text-sm">
+                🌙 Dark Mode
+            </button>
+        </div>
+        
+        <!-- Chat Audio Settings -->
+        <div class="border rounded-lg p-4">
+          <h3 class="font-semibold text-gray-700 mb-2">Chat Sounds</h3>
+          <div class="space-y-4">
+            <!-- Send Sound -->
+            <div>
+              <label class="block text-sm text-gray-600 mb-1">Send Message Sound</label>
+              <div class="flex items-center space-x-2 mb-2">
+                <select id="sendSoundSelect" class="flex-1 text-sm border border-gray-300 rounded p-2">
+                  <option value="">No Sound</option>
+                  <option value="send.mp3">Default Send</option>
+                  <option value="tap-notification-180637.mp3">Tap Sound</option>
+                  <option value="system-notification-02-352442.mp3">System Sound</option>
+                </select>
+                <button onclick="testSendSound()" class="bg-blue-600 text-white px-2 py-1 rounded text-sm hover:bg-blue-700">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+              <button onclick="saveSendSound()" class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700 w-full">
+                <i class="fas fa-save mr-1"></i>Save Send Sound
+              </button>
+            </div>
+
+            <!-- Receive Sound -->
+            <div>
+              <label class="block text-sm text-gray-600 mb-1">Receive Message Sound</label>
+              <div class="flex items-center space-x-2 mb-2">
+                <select id="receiveSoundSelect" class="flex-1 text-sm border border-gray-300 rounded p-2">
+                  <option value="">No Sound</option>
+                  <option value="receive.mp3">Default Receive</option>
+                  <option value="notification-bell-sound-1-376885.mp3">Bell Sound</option>
+                  <option value="notification-ping-335500.mp3">Ping Sound</option>
+                  <option value="bright-notification-352449.mp3">Bright Notification</option>
+                  <option value="new-notification-013-363676.mp3">New Notification</option>
+                </select>
+                <button onclick="testReceiveSound()" class="bg-purple-600 text-white px-2 py-1 rounded text-sm hover:bg-purple-700">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+              <button onclick="saveReceiveSound()" class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700 w-full">
+                <i class="fas fa-save mr-1"></i>Save Receive Sound
+              </button>
+            </div>
+
+            <!-- Volume Control -->
+            <div>
+              <label class="block text-sm text-gray-600 mb-1">Volume: <span id="volumeDisplay">50%</span></label>
+              <input type="range" id="volumeSlider" min="0" max="100" value="50" 
+                     class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mb-2"
+                     onchange="updateVolumeDisplay()">
+              <button onclick="saveVolume()" class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700 w-full">
+                <i class="fas fa-save mr-1"></i>Save Volume
+              </button>
+            </div>
+
+            <!-- Current Settings Display -->
+            <div class="bg-gray-50 p-3 rounded border">
+              <h4 class="text-sm font-semibold text-gray-700 mb-2">Current Settings:</h4>
+              <p class="text-xs text-gray-600">Send: <span id="currentSendSound">Not set</span></p>
+              <p class="text-xs text-gray-600">Receive: <span id="currentReceiveSound">Not set</span></p>
+              <p class="text-xs text-gray-600">Volume: <span id="currentVolume">50%</span></p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script>
+        let audioSettings = {
+            sendSound: '',
+            receiveSound: '',
+            volume: 50
+        };
+
+        // Load settings on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAudioSettings();
+        });
+
+        function loadAudioSettings() {
+            const saved = localStorage.getItem('audioSettings');
+            if (saved) {
+                try {
+                    audioSettings = JSON.parse(saved);
+                    document.getElementById('sendSoundSelect').value = audioSettings.sendSound;
+                    document.getElementById('receiveSoundSelect').value = audioSettings.receiveSound;
+                    document.getElementById('volumeSlider').value = audioSettings.volume;
+                    document.getElementById('volumeDisplay').textContent = audioSettings.volume + '%';
+                    updateCurrentSettings();
+                } catch (error) {
+                    console.error('Error loading audio settings:', error);
+                }
+            } else {
+                updateCurrentSettings();
+            }
+        }
+
+        function saveAudioSettings() {
+            localStorage.setItem('audioSettings', JSON.stringify(audioSettings));
+        }
+
+        function updateVolumeDisplay() {
+            const volume = document.getElementById('volumeSlider').value;
+            document.getElementById('volumeDisplay').textContent = volume + '%';
+        }
+
+        function saveSendSound() {
+            const soundFile = document.getElementById('sendSoundSelect').value;
+            audioSettings.sendSound = soundFile;
+            saveAudioSettings();
+            updateCurrentSettings();
+            
+            const soundName = soundFile ? getSoundDisplayName(soundFile) : 'No Sound';
+            alert(`Send sound saved: ${soundName}`);
+        }
+
+        function saveReceiveSound() {
+            const soundFile = document.getElementById('receiveSoundSelect').value;
+            audioSettings.receiveSound = soundFile;
+            saveAudioSettings();
+            updateCurrentSettings();
+            
+            const soundName = soundFile ? getSoundDisplayName(soundFile) : 'No Sound';
+            alert(`Receive sound saved: ${soundName}`);
+        }
+
+        function saveVolume() {
+            const volume = document.getElementById('volumeSlider').value;
+            audioSettings.volume = parseInt(volume);
+            saveAudioSettings();
+            updateCurrentSettings();
+            alert(`Volume saved: ${volume}%`);
+        }
+
+        function getSoundDisplayName(soundFile) {
+            const soundNames = {
+                'send.mp3': 'Default Send',
+                'receive.mp3': 'Default Receive',
+                'tap-notification-180637.mp3': 'Tap Sound',
+                'system-notification-02-352442.mp3': 'System Sound',
+                'notification-bell-sound-1-376885.mp3': 'Bell Sound',
+                'notification-ping-335500.mp3': 'Ping Sound',
+                'bright-notification-352449.mp3': 'Bright Notification',
+                'new-notification-013-363676.mp3': 'New Notification'
+            };
+            return soundNames[soundFile] || soundFile;
+        }
+
+        function updateCurrentSettings() {
+            const sendName = audioSettings.sendSound ? getSoundDisplayName(audioSettings.sendSound) : 'Not set';
+            const receiveName = audioSettings.receiveSound ? getSoundDisplayName(audioSettings.receiveSound) : 'Not set';
+            
+            document.getElementById('currentSendSound').textContent = sendName;
+            document.getElementById('currentReceiveSound').textContent = receiveName;
+            document.getElementById('currentVolume').textContent = audioSettings.volume + '%';
+        }
+
+        function testSendSound() {
+            const soundFile = document.getElementById('sendSoundSelect').value;
+            if (soundFile) {
+                playSound(soundFile);
+            } else {
+                alert('No send sound selected');
+            }
+        }
+
+        function testReceiveSound() {
+            const soundFile = document.getElementById('receiveSoundSelect').value;
+            if (soundFile) {
+                playSound(soundFile);
+            } else {
+                alert('No receive sound selected');
+            }
+        }
+
+        function playSound(soundFile) {
+            try {
+                const audio = new Audio();
+                const possiblePaths = [
+                    `/audio/${soundFile}`,
+                    `./audio/${soundFile}`,
+                    `audio/${soundFile}`,
+                    soundFile
+                ];
+                
+                let pathIndex = 0;
+                
+                const tryNextPath = () => {
+                    if (pathIndex < possiblePaths.length) {
+                        audio.src = possiblePaths[pathIndex];
+                        console.log('Trying path:', possiblePaths[pathIndex]);
+                        pathIndex++;
+                    } else {
+                        console.log('Could not find audio file:', soundFile);
+                        alert('Audio file not found: ' + soundFile);
+                    }
+                };
+                
+                audio.onerror = tryNextPath;
+                audio.oncanplaythrough = () => {
+                    audio.volume = audioSettings.volume / 100;
+                    audio.play().catch(e => {
+                        console.log('Could not play sound:', e);
+                        alert('Could not play sound');
+                    });
+                };
+                
+                tryNextPath();
+                
+            } catch (error) {
+                console.log('Error playing sound:', error);
+                alert('Error playing sound');
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+        }
+    </script>
+</body>
+</html>

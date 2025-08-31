@@ -1,0 +1,755 @@
+            <code class="bg-gray-100 px-3 py-2 rounded text-sm flex-1 break-all">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</code>
+            <button onclick="copyBitcoinAddress()" class="bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Upload Payment Proof</label>
+            <input type="file" id="cashappProofFile" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+          </div>
+          
+          <button onclick="submitCashAppPayment()" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700">
+            Submit CashApp Payment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Customization Modal -->
+  <div id="chat-customization-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-2xl font-bold">🎨 Customize Your Chat Experience</h2>
+            <p class="text-purple-100 mt-1">Personalize themes, colors, and sounds</p>
+          </div>
+          <button onclick="closeChatCustomization()" class="text-white hover:text-purple-200 text-2xl">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Content -->
+      <div class="flex flex-col lg:flex-row max-h-[calc(90vh-120px)]">
+        
+        <!-- Left Panel: Customization Options -->
+        <div class="lg:w-1/2 p-6 overflow-y-auto border-r border-gray-200">
+          
+          <!-- Current Settings Display -->
+          <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 mb-6">
+            <h3 class="font-semibold text-gray-800 mb-2 flex items-center">
+              <i class="fas fa-info-circle mr-2 text-blue-600"></i>Current Settings
+            </h3>
+            <div class="text-sm text-gray-600 space-y-1">
+              <div>Theme: <span id="currentThemeDisplay" class="font-medium text-blue-600">Default</span></div>
+              <div>Send Sound: <span id="currentSendSoundDisplay" class="font-medium text-green-600">None</span></div>
+              <div>Receive Sound: <span id="currentReceiveSoundDisplay" class="font-medium text-green-600">None</span></div>
+              <div>Volume: <span id="currentVolumeDisplay" class="font-medium text-purple-600">50%</span></div>
+            </div>
+          </div>
+
+          <!-- Theme Selection -->
+          <div class="mb-8">
+            <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+              <i class="fas fa-palette mr-2 text-purple-600"></i>Choose Theme
+            </h3>
+            
+            <div class="grid grid-cols-2 gap-3">
+              <!-- Default Theme -->
+              <div class="theme-card border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:border-blue-400 transition-all" onclick="selectTheme('default')" data-theme="default">
+                <div class="flex items-center space-x-2 mb-2">
+                  <div class="w-4 h-4 bg-blue-500 rounded-full"></div>
+                  <div class="w-4 h-4 bg-gray-200 rounded-full"></div>
+                </div>
+                <div class="text-sm font-medium text-gray-800">Classic Blue</div>
+                <div class="text-xs text-gray-500">Professional & Clean</div>
+              </div>
+
+              <!-- Ocean Theme -->
+              <div class="theme-card border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:border-blue-400 transition-all" onclick="selectTheme('ocean')" data-theme="ocean">
+                <div class="flex items-center space-x-2 mb-2">
+                  <div class="w-4 h-4 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"></div>
+                  <div class="w-4 h-4 bg-blue-50 rounded-full"></div>
+                </div>
+                <div class="text-sm font-medium text-gray-800">Ocean Waves</div>
+                <div class="text-xs text-gray-500">Deep Blue Gradients</div>
+              </div>
+
+              <!-- Sunset Theme -->
+              <div class="theme-card border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:border-blue-400 transition-all" onclick="selectTheme('sunset')" data-theme="sunset">
+                <div class="flex items-center space-x-2 mb-2">
+                  <div class="w-4 h-4 bg-gradient-to-r from-pink-400 to-pink-200 rounded-full"></div>
+                  <div class="w-4 h-4 bg-orange-50 rounded-full"></div>
+                </div>
+                <div class="text-sm font-medium text-gray-800">Sunset Glow</div>
+                <div class="text-xs text-gray-500">Warm Pink Tones</div>
+              </div>
+
+              <!-- Forest Theme -->
+              <div class="theme-card border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:border-blue-400 transition-all" onclick="selectTheme('forest')" data-theme="forest">
+                <div class="flex items-center space-x-2 mb-2">
+                  <div class="w-4 h-4 bg-gradient-to-r from-green-500 to-green-300 rounded-full"></div>
+                  <div class="w-4 h-4 bg-green-50 rounded-full"></div>
+                </div>
+                <div class="text-sm font-medium text-gray-800">Forest Green</div>
+                <div class="text-xs text-gray-500">Natural & Fresh</div>
+              </div>
+
+              <!-- Midnight Theme -->
+              <div class="theme-card border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:border-blue-400 transition-all" onclick="selectTheme('midnight')" data-theme="midnight">
+                <div class="flex items-center space-x-2 mb-2">
+                  <div class="w-4 h-4 bg-gradient-to-r from-gray-700 to-gray-600 rounded-full"></div>
+                  <div class="w-4 h-4 bg-gray-600 rounded-full"></div>
+                </div>
+                <div class="text-sm font-medium text-gray-800">Midnight Dark</div>
+                <div class="text-xs text-gray-500">Sleek & Modern</div>
+              </div>
+
+              <!-- Candy Theme -->
+              <div class="theme-card border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:border-blue-400 transition-all" onclick="selectTheme('candy')" data-theme="candy">
+                <div class="flex items-center space-x-2 mb-2">
+                  <div class="w-4 h-4 bg-gradient-to-r from-red-400 to-yellow-400 rounded-full"></div>
+                  <div class="w-4 h-4 bg-pink-50 rounded-full"></div>
+                </div>
+                <div class="text-sm font-medium text-gray-800">Sweet Candy</div>
+                <div class="text-xs text-gray-500">Playful & Bright</div>
+              </div>
+
+              <!-- Cyber Theme -->
+              <div class="theme-card border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:border-blue-400 transition-all" onclick="selectTheme('cyber')" data-theme="cyber">
+                <div class="flex items-center space-x-2 mb-2">
+                  <div class="w-4 h-4 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"></div>
+                  <div class="w-4 h-4 bg-gray-900 rounded-full"></div>
+                </div>
+                <div class="text-sm font-medium text-gray-800">Cyber Neon</div>
+                <div class="text-xs text-gray-500">Futuristic Glow</div>
+              </div>
+
+              <!-- Custom Theme -->
+              <div class="theme-card border-2 border-gray-200 rounded-lg p-3 cursor-pointer hover:border-blue-400 transition-all" onclick="selectTheme('custom')" data-theme="custom">
+                <div class="flex items-center space-x-2 mb-2">
+                  <div class="w-4 h-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
+                  <div class="w-4 h-4 bg-yellow-200 rounded-full"></div>
+                </div>
+                <div class="text-sm font-medium text-gray-800">Custom Colors</div>
+                <div class="text-xs text-gray-500">Your Own Style</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Custom Colors (shown when custom theme selected) -->
+          <div id="custom-colors-section" class="mb-8 hidden">
+            <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+              <i class="fas fa-paint-brush mr-2 text-pink-600"></i>Custom Colors
+            </h4>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Your Message Color</label>
+                <input type="color" id="studentColorPicker" value="#3b82f6" class="w-full h-10 rounded border border-gray-300" onchange="updateCustomColors()">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Tutor Message Color</label>
+                <input type="color" id="tutorColorPicker" value="#f3f4f6" class="w-full h-10 rounded border border-gray-300" onchange="updateCustomColors()">
+              </div>
+            </div>
+          </div>
+
+          <!-- Sound Settings -->
+          <div class="mb-8">
+            <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+              <i class="fas fa-volume-up mr-2 text-green-600"></i>Chat Sounds
+            </h4>
+            <div class="space-y-4">
+              
+              <!-- Send Message Sound -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Send Message Sound</label>
+                <div class="flex items-center space-x-2">
+                  <select id="sendSoundSelect" class="flex-1 border border-gray-300 rounded-md p-2 text-sm" onchange="updateSoundsDisplay()">
+                    <option value="">No Sound</option>
+                    <option value="send.mp3">Default Send</option>
+                    <option value="tap-notification-180637.mp3">Tap Sound</option>
+                    <option value="system-notification-02-352442.mp3">System Sound</option>
+                  </select>
+                  <button onclick="testSendSound()" class="bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700">
+                    <i class="fas fa-play"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Receive Message Sound -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Receive Message Sound</label>
+                <div class="flex items-center space-x-2">
+                  <select id="receiveSoundSelect" class="flex-1 border border-gray-300 rounded-md p-2 text-sm" onchange="updateSoundsDisplay()">
+                    <option value="">No Sound</option>
+                    <option value="receive.mp3">Default Receive</option>
+                    <option value="notification-bell-sound-1-376885.mp3">Bell Sound</option>
+                    <option value="notification-ping-335500.mp3">Ping Sound</option>
+                    <option value="bright-notification-352449.mp3">Bright Notification</option>
+                    <option value="new-notification-013-363676.mp3">New Notification</option>
+                  </select>
+                  <button onclick="testReceiveSound()" class="bg-green-600 text-white px-3 py-2 rounded text-sm hover:bg-green-700">
+                    <i class="fas fa-play"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Volume Control -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Volume</label>
+                <input type="range" id="volumeSlider" min="0" max="100" value="50" 
+                       class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                       onchange="updateVolume()">
+                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                  <span>Silent</span>
+                  <span id="volumeDisplay">50%</span>
+                  <span>Loud</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Panel: Live Preview -->
+        <div class="lg:w-1/2 p-6 bg-gray-50">
+          <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-eye mr-2 text-blue-600"></i>Live Preview
+          </h3>
+          
+          <div id="chat-preview-area" class="bg-white rounded-lg border border-gray-200 p-4 h-96 overflow-y-auto">
+            <!-- Sample Messages -->
+            <div class="space-y-4">
+              <div class="flex justify-end">
+                <div class="preview-student-message max-w-xs px-4 py-2 rounded-lg text-sm">
+                  Hi! I need help with my essay about climate change.
+                </div>
+              </div>
+              
+              <div class="flex justify-start">
+                <div class="preview-tutor-message max-w-xs px-4 py-2 rounded-lg text-sm">
+                  Hello! I'd be happy to help you with your climate change essay. What specific aspect would you like to focus on?
+                </div>
+              </div>
+              
+              <div class="flex justify-end">
+                <div class="preview-student-message max-w-xs px-4 py-2 rounded-lg text-sm">
+                  I want to write about renewable energy solutions and their impact.
+                </div>
+              </div>
+              
+              <div class="flex justify-start">
+                <div class="preview-tutor-message max-w-xs px-4 py-2 rounded-lg text-sm">
+                  Excellent topic! Let's start by outlining the main types of renewable energy: solar, wind, hydroelectric, and geothermal.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-gray-50 px-6 py-4 flex justify-between items-center border-t border-gray-200">
+        <button onclick="resetToDefaults()" class="text-gray-600 hover:text-gray-800 text-sm">
+          <i class="fas fa-undo mr-1"></i>Reset to Defaults
+        </button>
+        <div class="space-x-3">
+          <button onclick="closeChatCustomization()" class="px-4 py-2 text-gray-600 hover:text-gray-800 text-sm">
+            Cancel
+          </button>
+          <button onclick="applyChatSettings()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all">
+            <i class="fas fa-save mr-2"></i>Apply & Save
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // ===== CHAT CUSTOMIZATION SYSTEM =====
+    
+    let currentChatSettings = {
+      theme: 'default',
+      customColors: null,
+      sounds: {
+        sendSound: '',
+        receiveSound: '',
+        volume: 50
+      }
+    };
+
+    // Load saved settings on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadChatSettings();
+    });
+
+    // Show chat customization modal
+    function showChatCustomization() {
+      document.getElementById('chat-customization-modal').classList.remove('hidden');
+      loadCurrentSettings();
+    }
+
+    // Close chat customization modal
+    function closeChatCustomization() {
+      document.getElementById('chat-customization-modal').classList.add('hidden');
+    }
+
+    // Load current settings into the modal
+    function loadCurrentSettings() {
+      // Update current settings display
+      document.getElementById('currentThemeDisplay').textContent = 
+        currentChatSettings.theme.charAt(0).toUpperCase() + currentChatSettings.theme.slice(1);
+      document.getElementById('currentSendSoundDisplay').textContent = 
+        currentChatSettings.sounds.sendSound || 'None';
+      document.getElementById('currentReceiveSoundDisplay').textContent = 
+        currentChatSettings.sounds.receiveSound || 'None';
+      document.getElementById('currentVolumeDisplay').textContent = 
+        currentChatSettings.sounds.volume + '%';
+
+      // Set form values
+      document.getElementById('sendSoundSelect').value = currentChatSettings.sounds.sendSound;
+      document.getElementById('receiveSoundSelect').value = currentChatSettings.sounds.receiveSound;
+      document.getElementById('volumeSlider').value = currentChatSettings.sounds.volume;
+      document.getElementById('volumeDisplay').textContent = currentChatSettings.sounds.volume + '%';
+
+      // Highlight current theme
+      document.querySelectorAll('.theme-card').forEach(card => {
+        card.classList.remove('border-blue-500', 'bg-blue-50');
+        if (card.dataset.theme === currentChatSettings.theme) {
+          card.classList.add('border-blue-500', 'bg-blue-50');
+        }
+      });
+
+      // Show custom colors if custom theme
+      if (currentChatSettings.theme === 'custom' && currentChatSettings.customColors) {
+        document.getElementById('custom-colors-section').classList.remove('hidden');
+        document.getElementById('studentColorPicker').value = currentChatSettings.customColors.studentBg;
+        document.getElementById('tutorColorPicker').value = currentChatSettings.customColors.tutorBg;
+      }
+
+      // Update preview
+      updatePreview();
+    }
+
+    // Select theme
+    function selectTheme(theme) {
+      currentChatSettings.theme = theme;
+      
+      // Update theme card selection
+      document.querySelectorAll('.theme-card').forEach(card => {
+        card.classList.remove('border-blue-500', 'bg-blue-50');
+      });
+      document.querySelector(`[data-theme="${theme}"]`).classList.add('border-blue-500', 'bg-blue-50');
+
+      // Show/hide custom colors section
+      if (theme === 'custom') {
+        document.getElementById('custom-colors-section').classList.remove('hidden');
+      } else {
+        document.getElementById('custom-colors-section').classList.add('hidden');
+        currentChatSettings.customColors = null;
+      }
+
+      updatePreview();
+    }
+
+    // Update custom colors
+    function updateCustomColors() {
+      const studentBg = document.getElementById('studentColorPicker').value;
+      const tutorBg = document.getElementById('tutorColorPicker').value;
+      
+      currentChatSettings.customColors = {
+        studentBg: studentBg,
+        tutorBg: tutorBg
+      };
+
+      updatePreview();
+    }
+
+    // Update sounds display
+    function updateSoundsDisplay() {
+      currentChatSettings.sounds.sendSound = document.getElementById('sendSoundSelect').value;
+      currentChatSettings.sounds.receiveSound = document.getElementById('receiveSoundSelect').value;
+      
+      // Update current settings display
+      document.getElementById('currentSendSoundDisplay').textContent = 
+        currentChatSettings.sounds.sendSound || 'None';
+      document.getElementById('currentReceiveSoundDisplay').textContent = 
+        currentChatSettings.sounds.receiveSound || 'None';
+    }
+
+    // Update volume
+    function updateVolume() {
+      const volume = document.getElementById('volumeSlider').value;
+      currentChatSettings.sounds.volume = parseInt(volume);
+      document.getElementById('volumeDisplay').textContent = volume + '%';
+      document.getElementById('currentVolumeDisplay').textContent = volume + '%';
+    }
+
+    // Test send sound
+    function testSendSound() {
+      const soundFile = document.getElementById('sendSoundSelect').value;
+      if (soundFile) {
+        playSound(soundFile);
+      }
+    }
+
+    // Test receive sound
+    function testReceiveSound() {
+      const soundFile = document.getElementById('receiveSoundSelect').value;
+      if (soundFile) {
+        playSound(soundFile);
+      }
+    }
+
+    // Play sound function
+    function playSound(soundFile) {
+      try {
+        const audio = new Audio(`/audio/${soundFile}`);
+        audio.volume = currentChatSettings.sounds.volume / 100;
+        audio.play().catch(e => console.log('Could not play sound:', e));
+      } catch (error) {
+        console.log('Error playing sound:', error);
+      }
+    }
+
+    // Update preview
+    function updatePreview() {
+      const previewArea = document.getElementById('chat-preview-area');
+      
+      // Remove all theme classes
+      previewArea.classList.remove('theme-ocean', 'theme-sunset', 'theme-forest', 'theme-midnight', 'theme-candy', 'theme-cyber');
+      
+      if (currentChatSettings.theme === 'custom' && currentChatSettings.customColors) {
+        // Apply custom colors
+        const studentMessages = previewArea.querySelectorAll('.preview-student-message');
+        const tutorMessages = previewArea.querySelectorAll('.preview-tutor-message');
+        
+        studentMessages.forEach(msg => {
+          msg.style.background = currentChatSettings.customColors.studentBg;
+          msg.style.color = getContrastColor(currentChatSettings.customColors.studentBg);
+        });
+        
+        tutorMessages.forEach(msg => {
+          msg.style.background = currentChatSettings.customColors.tutorBg;
+          msg.style.color = getContrastColor(currentChatSettings.customColors.tutorBg);
+        });
+      } else if (currentChatSettings.theme !== 'default') {
+        // Apply theme class
+        previewArea.classList.add(`theme-${currentChatSettings.theme}`);
+        
+        // Reset inline styles
+        const allMessages = previewArea.querySelectorAll('.preview-student-message, .preview-tutor-message');
+        allMessages.forEach(msg => {
+          msg.style.background = '';
+          msg.style.color = '';
+        });
+      } else {
+        // Reset to default
+        const allMessages = previewArea.querySelectorAll('.preview-student-message, .preview-tutor-message');
+        allMessages.forEach(msg => {
+          msg.style.background = '';
+          msg.style.color = '';
+        });
+      }
+    }
+
+    // Get contrast color for text
+    function getContrastColor(hexColor) {
+      const r = parseInt(hexColor.substr(1, 2), 16);
+      const g = parseInt(hexColor.substr(3, 2), 16);
+      const b = parseInt(hexColor.substr(5, 2), 16);
+      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      return brightness > 128 ? '#000000' : '#ffffff';
+    }
+
+    // Apply chat settings
+    async function applyChatSettings() {
+      try {
+        // Save to server
+        await saveChatSettings();
+        
+        // Apply to current page
+        applyChatTheme();
+        
+        // Show success message
+        showNotification('Chat settings saved successfully!', 'success');
+        
+        // Close modal
+        closeChatCustomization();
+      } catch (error) {
+        console.error('Error applying chat settings:', error);
+        showNotification('Failed to save settings. Changes applied locally.', 'warning');
+        
+        // Still apply locally
+        applyChatTheme();
+        closeChatCustomization();
+      }
+    }
+
+    // Save chat settings to server
+    async function saveChatSettings() {
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+        // Save to localStorage as fallback
+        localStorage.setItem('chatSettings', JSON.stringify(currentChatSettings));
+        return;
+      }
+
+      try {
+        const response = await fetch('/student/save-chat-settings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId: userId,
+            theme: currentChatSettings.theme,
+            customColors: currentChatSettings.customColors,
+            sounds: currentChatSettings.sounds
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to save to server');
+        }
+
+        // Also save to localStorage as backup
+        localStorage.setItem('chatSettings', JSON.stringify(currentChatSettings));
+      } catch (error) {
+        console.error('Server save failed, using localStorage:', error);
+        localStorage.setItem('chatSettings', JSON.stringify(currentChatSettings));
+        throw error;
+      }
+    }
+
+    // Load chat settings
+    async function loadChatSettings() {
+      const userId = localStorage.getItem('userId');
+      
+      try {
+        if (userId) {
+          const response = await fetch(`/student/get-chat-settings?userId=${userId}`);
+          if (response.ok) {
+            const data = await response.json();
+            if (data.success && data.settings) {
+              currentChatSettings = data.settings;
+              applyChatTheme();
+              return;
+            }
+          }
+        }
+      } catch (error) {
+        console.log('Could not load from server, using localStorage');
+      }
+
+      // Fallback to localStorage
+      const saved = localStorage.getItem('chatSettings');
+      if (saved) {
+        try {
+          currentChatSettings = JSON.parse(saved);
+          applyChatTheme();
+        } catch (error) {
+          console.error('Error parsing saved settings:', error);
+        }
+      }
+    }
+
+    // Apply chat theme to the page
+    function applyChatTheme() {
+      // Remove all theme classes from body
+      document.body.classList.remove('theme-ocean', 'theme-sunset', 'theme-forest', 'theme-midnight', 'theme-candy', 'theme-cyber');
+      
+      if (currentChatSettings.theme === 'custom' && currentChatSettings.customColors) {
+        // Apply custom colors via CSS variables
+        document.documentElement.style.setProperty('--student-chat-bg', currentChatSettings.customColors.studentBg);
+        document.documentElement.style.setProperty('--student-chat-text', getContrastColor(currentChatSettings.customColors.studentBg));
+        document.documentElement.style.setProperty('--tutor-chat-bg', currentChatSettings.customColors.tutorBg);
+        document.documentElement.style.setProperty('--tutor-chat-text', getContrastColor(currentChatSettings.customColors.tutorBg));
+      } else if (currentChatSettings.theme !== 'default') {
+        // Apply theme class to body
+        document.body.classList.add(`theme-${currentChatSettings.theme}`);
+        
+        // Reset custom CSS variables
+        document.documentElement.style.removeProperty('--student-chat-bg');
+        document.documentElement.style.removeProperty('--student-chat-text');
+        document.documentElement.style.removeProperty('--tutor-chat-bg');
+        document.documentElement.style.removeProperty('--tutor-chat-text');
+      } else {
+        // Reset to default
+        document.documentElement.style.removeProperty('--student-chat-bg');
+        document.documentElement.style.removeProperty('--student-chat-text');
+        document.documentElement.style.removeProperty('--tutor-chat-bg');
+        document.documentElement.style.removeProperty('--tutor-chat-text');
+      }
+    }
+
+    // Reset to defaults
+    function resetToDefaults() {
+      currentChatSettings = {
+        theme: 'default',
+        customColors: null,
+        sounds: {
+          sendSound: '',
+          receiveSound: '',
+          volume: 50
+        }
+      };
+      
+      loadCurrentSettings();
+      showNotification('Settings reset to defaults', 'info');
+    }
+
+    // Enhanced chat message sending with sound
+    function sendChatMessage(assignmentId, message) {
+      // Play send sound if configured
+      if (currentChatSettings.sounds.sendSound) {
+        playSound(currentChatSettings.sounds.sendSound);
+      }
+      
+      // Original send message logic here...
+      // (This would integrate with your existing chat system)
+    }
+
+    // Enhanced chat message receiving with sound
+    function onChatMessageReceived(message) {
+      // Play receive sound if configured
+      if (currentChatSettings.sounds.receiveSound) {
+        playSound(currentChatSettings.sounds.receiveSound);
+      }
+      
+      // Original receive message logic here...
+      // (This would integrate with your existing chat system)
+    }
+
+    // CSS for preview messages
+    const previewStyles = `
+      .preview-student-message {
+        background: var(--student-chat-bg, #3b82f6);
+        color: var(--student-chat-text, #ffffff);
+        border-radius: var(--chat-border-radius, 1rem);
+        box-shadow: var(--chat-shadow, 0 2px 8px rgba(0,0,0,0.1));
+      }
+      
+      .preview-tutor-message {
+        background: var(--tutor-chat-bg, #f3f4f6);
+        color: var(--tutor-chat-text, #374151);
+        border-radius: var(--chat-border-radius, 1rem);
+        box-shadow: var(--chat-shadow, 0 2px 8px rgba(0,0,0,0.1));
+      }
+      
+      .theme-ocean .preview-student-message {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #ffffff;
+      }
+      
+      .theme-ocean .preview-tutor-message {
+        background: #e0f2fe;
+        color: #0277bd;
+      }
+      
+      .theme-sunset .preview-student-message {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+        color: #4a5568;
+      }
+      
+      .theme-sunset .preview-tutor-message {
+        background: #fff7ed;
+        color: #c2410c;
+      }
+      
+      .theme-forest .preview-student-message {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        color: #ffffff;
+      }
+      
+      .theme-forest .preview-tutor-message {
+        background: #f0fdf4;
+        color: #166534;
+      }
+      
+      .theme-midnight .preview-student-message {
+        background: linear-gradient(135deg, #2c3e50 0%, #4a6741 100%);
+        color: #ffffff;
+      }
+      
+      .theme-midnight .preview-tutor-message {
+        background: #374151;
+        color: #f9fafb;
+      }
+      
+      .theme-candy .preview-student-message {
+        background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        color: #ffffff;
+      }
+      
+      .theme-candy .preview-tutor-message {
+        background: #fef7ff;
+        color: #be185d;
+      }
+      
+      .theme-cyber .preview-student-message {
+        background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+        color: #ffffff;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 20px rgba(0,210,255,0.3);
+      }
+      
+      .theme-cyber .preview-tutor-message {
+        background: #0f172a;
+        color: #00d2ff;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 20px rgba(0,210,255,0.3);
+      }
+    `;
+
+    // Inject preview styles
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = previewStyles;
+    document.head.appendChild(styleSheet);
+
+    // ===== END CHAT CUSTOMIZATION SYSTEM =====
+
+    // Copy Bitcoin address function
+    function copyBitcoinAddress() {
+      const address = "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa";
+      navigator.clipboard.writeText(address).then(() => {
+        showNotification('Bitcoin address copied to clipboard!', 'success');
+      }).catch(() => {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = address;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showNotification('Bitcoin address copied to clipboard!', 'success');
+      });
+    }
+
+    // Submit CashApp payment
+    function submitCashAppPayment() {
+      const fileInput = document.getElementById('cashappProofFile');
+      if (!fileInput.files[0]) {
+        showNotification('Please upload payment proof screenshot', 'error');
+        return;
+      }
+      
+      // Here you would handle the file upload
+      showNotification('Payment proof submitted successfully!', 'success');
+      closePanel('cashapp-popup');
+    }
+
+  </script>
+
+</body>
+</html>

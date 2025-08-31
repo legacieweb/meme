@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History - EssayMe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .hidden { display: none; }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <a href="index.html" class="text-2xl font-bold text-blue-600">Essay<span class="text-gray-800">Me</span></a>
+      <nav>
+        <ul class="flex space-x-6 text-gray-700">
+          <li><a href="subjects.html" class="hover:text-blue-500">Subjects</a></li>
+          <li><a href="login.html" class="hover:text-blue-500">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Content Section -->
+  <section id="content" class="py-16">
+    <div class="container mx-auto max-w-4xl">
+      <!-- Default Topic List -->
+      <div id="topic-list">
+        <h1 class="text-4xl font-bold text-gray-800 text-center">History Topics</h1>
+        <p class="mt-4 text-gray-600 text-center">Select a topic to learn more and upload your assignments.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+          <a href="#topic=roman-empire" class="block bg-white p-6 rounded-lg shadow hover:shadow-lg text-center">
+            <h2 class="text-xl font-semibold text-gray-700">The Roman Empire</h2>
+            <p class="mt-3 text-gray-600">Explore the rise and fall of one of the greatest empires in history.</p>
+          </a>
+          <a href="#topic=world-war-ii" class="block bg-white p-6 rounded-lg shadow hover:shadow-lg text-center">
+            <h2 class="text-xl font-semibold text-gray-700">World War II</h2>
+            <p class="mt-3 text-gray-600">Understand the causes and consequences of the second world war.</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- Topic Details -->
+      <div id="topic-details" class="hidden">
+        <h1 id="topic-title" class="text-4xl font-bold text-gray-800"></h1>
+        <p id="topic-description" class="mt-4 text-gray-600 text-lg"></p>
+        <div class="mt-8">
+          <a id="upload-assignment-btn" href="#" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md shadow hover:bg-blue-500">Upload Assignment</a>
+        </div>
+      </div>
+
+      <!-- Upload Assignment Form -->
+      <div id="upload-form" class="hidden bg-white p-8 rounded-lg shadow mt-16">
+        <h2 class="text-3xl font-bold text-gray-800">Upload Your Assignment</h2>
+        <form action="#" method="POST" enctype="multipart/form-data" class="mt-8 space-y-6">
+          <div>
+            <label for="title" class="block text-sm font-medium text-gray-700">Assignment Title</label>
+            <input type="text" id="title" name="title" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+          </div>
+          <div>
+            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea id="description" name="description" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+          </div>
+          <div>
+            <label for="file" class="block text-sm font-medium text-gray-700">Upload Files</label>
+            <input type="file" id="file" name="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+          </div>
+          <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-md shadow hover:bg-blue-500">Submit Assignment</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-6">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2025 EssayMe. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const topicList = document.getElementById('topic-list');
+      const topicDetails = document.getElementById('topic-details');
+      const uploadForm = document.getElementById('upload-form');
+
+      const topicTitle = document.getElementById('topic-title');
+      const topicDescription = document.getElementById('topic-description');
+      const uploadAssignmentBtn = document.getElementById('upload-assignment-btn');
+
+      // Topic data
+      const topics = {
+        'roman-empire': {
+          title: "The Roman Empire",
+          description: "Discover the political, cultural, and military history of the Roman Empire, from its rise to its fall.",
+        },
+        'world-war-ii': {
+          title: "World War II",
+          description: "Analyze the key events, alliances, and outcomes of World War II and its impact on modern history.",
+        },
+      };
+
+      // URL-based navigation
+      function navigate() {
+        const hash = window.location.hash.slice(1); // Remove "#"
+        const [key, value] = hash.split('=');
+
+        // Show topic details
+        if (key === 'topic' && topics[value]) {
+          topicList.classList.add('hidden');
+          topicDetails.classList.remove('hidden');
+          uploadForm.classList.add('hidden');
+
+          topicTitle.textContent = topics[value].title;
+          topicDescription.textContent = topics[value].description;
+          uploadAssignmentBtn.href = `#upload=${value}`;
+        }
+        // Show upload form
+        else if (key === 'upload' && topics[value]) {
+          topicList.classList.add('hidden');
+          topicDetails.classList.add('hidden');
+          uploadForm.classList.remove('hidden');
+        }
+        // Default to topic list
+        else {
+          topicList.classList.remove('hidden');
+          topicDetails.classList.add('hidden');
+          uploadForm.classList.add('hidden');
+        }
+      }
+
+      // Listen for hash changes
+      window.addEventListener('hashchange', navigate);
+
+      // Initial navigation
+      navigate();
+    });
+  </script>
+</body>
+</html>

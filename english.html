@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutor Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
+  <style>
+    .status-pending { background-color: #fef3c7; color: #92400e; }
+    .status-under-review { background-color: #dbeafe; color: #1e40af; }
+    .status-checking-balance { background-color: #fecaca; color: #991b1b; }
+    .status-assigned { background-color: #d1fae5; color: #065f46; }
+    .status-in-progress { background-color: #e0e7ff; color: #3730a3; }
+    .status-completed { background-color: #dcfce7; color: #166534; }
+    .status-cancelled { background-color: #f3f4f6; color: #6b7280; }
+    
+    .sidebar {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+  
+  <!-- Sidebar -->
+  <div class="sidebar fixed left-0 top-0 h-full w-64 text-white p-6 shadow-lg">
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold">Tutor Dashboard</h1>
+      <p class="text-blue-200 text-sm">Manage assignments & students</p>
+    </div>
+    
+    <nav class="space-y-2">
+      <a href="#" onclick="showSection('overview')" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link active">
+        <i class="fas fa-home"></i>
+        <span>Overview</span>
+      </a>
+      <a href="#" onclick="showSection('assignments')" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link">
+        <i class="fas fa-tasks"></i>
+        <span>Assignments</span>
+      </a>
+      <a href="#" onclick="showSection('students')" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link">
+        <i class="fas fa-users"></i>
+        <span>Students</span>
+      </a>
+      <a href="#" onclick="showSection('payments')" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link">
+        <i class="fas fa-credit-card"></i>
+        <span>Payment Approvals</span>
+      </a>
+    </nav>
+    
+    <div class="absolute bottom-6 left-6 right-6">
+      <div class="bg-white bg-opacity-20 rounded-lg p-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 bg-white bg-opacity-30 rounded-full flex items-center justify-center">
+            <i class="fas fa-user text-white"></i>
+          </div>
+          <div>
+            <p class="font-semibold" id="tutorName">Tutor</p>
+            <p class="text-blue-200 text-sm">Administrator</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="ml-64 p-8">
+    
+    <!-- Overview Section -->
+    <section id="overview" class="space-y-6">
+      <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-bold text-gray-800">Dashboard Overview</h2>
+        <button onclick="refreshData()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+          <i class="fas fa-sync-alt mr-2"></i>Refresh
+        </button>
+      </div>
+      
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 rounded-lg shadow card-hover transition duration-300">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-600 text-sm">Total Assignments</p>
+              <p class="text-2xl font-bold text-gray-800" id="totalAssignments">0</p>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full">
+              <i class="fas fa-tasks text-blue-600 text-xl"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow card-hover transition duration-300">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-600 text-sm">Pending Review</p>
+              <p class="text-2xl font-bold text-orange-600" id="pendingReview">0</p>
+            </div>
+            <div class="bg-orange-100 p-3 rounded-full">
+              <i class="fas fa-clock text-orange-600 text-xl"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow card-hover transition duration-300">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-600 text-sm">Active Students</p>
+              <p class="text-2xl font-bold text-green-600" id="activeStudents">0</p>
+            </div>
+            <div class="bg-green-100 p-3 rounded-full">
+              <i class="fas fa-users text-green-600 text-xl"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow card-hover transition duration-300">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-600 text-sm">Pending Payments</p>
+              <p class="text-2xl font-bold text-purple-600" id="pendingPayments">0</p>
+            </div>
+            <div class="bg-purple-100 p-3 rounded-full">
+              <i class="fas fa-credit-card text-purple-600 text-xl"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Recent Activity -->
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Recent Activity</h3>
+        <div id="recentActivity" class="space-y-3">
+          <!-- Activity items will be loaded here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Assignments Section -->
+    <section id="assignments" class="space-y-6 hidden">
+      <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-bold text-gray-800">Assignments Management</h2>
+        <div class="flex space-x-2">
+          <select id="statusFilter" onchange="filterAssignments()" class="border rounded-lg px-3 py-2">
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="under-review">Under Review</option>
+            <option value="checking-balance">Checking Balance</option>
+            <option value="assigned">Assigned</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+      </div>
+      
+      <div id="assignmentsList" class="space-y-4">
+        <!-- Assignments will be loaded here -->
+      </div>
+    </section>
+
+    <!-- Students Section -->
+    <section id="students" class="space-y-6 hidden">
+      <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-bold text-gray-800">Students Management</h2>
+      </div>
+      
+      <div id="studentsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Students will be loaded here -->
+      </div>
+    </section>
+
+    <!-- Payments Section -->
+    <section id="payments" class="space-y-6 hidden">
+      <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-bold text-gray-800">Payment Approvals</h2>
+      </div>
+      
+      <div id="paymentsList" class="space-y-4">
+        <!-- Pending payments will be loaded here -->
+      </div>
+    </section>
+  </div>
+
+  <!-- Assignment Details Modal -->
+  <div id="assignmentModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-2xl font-bold text-gray-800">Assignment Details</h3>
+        <button onclick="closeAssignmentModal()" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      
+      <div id="assignmentDetails">
+        <!-- Assignment details will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- File Upload Modal -->
+  <div id="uploadModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-bold text-gray-800">Upload Completed Files</h3>
+        <button onclick="closeUploadModal()" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="hidden" id="uploadAssignmentId" name="assignmentId">
+        <input type="hidden" id="uploadTutorId" name="tutorId" value="tutor123">
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Select Files</label>
+          <input type="file" id="completedFiles" name="files" multiple accept=".pdf,.doc,.docx,.txt,.zip,.rar" 
+                 class="w-full border border-gray-300 rounded-lg p-2">
+          <p class="text-xs text-gray-500 mt-1">Supported formats: PDF, DOC, DOCX, TXT, ZIP, RAR</p>
+        </div>
+        
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Comments (Optional)</label>
+          <textarea id="tutorComments" name="comments" rows="3" 
+                    class="w-full border border-gray-300 rounded-lg p-2" 
+                    placeholder="Add any comments for the student..."></textarea>
+        </div>
+        
+        <div class="flex space-x-3">
+          <button type="submit" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700">
+            <i class="fas fa-upload mr-2"></i>Upload & Complete
+          </button>
+          <button type="button" onclick="closeUploadModal()" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:3002';
+    let currentAssignments = [];
+    let currentStudents = [];
+    let currentPayments = [];
+
+    // Initialize dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      loadTutorProfile();
+      loadOverviewData();
+      loadAssignments();
+      loadStudents();
+      loadPendingPayments();
+      
+      // Set up periodic refresh for real-time updates
+      setInterval(() => {
+        loadOverviewData();
+        loadAssignments();
+        loadPendingPayments();
+      }, 30000); // Refresh every 30 seconds
+    });
+
+    // Load tutor profile
+    async function loadTutorProfile() {
+      try {
+        // In a real app, this would get the tutor ID from authentication
+        const tutorId = 'tutor123';
+        const response = await fetch(`${API_BASE}/tutor/profile/${tutorId}`);
+        const result = await response.json();
+        
+        if (result.success) {
+          document.getElementById('tutorName').textContent = result.tutor.name || 'Tutor';
+        }
+      } catch (error) {
+        console.error('Error loading tutor profile:', error);
+      }
+    }
+
+    // Navigation
+    function showSection(sectionId) {
+      // Hide all sections
+      document.querySelectorAll('section').forEach(section => {
+        section.classList.add('hidden');
+      });
+      
+      // Show selected section
+      document.getElementById(sectionId).classList.remove('hidden');
+      
+      // Update active nav link
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active', 'bg-white', 'bg-opacity-20');
+      });
+      event.target.closest('.nav-link').classList.add('active', 'bg-white', 'bg-opacity-20');
+    }
+
+    // Load overview data
+    async function loadOverviewData() {
+      try {
+        const [assignmentsRes, studentsRes, paymentsRes] = await Promise.all([
+          fetch(`${API_BASE}/tutor/assignments`),
+          fetch(`${API_BASE}/tutor/students`),
+          fetch(`${API_BASE}/tutor/pending-payments`)
+        ]);
+
+        const assignmentsData = await assignmentsRes.json();
+        const studentsData = await studentsRes.json();
+        const paymentsData = await paymentsRes.json();
+
+        if (assignmentsData.success) {
+          const assignments = assignmentsData.assignments;
+          document.getElementById('totalAssignments').textContent = assignments.length;
+          document.getElementById('pendingReview').textContent = 
+            assignments.filter(a => ['pending', 'under-review', 'checking-balance'].includes(a.status)).length;
+        }
+
+        if (studentsData.success) {
+          document.getElementById('activeStudents').textContent = studentsData.students.length;
+        }
+
+        if (paymentsData.success) {
+          document.getElementById('pendingPayments').textContent = paymentsData.payments.length;
+        }
+
+        // Load recent activity
+        loadRecentActivity();
+
+      } catch (error) {
+        console.error('Error loading overview data:', error);
+      }
+    }
+
+    // Load recent activity
+    function loadRecentActivity() {
+      const activityContainer = document.getElementById('recentActivity');
+      // This would typically come from an API
+      activityContainer.innerHTML = `
+        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+          <i class="fas fa-plus-circle text-blue-500"></i>
+          <span class="text-sm text-gray-600">New assignment submitted by John Doe</span>
+          <span class="text-xs text-gray-400 ml-auto">2 minutes ago</span>
+        </div>
+        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+          <i class="fas fa-check-circle text-green-500"></i>
+          <span class="text-sm text-gray-600">Payment approved for Jane Smith</span>
+          <span class="text-xs text-gray-400 ml-auto">15 minutes ago</span>
+        </div>
+        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+          <i class="fas fa-upload text-purple-500"></i>
+          <span class="text-sm text-gray-600">Completed assignment uploaded for Mike Johnson</span>
+          <span class="text-xs text-gray-400 ml-auto">1 hour ago</span>
+        </div>
+      `;
+    }
+
+    // Load assignments
+    async function loadAssignments() {
+      try {
+        const response = await fetch(`${API_BASE}/tutor/assignments`);
+        const result = await response.json();
+
+        if (result.success) {
+          currentAssignments = result.assignments;
+          displayAssignments(currentAssignments);
+        }
+      } catch (error) {
+        console.error('Error loading assignments:', error);
+      }
+    }
+
+    // Display assignments
+    function displayAssignments(assignments) {
+      const container = document.getElementById('assignmentsList');
+      
+      if (assignments.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8">
+            <i class="fas fa-tasks text-4xl text-gray-400 mb-4"></i>
+            <p class="text-gray-600">No assignments found</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = assignments.map(assignment => `
+        <div class="bg-white rounded-lg shadow p-6 card-hover transition duration-300">
+          <div class="flex justify-between items-start mb-4">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-gray-800">${assignment.assignmentTitle}</h3>
+              <p class="text-sm text-gray-600">Student: ${assignment.studentName || assignment.userId?.name || 'Unknown'}</p>
+              <p class="text-sm text-gray-600">Subject: ${assignment.subject} | Type: ${assignment.orderType}</p>
+            </div>
+            <span class="status-${assignment.status} px-3 py-1 rounded-full text-sm font-medium">
+              ${getStatusText(assignment.status)}
+            </span>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-sm">
+            <div>
+              <span class="text-gray-500">Deadline:</span>
+              <p class="font-medium">${new Date(assignment.deadline).toLocaleDateString()}</p>
+            </div>
+            <div>
+              <span class="text-gray-500">Pages:</span>
+              <p class="font-medium">${assignment.pages || 'N/A'}</p>
+            </div>
+            <div>
+              <span class="text-gray-500">Cost:</span>
+              <p class="font-medium">$${assignment.totalCost.toFixed(2)}</p>
+            </div>
+            <div>
+              <span class="text-gray-500">Files:</span>
+              <p class="font-medium">${assignment.hasFiles ? assignment.files.length : 0}</p>
+            </div>
+          </div>
+          
+          <div class="flex space-x-2">
+            <button onclick="viewAssignment('${assignment.id}')" 
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">
+              <i class="fas fa-eye mr-1"></i>View Details
+            </button>
+            
+            ${assignment.status === 'pending' || assignment.status === 'under-review' ? `
+              <button onclick="updateAssignmentStatus('${assignment.id}', 'checking-balance')" 
+                      class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 text-sm">
+                <i class="fas fa-credit-card mr-1"></i>Check Balance
+              </button>
+            ` : ''}
+            
+            ${assignment.status === 'checking-balance' ? `
+              <button onclick="updateAssignmentStatus('${assignment.id}', 'assigned')" 
+                      class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 text-sm">
+                <i class="fas fa-check mr-1"></i>Assign
+              </button>
+            ` : ''}
+            
+            ${assignment.status === 'assigned' ? `
+              <button onclick="updateAssignmentStatus('${assignment.id}', 'in-progress')" 
+                      class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm">
+                <i class="fas fa-play mr-1"></i>Start Work
+              </button>
+            ` : ''}
+            
+            ${assignment.status === 'in-progress' ? `
+              <button onclick="openUploadModal('${assignment.id}')" 
+                      class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 text-sm">
+                <i class="fas fa-upload mr-1"></i>Upload Completed
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Filter assignments
+    function filterAssignments() {
+      const status = document.getElementById('statusFilter').value;
+      const filtered = status === 'all' ? currentAssignments : 
+                      currentAssignments.filter(a => a.status === status);
+      displayAssignments(filtered);
+    }
+
+    // Get status text
+    function getStatusText(status) {
+      const statusMap = {
+        'pending': 'Pending',
+        'under-review': 'Under Review',
+        'checking-balance': 'Checking Balance',
+        'assigned': 'Assigned',
+        'in-progress': 'In Progress',
+        'completed': 'Completed',
+        'cancelled': 'Cancelled'
+      };
+      return statusMap[status] || status;
+    }
+
+    // View assignment details
+    function viewAssignment(assignmentId) {
+      const assignment = currentAssignments.find(a => a.id === assignmentId);
+      if (!assignment) return;
+
+      const modal = document.getElementById('assignmentModal');
+      const details = document.getElementById('assignmentDetails');
+      
+      details.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h4 class="font-semibold text-gray-800 mb-3">Assignment Information</h4>
+            <div class="space-y-2 text-sm">
+              <p><strong>Title:</strong> ${assignment.assignmentTitle}</p>
+              <p><strong>Subject:</strong> ${assignment.subject}</p>
+              <p><strong>Type:</strong> ${assignment.orderType}</p>
+              <p><strong>Category:</strong> ${assignment.category}</p>
+              <p><strong>Pages:</strong> ${assignment.pages || 'N/A'}</p>
+              <p><strong>Cost:</strong> $${assignment.totalCost.toFixed(2)}</p>
+              <p><strong>Deadline:</strong> ${new Date(assignment.deadline).toLocaleString()}</p>
+              <p><strong>Status:</strong> <span class="status-${assignment.status} px-2 py-1 rounded text-xs">${getStatusText(assignment.status)}</span></p>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="font-semibold text-gray-800 mb-3">Student Information</h4>
+            <div class="space-y-2 text-sm">
+              <p><strong>Name:</strong> ${assignment.studentName || assignment.userId?.name || 'Unknown'}</p>
+              <p><strong>Email:</strong> ${assignment.studentEmail || assignment.userId?.email || 'N/A'}</p>
+            </div>
+            
+            ${assignment.assignedTutor ? `
+              <h4 class="font-semibold text-gray-800 mb-3 mt-4">Assigned Tutor</h4>
+              <div class="space-y-2 text-sm">
+                <p><strong>Name:</strong> ${assignment.assignedTutor.name}</p>
+                <p><strong>Email:</strong> ${assignment.assignedTutor.email}</p>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+        
+        <div class="mt-6">
+          <h4 class="font-semibold text-gray-800 mb-3">Description</h4>
+          <p class="text-sm text-gray-600 bg-gray-50 p-4 rounded-lg">${assignment.description}</p>
+        </div>
+        
+        ${assignment.additionalRequirements ? `
+          <div class="mt-4">
+            <h4 class="font-semibold text-gray-800 mb-3">Additional Requirements</h4>
+            <p class="text-sm text-gray-600 bg-gray-50 p-4 rounded-lg">${assignment.additionalRequirements}</p>
+          </div>
+        ` : ''}
+        
+        ${assignment.files && assignment.files.length > 0 ? `
+          <div class="mt-4">
+            <h4 class="font-semibold text-gray-800 mb-3">Uploaded Files</h4>
+            <div class="space-y-2">
+              ${assignment.files.map(file => `
+                <div class="flex items-center space-x-2 bg-gray-50 p-2 rounded">
+                  <i class="fas fa-file text-gray-500"></i>
+                  <span class="text-sm">${file.originalName}</span>
+                  <a href="/uploads/${file.filename}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">
+                    <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+        
+        ${assignment.completedFiles && assignment.completedFiles.length > 0 ? `
+          <div class="mt-4">
+            <h4 class="font-semibold text-gray-800 mb-3">Completed Files</h4>
+            <div class="space-y-2">
+              ${assignment.completedFiles.map(file => `
+                <div class="flex items-center space-x-2 bg-green-50 p-2 rounded">
+                  <i class="fas fa-file-check text-green-500"></i>
+                  <span class="text-sm">${file.originalName}</span>
+                  <a href="/uploads/${file.filename}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">
+                    <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+        
+        ${assignment.tutorComments ? `
+          <div class="mt-4">
+            <h4 class="font-semibold text-gray-800 mb-3">Tutor Comments</h4>
+            <p class="text-sm text-gray-600 bg-blue-50 p-4 rounded-lg">${assignment.tutorComments}</p>
+          </div>
+        ` : ''}
+      `;
+      
+      modal.classList.remove('hidden');
+    }
+
+    // Close assignment modal
+    function closeAssignmentModal() {
+      document.getElementById('assignmentModal').classList.add('hidden');
+    }
+
+    // Update assignment status
+    async function updateAssignmentStatus(assignmentId, newStatus) {
+      try {
+        const response = await fetch(`${API_BASE}/tutor/update-assignment-status`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            assignmentId,
+            status: newStatus,
+            tutorId: 'tutor123' // This should come from logged-in tutor
+          })
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          loadAssignments(); // Refresh assignments
+          loadOverviewData(); // Refresh overview stats
+        } else {
+          alert('Failed to update assignment status: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error updating assignment status:', error);
+        alert('Error updating assignment status');
+      }
+    }
+
+    // Open upload modal
+    function openUploadModal(assignmentId) {
+      document.getElementById('uploadAssignmentId').value = assignmentId;
+      document.getElementById('uploadModal').classList.remove('hidden');
+    }
+
+    // Close upload modal
+    function closeUploadModal() {
+      document.getElementById('uploadModal').classList.add('hidden');
+      document.getElementById('uploadForm').reset();
+    }
+
+    // Handle file upload form
+    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const assignmentId = formData.get('assignmentId');
+      
+      try {
+        const response = await fetch(`${API_BASE}/tutor/upload-completed-files/${assignmentId}`, {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          closeUploadModal();
+          loadAssignments(); // Refresh assignments
+          loadOverviewData(); // Refresh overview stats
+          alert('Files uploaded successfully!');
+        } else {
+          alert('Failed to upload files: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error uploading files:', error);
+        alert('Error uploading files');
+      }
+    });
+
+    // Load students
+    async function loadStudents() {
+      try {
+        const response = await fetch(`${API_BASE}/tutor/students`);
+        const result = await response.json();
+
+        if (result.success) {
+          currentStudents = result.students;
+          displayStudents(currentStudents);
+        }
+      } catch (error) {
+        console.error('Error loading students:', error);
+      }
+    }
+
+    // Display students
+    function displayStudents(students) {
+      const container = document.getElementById('studentsList');
+      
+      container.innerHTML = students.map(student => `
+        <div class="bg-white rounded-lg shadow p-6 card-hover transition duration-300">
+          <div class="flex items-center space-x-4 mb-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+              <i class="fas fa-user text-blue-600 text-xl"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800">${student.name}</h3>
+              <p class="text-sm text-gray-600">${student.email}</p>
+            </div>
+          </div>
+          
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-500">Balance:</span>
+              <span class="font-medium text-green-600">$${student.balance.toFixed(2)}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Total Assignments:</span>
+              <span class="font-medium">${student.stats.totalAssignments}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Completed:</span>
+              <span class="font-medium text-green-600">${student.stats.completedAssignments}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Active:</span>
+              <span class="font-medium text-blue-600">${student.stats.activeAssignments}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Total Spent:</span>
+              <span class="font-medium">$${student.stats.totalSpent.toFixed(2)}</span>
+            </div>
+          </div>
+          
+          <div class="mt-4 pt-4 border-t border-gray-200">
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>Joined: ${new Date(student.createdAt).toLocaleDateString()}</span>
+              <span>Last Login: ${student.lastLogin ? new Date(student.lastLogin).toLocaleDateString() : 'Never'}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Load pending payments
+    async function loadPendingPayments() {
+      try {
+        const response = await fetch(`${API_BASE}/tutor/pending-payments`);
+        const result = await response.json();
+
+        if (result.success) {
+          currentPayments = result.payments;
+          displayPendingPayments(currentPayments);
+        }
+      } catch (error) {
+        console.error('Error loading pending payments:', error);
+      }
+    }
+
+    // Display pending payments
+    function displayPendingPayments(payments) {
+      const container = document.getElementById('paymentsList');
+      
+      if (payments.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8">
+            <i class="fas fa-credit-card text-4xl text-gray-400 mb-4"></i>
+            <p class="text-gray-600">No pending payments</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = payments.map(payment => `
+        <div class="bg-white rounded-lg shadow p-6 card-hover transition duration-300">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="font-semibold text-gray-800">${payment.user.name}</h3>
+              <p class="text-sm text-gray-600">${payment.user.email}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-lg font-bold text-green-600">$${payment.amount.toFixed(2)}</p>
+              <p class="text-sm text-gray-500">${payment.method.toUpperCase()}</p>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <p class="text-sm text-gray-600"><strong>Reference:</strong> ${payment.reference}</p>
+            <p class="text-sm text-gray-600"><strong>Submitted:</strong> ${new Date(payment.createdAt).toLocaleString()}</p>
+          </div>
+          
+          ${payment.proofFile ? `
+            <div class="mb-4">
+              <p class="text-sm text-gray-600 mb-2"><strong>Proof of Payment:</strong></p>
+              <a href="/uploads/${payment.proofFile.filename}" target="_blank" 
+                 class="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800">
+                <i class="fas fa-file-image"></i>
+                <span>${payment.proofFile.originalName}</span>
+                <i class="fas fa-external-link-alt text-xs"></i>
+              </a>
+            </div>
+          ` : ''}
+          
+          <div class="flex space-x-3">
+            <button onclick="approvePayment('${payment.id}')" 
+                    class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700">
+              <i class="fas fa-check mr-2"></i>Approve
+            </button>
+            <button onclick="rejectPayment('${payment.id}')" 
+                    class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700">
+              <i class="fas fa-times mr-2"></i>Reject
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Approve payment
+    async function approvePayment(paymentId) {
+      if (!confirm('Are you sure you want to approve this payment?')) return;
+      
+      try {
+        const response = await fetch(`${API_BASE}/tutor/approve-payment`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            paymentId,
+            tutorId: 'tutor123' // This should come from logged-in tutor
+          })
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          loadPendingPayments(); // Refresh payments
+          loadOverviewData(); // Refresh overview stats
+          alert('Payment approved successfully!');
+        } else {
+          alert('Failed to approve payment: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error approving payment:', error);
+        alert('Error approving payment');
+      }
+    }
+
+    // Reject payment
+    async function rejectPayment(paymentId) {
+      const reason = prompt('Please provide a reason for rejection:');
+      if (!reason) return;
+      
+      try {
+        const response = await fetch(`${API_BASE}/tutor/reject-payment`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            paymentId,
+            tutorId: 'tutor123', // This should come from logged-in tutor
+            reason
+          })
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          loadPendingPayments(); // Refresh payments
+          loadOverviewData(); // Refresh overview stats
+          alert('Payment rejected successfully!');
+        } else {
+          alert('Failed to reject payment: ' + result.message);
+        }
+      } catch (error) {
+        console.error('Error rejecting payment:', error);
+        alert('Error rejecting payment');
+      }
+    }
+
+    // Refresh all data
+    function refreshData() {
+      loadOverviewData();
+      loadAssignments();
+      loadStudents();
+      loadPendingPayments();
+    }
+  </script>
+</body>
+</html>

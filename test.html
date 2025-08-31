@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Authentication</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-bold mb-6">Test Authentication</h1>
+        
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold mb-4">Sign Up</h2>
+            <input type="text" id="signup-name" placeholder="Name" class="w-full p-2 border rounded mb-2">
+            <input type="email" id="signup-email" placeholder="Email" class="w-full p-2 border rounded mb-2">
+            <input type="password" id="signup-password" placeholder="Password" class="w-full p-2 border rounded mb-2">
+            <button onclick="testSignup()" class="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600">Sign Up</button>
+        </div>
+        
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold mb-4">Login</h2>
+            <input type="email" id="login-email" placeholder="Email" class="w-full p-2 border rounded mb-2">
+            <input type="password" id="login-password" placeholder="Password" class="w-full p-2 border rounded mb-2">
+            <button onclick="testLogin()" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Login</button>
+        </div>
+        
+        <div id="result" class="mt-4 p-4 rounded hidden"></div>
+    </div>
+
+    <script>
+        async function testSignup() {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            
+            try {
+                const response = await fetch('http://localhost:3002/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+                
+                const data = await response.json();
+                showResult(data, response.ok);
+                
+                if (response.ok) {
+                    localStorage.setItem('userId', data.userId);
+                    localStorage.setItem('userName', data.user.name);
+                    localStorage.setItem('userEmail', data.user.email);
+                }
+            } catch (error) {
+                showResult({ message: error.message }, false);
+            }
+        }
+        
+        async function testLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            try {
+                const response = await fetch('http://localhost:3002/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                showResult(data, response.ok);
+                
+                if (response.ok) {
+                    localStorage.setItem('userId', data.userId);
+                    localStorage.setItem('userName', data.user.name);
+                    localStorage.setItem('userEmail', data.user.email);
+                }
+            } catch (error) {
+                showResult({ message: error.message }, false);
+            }
+        }
+        
+        function showResult(data, success) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = `mt-4 p-4 rounded ${success ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
+            resultDiv.textContent = JSON.stringify(data, null, 2);
+            resultDiv.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
