@@ -551,7 +551,7 @@
   
 <!-- Messages Section -->
 <section id="messages" class="p-6 pb-20 md:pb-6 hidden">
-  <script src="http://localhost:3002/socket.io/socket.io.js"></script>
+  <script src="https://meme-s6lb.onrender.com/socket.io/socket.io.js"></script>
 
   <!-- Assignment Selection View -->
   <div id="assignment-selection-view" class="transition-all duration-500 ease-in-out">
@@ -1348,7 +1348,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 const studentId = localStorage.getItem("userId"); // Ensure user ID is stored
-const API_BASE = "http://localhost:3002";
+const API_BASE = "https://meme-s6lb.onrender.com";
 const defaultAvatar = "https://via.placeholder.com/150"; // Default avatar
 
 // ✅ Fetch and Display Profile Information
@@ -1948,7 +1948,7 @@ function toggleSendButton() {
       await Promise.all(buttons.map(async (btn)=>{
         const id = String(btn.dataset.id);
         try{
-          const res = await fetch(`http://localhost:3002/messages?assignmentId=${encodeURIComponent(id)}`);
+          const res = await fetch(`https://meme-s6lb.onrender.com/messages?assignmentId=${encodeURIComponent(id)}`);
           const data = await res.json();
           if(!data.success) return;
           const lastRead = getStudentLastRead(id);
@@ -1965,7 +1965,7 @@ function toggleSendButton() {
     if (studentEventSource) { try{ studentEventSource.close(); }catch(_){} studentEventSource = null; }
     if (!activeAssignment) return;
     // Don't reset studentSeenMessageIds here - it's reset when switching assignments and populated by loadMessages
-    const url = `http://localhost:3002/messages/stream?assignmentId=${encodeURIComponent(activeAssignment.id)}`;
+    const url = `https://meme-s6lb.onrender.com/messages/stream?assignmentId=${encodeURIComponent(activeAssignment.id)}`;
     studentEventSource = new EventSource(url);
     studentEventSource.onmessage = (evt)=>{
       try {
@@ -2061,7 +2061,7 @@ function toggleSendButton() {
     const list = document.getElementById('assignment-chat-list');
     list.innerHTML = '<div class="text-gray-500 text-sm">Loading...</div>';
     try{
-      const res = await fetch(`http://localhost:3002/student/assignments?userId=${encodeURIComponent(loggedInStudentId)}`);
+      const res = await fetch(`https://meme-s6lb.onrender.com/student/assignments?userId=${encodeURIComponent(loggedInStudentId)}`);
       const data = await res.json();
       if(!data.success){ list.innerHTML = '<div class="text-red-600 text-sm">Failed to load assignments</div>'; return; }
       const items = (data.assignments||[]).map(a=>{
@@ -2105,7 +2105,7 @@ function toggleSendButton() {
     if(!activeAssignment){ history.innerHTML = '<div class="text-gray-500 text-sm">Select an assignment to start chatting.</div>'; return; }
     history.innerHTML = '<div class="text-gray-500 text-sm">Loading messages...</div>';
     try{
-      const res = await fetch(`http://localhost:3002/messages?assignmentId=${encodeURIComponent(activeAssignment.id)}`);
+      const res = await fetch(`https://meme-s6lb.onrender.com/messages?assignmentId=${encodeURIComponent(activeAssignment.id)}`);
       const data = await res.json();
       if(!data.success){ history.innerHTML = '<div class="text-red-600 text-sm">Failed to load messages</div>'; return; }
       history.innerHTML = '';
@@ -2147,7 +2147,7 @@ function toggleSendButton() {
     if(!content || !activeAssignment){ return; }
     try{
       const tutorId = activeAssignment.assignedTutor || '';
-      const res = await fetch('http://localhost:3002/messages', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ assignmentId: activeAssignment.id, studentId: loggedInStudentId, tutorId, sender: 'student', content }) });
+      const res = await fetch('https://meme-s6lb.onrender.com/messages', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ assignmentId: activeAssignment.id, studentId: loggedInStudentId, tutorId, sender: 'student', content }) });
       const data = await res.json();
       if(!data.success){ console.error('Failed to send'); }
       // play send sound on successful post
@@ -3781,7 +3781,7 @@ async function saveChatTheme() {
     };
 
     // Try to save to server
-    const response = await fetch('http://localhost:3002/student/save-chat-theme', {
+    const response = await fetch('https://meme-s6lb.onrender.com/student/save-chat-theme', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -3823,7 +3823,7 @@ async function saveChatTheme() {
 async function loadSavedChatTheme() {
   try {
     // Try to load from server first
-    const response = await fetch(`http://localhost:3002/student/get-chat-theme?userId=${encodeURIComponent(loggedInStudentId || 'guest')}`);
+    const response = await fetch(`https://meme-s6lb.onrender.com/student/get-chat-theme?userId=${encodeURIComponent(loggedInStudentId || 'guest')}`);
     
     if (response.ok) {
       const result = await response.json();

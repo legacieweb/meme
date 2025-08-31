@@ -1198,7 +1198,7 @@ function switchPanel(fromId,toId){
           const btn = signupForm.querySelector('button[type="submit"]');
           btn.disabled = true; btn.textContent = 'Creating...';
           try{
-            const res = await fetch('http://localhost:3002/signup', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, password }) });
+            const res = await fetch('https://meme-s6lb.onrender.com/signup', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, password }) });
             const data = await res.json();
             if(data.success){
               // Auto-login effect for smooth UX: store basics and redirect
@@ -1206,7 +1206,7 @@ function switchPanel(fromId,toId){
               localStorage.setItem('userEmail', (email||'').toLowerCase());
               localStorage.setItem('userName', name);
               localStorage.setItem('userType', 'student');
-              window.location.href = 'student.html';
+              window.location.href = '../dashboard';
             } else {
               alert(data.message || 'Signup failed');
               btn.disabled = false; btn.textContent = 'Sign Up';
@@ -1227,7 +1227,7 @@ function switchPanel(fromId,toId){
           const btn = loginForm.querySelector('button[type="submit"]');
           btn.disabled = true; btn.textContent = 'Signing in...';
           try{
-            const res = await fetch('http://localhost:3002/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password }) });
+            const res = await fetch('https://meme-s6lb.onrender.com/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password }) });
             const data = await res.json();
             if(data.success){
               // store minimal session info
@@ -1237,7 +1237,7 @@ function switchPanel(fromId,toId){
               localStorage.setItem('userType', data.user?.role || 'student');
               btn.textContent = 'Success';
               // redirect to student dashboard
-              window.location.href = 'student.html';
+              window.location.href = '../dashboard';
             } else {
               alert(data.message || 'Login failed');
               btn.disabled = false; btn.textContent = 'Login';
@@ -1263,7 +1263,7 @@ function switchPanel(fromId,toId){
       if(!email) return;
       resetEmailCache = email;
       try{
-        const res = await fetch('http://localhost:3002/auth/request-reset-otp', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email }) });
+        const res = await fetch('https://meme-s6lb.onrender.com/auth/request-reset-otp', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email }) });
         const data = await res.json();
         if(data.success){
           document.getElementById('reset-step-send').classList.add('hidden');
@@ -1282,7 +1282,7 @@ function switchPanel(fromId,toId){
     async function verifyResetOtp(){
       const otp = document.getElementById('reset-otp').value.trim();
       try{
-        const res = await fetch('http://localhost:3002/auth/verify-reset-otp', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: resetEmailCache, otp }) });
+        const res = await fetch('https://meme-s6lb.onrender.com/auth/verify-reset-otp', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: resetEmailCache, otp }) });
         const data = await res.json();
         if(data.success){
           document.getElementById('reset-step-verify').classList.add('hidden');
@@ -1301,7 +1301,7 @@ function switchPanel(fromId,toId){
     async function confirmResetPassword(){
       const newPassword = document.getElementById('reset-newpass').value;
       try{
-        const res = await fetch('http://localhost:3002/auth/confirm-reset', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: resetEmailCache, newPassword }) });
+        const res = await fetch('https://meme-s6lb.onrender.com/auth/confirm-reset', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: resetEmailCache, newPassword }) });
         const data = await res.json();
         if(data.success){
           document.getElementById('reset-msg').textContent='Password reset successful. You can now log in.';
