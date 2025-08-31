@@ -129,7 +129,7 @@ app.get('/file/:id', async (req, res) => {
 });
 
 // MongoDB connection - using local MongoDB or MongoDB Atlas
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://dbadmin:7Switched@4.tcp.eu.ngrok.io:18748/essayme?authSource=admin';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://dbadmin:7Switched@7.tcp.eu.ngrok.io:18734/essayme?authSource=admin';
 
 let gfsBucket = null;
 
