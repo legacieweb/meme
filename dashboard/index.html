@@ -696,15 +696,19 @@
       </div>
 
       <!-- PayPal -->
-      <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow border-2 border-transparent hover:border-blue-500"
-           onclick="selectPaymentMethod('paypal')">
+      <div class="bg-white rounded-lg shadow-md p-6 transition-shadow border-2 border-gray-300 opacity-60 cursor-not-allowed relative"
+           style="pointer-events: none; filter: grayscale(50%);">
         <div class="text-center">
           <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <i class="fab fa-paypal text-2xl text-blue-600"></i>
           </div>
           <h3 class="font-semibold text-gray-800 mb-2">PayPal</h3>
           <p class="text-sm text-gray-600">Secure Online Payment</p>
-          <p class="text-xs text-green-600 mt-2">✓ Instant Processing</p>
+          <p class="text-xs text-red-600 mt-2">
+            <span class="inline-block bg-red-100 text-red-800 px-3 py-1 rounded-full font-semibold">
+              Currently Disabled
+            </span>
+          </p>
         </div>
       </div>
 
@@ -2930,7 +2934,7 @@ function closePaymentModal() {
 function processPaystackPayment() {
     // Initialize Paystack payment
     const handler = PaystackPop.setup({
-        key: 'pk_test_232531a5c927ef2cc67ed1b85af3f26e3b8ed2f2',
+        key: 'pk_live_7ab8e015626516d7d00210b2e7fe169805c226b8',
         email: (localStorage.getItem('userEmail') || document.getElementById('user-email')?.textContent?.trim() || ''),
         amount: selectedPaymentAmount * 100, // Amount in kobo
         currency: 'USD',
