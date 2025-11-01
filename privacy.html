@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EssayMe Privacy Policy - How we protect your data and maintain FERPA compliance for student privacy.">
+  <meta name="keywords" content="privacy policy, EssayMe privacy, data protection, FERPA compliance, student privacy">
+  <meta name="author" content="EssayMe">
+  <meta name="robots" content="index, follow">
+  <title>Privacy Policy | EssayMe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    body { background: #020617; color: #e2e8f0; }
+    .headline-banner {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.92));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+    }
+    .headline-banner::before,
+    .headline-banner::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      pointer-events: none;
+      background: linear-gradient(to right, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0));
+      z-index: 2;
+    }
+    .headline-banner::before { left: 0; }
+    .headline-banner::after {
+      right: 0;
+      transform: rotate(180deg);
+    }
+    .headline-track {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      width: max-content;
+      animation: ticker 28s linear infinite;
+    }
+    .headline-group {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+    .headline-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: rgba(226, 232, 240, 0.88);
+      white-space: nowrap;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .notice-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #34d399, #38bdf8);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.55);
+      flex-shrink: 0;
+    }
+    .mesh-bg {
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.22), transparent 55%), radial-gradient(circle at 80% 10%, rgba(147, 51, 234, 0.22), transparent 45%), linear-gradient(160deg, #0f172a 0%, #1e1b4b 100%);
+    }
+    .mesh-bg::before, .mesh-bg::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    .mesh-bg::before { width: 420px; height: 420px; background: #38bdf8; top: -180px; left: -120px; }
+    .mesh-bg::after { width: 360px; height: 360px; background: #c084fc; bottom: -160px; right: -120px; }
+    .glass {
+      position: relative;
+      border-radius: 1.5rem;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      backdrop-filter: blur(18px);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #38bdf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header-shell {
+      position: relative;
+      background: rgba(2, 6, 23, 0.92);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 16px 30px rgba(2, 6, 23, 0.45);
+    }
+    .header-shell::before { content: none; }
+    .header-shell > * { position: relative; z-index: 1; }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 0.85rem;
+      border-radius: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(226, 232, 240, 0.8);
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .nav-link:hover {
+      color: #f8fafc;
+      background: rgba(56, 189, 248, 0.14);
+    }
+    .menu-icon {
+      position: relative;
+      width: 18px;
+      height: 12px;
+    }
+    .menu-icon::before,
+    .menu-icon::after,
+    .menu-icon span {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      border-radius: 9999px;
+      background: rgba(226, 232, 240, 0.9);
+    }
+    .menu-icon span { top: 5px; }
+    .menu-icon::before { top: 0; }
+    .menu-icon::after { bottom: 0; }
+  </style>
+</head>
+<body>
+  <div class="headline-banner">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="headline-track py-3">
+        <div class="headline-group">
+          <div class="headline-item"><span class="notice-dot"></span>Human-crafted essays from <strong>$10/page</strong></div>
+          <div class="headline-item"><span class="notice-dot"></span>Custom pricing for assignments & tests in under 15 minutes</div>
+          <div class="headline-item"><span class="notice-dot"></span>Free plagiarism & AI authenticity reports on every delivery</div>
+        </div>
+        <div class="headline-group">
+          <div class="headline-item"><span class="notice-dot"></span>Human-crafted essays from <strong>$10/page</strong></div>
+          <div class="headline-item"><span class="notice-dot"></span>Custom pricing for assignments & tests in under 15 minutes</div>
+          <div class="headline-item"><span class="notice-dot"></span>Free plagiarism & AI authenticity reports on every delivery</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="sticky top-0 z-30">
+    <div class="header-shell">
+      <div class="w-full px-4 sm:px-6 lg:px-10 py-4 flex items-center gap-6">
+        <a href="index.html" class="brand-lockup">
+          <div class="brand-icon">E</div>
+          <div>
+            <span class="brand-title">EssayMe</span>
+            <span class="brand-sub">Human writing only</span>
+          </div>
+        </a>
+        <nav class="hidden lg:flex flex-1 justify-center">
+          <div class="nav-cluster">
+            <a href="index.html#pricing" class="nav-link">Pricing</a>
+            <a href="index.html#services" class="nav-link">Services</a>
+            <a href="index.html#custom" class="nav-link">Assignments & Tests</a>
+            <a href="index.html#reviews" class="nav-link">Reviews</a>
+            <a href="index.html#tools" class="nav-link">Tools</a>
+          </div>
+        </nav>
+        <div class="hidden md:flex items-center gap-3 ml-auto">
+          <button onclick="scrollToPricing()" class="cta-ghost hidden xl:inline-flex"><span class="notice-dot"></span>Instant Quote</button>
+          <button onclick="openModal('login-modal')" class="secondary-btn w-auto px-5 py-2">Login</button>
+          <button onclick="openModal('signup-modal')" class="primary-btn w-auto px-5 py-2">Sign Up</button>
+        </div>
+        <button onclick="toggleMenu()" class="md:hidden ml-auto w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center text-slate-100"><span class="menu-icon"><span></span></span></button>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800/60 bg-slate-950/95">
+        <div class="px-6 py-5 flex flex-col gap-4 text-sm text-slate-200">
+          <a href="index.html#pricing" class="nav-link w-full" onclick="toggleMenu(true)">Pricing</a>
+          <a href="index.html#services" class="nav-link w-full" onclick="toggleMenu(true)">Services</a>
+          <a href="index.html#custom" class="nav-link w-full" onclick="toggleMenu(true)">Assignments & Tests</a>
+          <a href="index.html#reviews" class="nav-link w-full" onclick="toggleMenu(true)">Reviews</a>
+          <a href="index.html#tools" class="nav-link w-full" onclick="toggleMenu(true)">Tools</a>
+          <button onclick="toggleMenu(true); scrollToPricing()" class="cta-ghost justify-center w-full"><span class="notice-dot"></span>Instant Quote</button>
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
+            <button onclick="toggleMenu(true); openModal('login-modal')" class="secondary-btn">Login</button>
+            <button onclick="toggleMenu(true); openModal('signup-modal')" class="primary-btn">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="mesh-bg relative overflow-hidden">
+      <div class="relative z-10 max-w-4xl mx-auto px-6 py-24 lg:py-32">
+        <!-- Hero Section -->
+        <div class="text-center space-y-6 mb-16">
+          <span class="service-chip">Privacy & Security</span>
+          <h1 class="text-4xl lg:text-5xl font-bold leading-tight">Privacy Policy</h1>
+          <p class="text-xl text-slate-300 max-w-3xl mx-auto">Your privacy is our priority. Learn how we protect your personal information and maintain FERPA compliance.</p>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="glass p-8 mb-12">
+          <div class="text-center space-y-4">
+            <h2 class="text-2xl font-semibold text-slate-100">Our Privacy Commitment</h2>
+            <p class="text-slate-400 max-w-4xl mx-auto">At EssayMe, we are committed to protecting your privacy and maintaining the confidentiality of your academic information. This policy explains how we collect, use, and safeguard your data.</p>
+          </div>
+        </div>
+
+        <!-- Privacy Sections -->
+        <div class="space-y-12">
+          <div class="glass p-8">
+            <h2 class="text-2xl font-semibold text-slate-100 mb-6">📊 Information We Collect</h2>
+            <div class="space-y-4">
+              <p class="text-slate-400 leading-relaxed">We collect information you provide directly when using our services:</p>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-slate-800/50 rounded-lg p-4">
+                  <h3 class="font-medium text-slate-200 mb-2">Personal Information</h3>
+                  <ul class="text-slate-400 text-sm space-y-1">
+                    <li>• Full name</li>
+                    <li>• Email address</li>
+                    <li>• Phone number (optional)</li>
+                    <li>• Educational institution</li>
+                  </ul>
+                </div>
+                <div class="bg-slate-800/50 rounded-lg p-4">
+                  <h3 class="font-medium text-slate-200 mb-2">Academic Information</h3>
+                  <ul class="text-slate-400 text-sm space-y-1">
+                    <li>• Assignment details</li>
+                    <li>• Course information</li>
+                    <li>• Deadlines and requirements</li>
+                    <li>• Supporting files</li>
+                  </ul>
+                </div>
+              </div>
+              <p class="text-slate-400 text-sm mt-4">We also collect anonymous usage data to improve our services and website performance.</p>
+            </div>
+          </div>
+
+          <div class="glass p-8">
+            <h2 class="text-2xl font-semibold text-slate-100 mb-6">🎯 How We Use Your Information</h2>
+            <div class="space-y-4 text-slate-400">
+              <p>Your information is used exclusively to provide and improve our services:</p>
+              <ul class="list-disc list-inside space-y-2 ml-4">
+                <li>Process and fulfill your orders</li>
+                <li>Communicate about your assignments</li>
+                <li>Process payments securely</li>
+                <li>Provide customer support</li>
+                <li>Send important service updates</li>
+                <li>Improve our platform and services</li>
+              </ul>
+              <div class="bg-sky-500/10 border border-sky-500/20 rounded-lg p-4 mt-4">
+                <p class="text-sky-300 font-medium">Privacy Guarantee:</p>
+                <p class="text-sky-200">We never sell, rent, or share your personal information with third parties for marketing purposes.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="glass p-8">
+              <h2 class="text-2xl font-semibold text-slate-100 mb-6">🔐 Data Security</h2>
+              <div class="space-y-4 text-slate-400">
+                <p>We employ industry-leading security measures:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                  <li>256-bit SSL encryption</li>
+                  <li>Secure server infrastructure</li>
+                  <li>Regular security audits</li>
+                  <li>Employee access controls</li>
+                  <li>FERPA compliance</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="glass p-8">
+              <h2 class="text-2xl font-semibold text-slate-100 mb-6">⚖️ Your Rights</h2>
+              <div class="space-y-4 text-slate-400">
+                <p>You have the right to:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                  <li>Access your personal data</li>
+                  <li>Request data corrections</li>
+                  <li>Delete your account and data</li>
+                  <li>Opt-out of communications</li>
+                  <li>Data portability</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass p-8 border border-indigo-500/30">
+            <h2 class="text-2xl font-semibold text-slate-100 mb-6">📞 Contact Our Privacy Team</h2>
+            <div class="space-y-4 text-slate-400">
+              <p>Questions about your privacy or data rights? Our dedicated privacy team is here to help.</p>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-slate-800/50 rounded-lg p-4">
+                  <p class="font-medium text-slate-200 mb-1">Privacy Inquiries</p>
+                  <a href="mailto:privacy@iyonicorp.com" class="text-indigo-400 hover:text-indigo-300 transition-colors">privacy@iyonicorp.com</a>
+                </div>
+                <div class="bg-slate-800/50 rounded-lg p-4">
+                  <p class="font-medium text-slate-200 mb-1">General Support</p>
+                  <a href="mailto:hello@iyonicorp.com" class="text-indigo-400 hover:text-indigo-300 transition-colors">hello@iyonicorp.com</a>
+                </div>
+              </div>
+              <p class="text-sm mt-4">You can also reach us by phone at <a href="tel:+19408608596" class="text-indigo-400 hover:text-indigo-300 transition-colors">+1 (940) 860-8596</a></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FERPA Notice -->
+        <div class="glass p-8 border border-emerald-500/30">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-slate-100 mb-2">FERPA Compliance</h3>
+              <p class="text-slate-400">We adhere to FERPA (Family Educational Rights and Privacy Act) regulations, ensuring the privacy and security of student educational records and personal information.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-slate-950 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-500">
+        <div class="text-center md:text-left">
+          <span class="block">© 2025 EssayMe. All rights reserved.</span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="privacy.html" class="hover:text-white transition-colors">Privacy</a>
+          <a href="terms.html" class="hover:text-white transition-colors">Terms</a>
+          <a href="refunds.html" class="hover:text-white transition-colors">Refunds</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

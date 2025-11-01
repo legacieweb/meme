@@ -3,1821 +3,1285 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="EssayMe offers premium academic writing services by expert human writers. No AI content. Fast delivery, affordable pricing, and guaranteed satisfaction for students in USA and Canada.">
-  <meta name="keywords" content="academic writing, essay writing, research papers, homework help, editing, proofreading, human writers, no AI, student services, USA, Canada, fast delivery, affordable pricing">
+  <meta name="description" content="EssayMe delivers human-written essays from $10/page with free plagiarism and AI authenticity reports, instant quotes for assignments and live tests, and 24/7 academic support.">
+  <meta name="keywords" content="essay writing service, $10 per page essays, custom assignment help, live test support, plagiarism report, ai authenticity">
   <meta name="author" content="EssayMe">
-  <meta property="og:title" content="EssayMe - Premium Academic Writing Services | Human Writers Only">
-  <meta property="og:description" content="Professional academic writing by expert human writers. No AI. Trusted by 50,000+ students. Fast delivery, affordable rates.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="EssayMe | $10/Page Human Essays & Other Assignments">
+  <meta property="og:description" content="Best for essays, projects, research papers, lab reports, and live tests with free plagiarism and AI reports, and 24/7 support.">
+  <meta property="og:site_name" content="EssayMe">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://essayme.iyonicorp.com/">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2070">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1920">
+  <meta property="og:image:alt" content="Student collaborating on an EssayMe writing project">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="EssayMe - Premium Academic Writing Services | Human Writers Only">
-  <meta name="twitter:description" content="Expert academic writing by human writers. No AI. Fast, affordable, and trusted by thousands.">
-  <meta name="twitter:image" content="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2070">
-  <link rel="canonical" href="https://essayme.com/">
-  <title>EssayMe - Premium Academic Writing Services | Human Writers Only</title>
+  <meta name="twitter:title" content="EssayMe | $10/Page Human Essays & Custom Assignment Quotes">
+  <meta name="twitter:description" content="EssayMe delivers human-written essays from $10/page with free plagiarism and AI authenticity reports, instant quotes for assignments and live tests, and 24/7 academic support.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1920">
+  <link rel="canonical" href="https://essayme.iyonicorp.com">
+  <title>EssayMe | $10/Page Human Essays & Custom Assignment Quotes</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     * { font-family: 'Inter', sans-serif; }
-    
-    .hero-bg {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(147, 51, 234, 0.9) 100%),
-                  url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2070') center/cover;
+    body { background: #020617; color: #e2e8f0; }
+    .mesh-bg {
+      position: relative; 
+      overflow: hidden;
+      background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.22), transparent 55%), radial-gradient(circle at 80% 10%, rgba(147, 51, 234, 0.22), transparent 45%), linear-gradient(160deg, #0f172a 0%, #1e1b4b 100%);
     }
-    
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
+    .mesh-bg::before, .mesh-bg::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.45;
+      pointer-events: none;
     }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
+    .mesh-bg::before { width: 420px; height: 420px; background: #38bdf8; top: -180px; left: -120px; }
+    .mesh-bg::after { width: 360px; height: 360px; background: #c084fc; bottom: -160px; right: -120px; }
+    .glass {
+      position: relative;
+      border-radius: 1.5rem;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      backdrop-filter: blur(18px);
     }
-    
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.55rem 1.25rem;
+      border-radius: 9999px;
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      letter-spacing: 0.02em;
+      font-weight: 600;
+    }
+    .tag-pill .dot { width: 10px; height: 10px; border-radius: 9999px; background: #34d399; box-shadow: 0 0 12px rgba(52, 211, 153, 0.85); }
     .gradient-text {
-      background: linear-gradient(135deg, #3B82F6, #9333EA);
+      background: linear-gradient(135deg, #38bdf8, #c084fc);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    
-    .card-hover {
-      transition: all 0.3s ease;
+    .feature-card {
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
     }
-    
-    .card-hover:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    .feature-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(15, 23, 42, 0.25); }
+    .service-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #38bdf8;
+      font-weight: 600;
+      font-size: 0.85rem;
     }
-    
-    .stats-counter {
-      font-size: 3rem;
+    .segment-toggle button {
+      flex: 1;
+      padding: 0.85rem 1rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid transparent;
+      transition: all 0.25s ease;
+    }
+    .segment-toggle button.active {
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      color: #0f172a;
+      border-color: transparent;
+      box-shadow: 0 20px 45px rgba(79, 70, 229, 0.4);
+    }
+    .quote-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 9999px;
+      background: rgba(148, 163, 184, 0.18);
+      appearance: none;
+      outline: none;
+    }
+    .quote-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #38bdf8;
+      box-shadow: 0 12px 24px rgba(56, 189, 248, 0.35);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .quote-slider::-webkit-slider-thumb:hover { transform: scale(1.1); }
+    .quote-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #38bdf8;
+      box-shadow: 0 12px 24px rgba(56, 189, 248, 0.35);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .quote-slider::-moz-range-thumb:hover { transform: scale(1.1); }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-card {
+      width: min(420px, 90vw);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      background: linear-gradient(160deg, rgba(15, 23, 42, 0.92), rgba(30, 64, 175, 0.72));
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      box-shadow: 0 35px 80px rgba(15, 23, 42, 0.55);
+      transform: translateY(18px) scale(0.98);
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+    }
+    .modal-card.active { transform: translateY(0) scale(1); opacity: 1; }
+    .input-field {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(15, 23, 42, 0.55);
+      color: #f8fafc;
+      transition: border 0.2s ease, background 0.2s ease;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: rgba(56, 189, 248, 0.55);
+      background: rgba(15, 23, 42, 0.75);
+    }
+    .primary-btn {
+      width: 100%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.2rem;
+      border-radius: 0.95rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      color: #0f172a;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .primary-btn:hover { transform: translateY(-1px); box-shadow: 0 20px 45px rgba(79, 70, 229, 0.34); }
+    .secondary-btn {
+      width: 100%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.2rem;
+      border-radius: 0.95rem;
+      font-weight: 600;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: transparent;
+      color: #e2e8f0;
+      transition: border 0.2s ease, color 0.2s ease;
+    }
+    .secondary-btn:hover { border-color: rgba(56, 189, 248, 0.55); color: #38bdf8; }
+    .floating-stats div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      text-align: left;
+    }
+    .floating-stats span:first-child { font-size: 1.65rem; font-weight: 700; }
+    .testimonials button {
+      border-radius: 9999px;
+      padding: 0.65rem 1.25rem;
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid transparent;
+      transition: all 0.25s ease;
+    }
+    .testimonials button.active { background: rgba(56, 189, 248, 0.18); border-color: rgba(56, 189, 248, 0.45); color: #38bdf8; }
+    .header-shell {
+      position: relative;
+      background: rgba(2, 6, 23, 0.92);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 16px 30px rgba(2, 6, 23, 0.45);
+    }
+    .header-shell::before { content: none; }
+    .header-shell > * { position: relative; z-index: 1; }
+    .brand-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: none;
+    }
+    .brand-lockup:hover { transform: none; box-shadow: none; }
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 1rem;
+      background: linear-gradient(140deg, #38bdf8, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: 800;
-      color: #1F2937;
+      font-size: 1.25rem;
+      color: #0f172a;
+      box-shadow: 0 12px 28px rgba(56, 189, 248, 0.45);
     }
-    
-    .pulse-ring {
-      animation: pulse-ring 2s infinite;
+    .brand-title {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
     }
-    
-    @keyframes pulse-ring {
-      0% {
-        transform: scale(0.33);
-      }
-      80%, 100% {
-        opacity: 0;
-      }
+    .brand-sub {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(148, 163, 184, 0.65);
     }
-    
-    .testimonial-card {
-      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-      border: 1px solid rgba(99, 102, 241, 0.1);
+    .nav-cluster {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: none;
     }
-    
-    .pricing-card {
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 0.85rem;
+      border-radius: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(226, 232, 240, 0.8);
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .nav-link:hover {
+      color: #f8fafc;
+      background: rgba(56, 189, 248, 0.14);
+    }
+    .headline-banner {
       position: relative;
       overflow: hidden;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.92));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.16);
     }
-    
-    .pricing-card::before {
+    .headline-banner::before,
+    .headline-banner::after {
       content: '';
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
+      bottom: 0;
+      width: 80px;
+      pointer-events: none;
+      background: linear-gradient(to right, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0));
+      z-index: 2;
     }
-    
-    .pricing-card:hover::before {
-      left: 100%;
+    .headline-banner::before { left: 0; }
+    .headline-banner::after {
+      right: 0;
+      transform: rotate(180deg);
     }
-    
-    .rating-stars {
-      color: #FCD34D;
-      text-shadow: 0 0 10px rgba(252, 211, 77, 0.3);
+    .headline-track {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      width: max-content;
+      animation: ticker 28s linear infinite;
     }
-
-    .popup-bg {
-      position: fixed;
-      top: 0;
+    .headline-group {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+    .headline-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: rgba(226, 232, 240, 0.88);
+      white-space: nowrap;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .cta-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 0.95rem;
+      border: 1px dashed rgba(56, 189, 248, 0.55);
+      background: rgba(15, 23, 42, 0.55);
+      font-weight: 600;
+      color: #38bdf8;
+      transition: border 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .cta-ghost:hover {
+      border-color: rgba(99, 102, 241, 0.65);
+      background: rgba(56, 189, 248, 0.15);
+      color: #f8fafc;
+    }
+    .notice-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #34d399, #38bdf8);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.55);
+      flex-shrink: 0;
+    }
+    .menu-icon {
+      position: relative;
+      width: 18px;
+      height: 12px;
+    }
+    .menu-icon::before,
+    .menu-icon::after,
+    .menu-icon span {
+      content: '';
+      position: absolute;
       left: 0;
       width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      height: 2px;
+      border-radius: 9999px;
+      background: rgba(226, 232, 240, 0.9);
+    }
+    .menu-icon span { top: 5px; }
+    .menu-icon::before { top: 0; }
+    .menu-icon::after { bottom: 0; }
+    .feature-orb {
       display: flex;
-      justify-content: center;
       align-items: center;
-      z-index: 1000;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 1.2rem;
+      flex-shrink: 0;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.35);
     }
-  
-    .popup {
-      position: relative;
-      transform-origin: center;
-      background: white;
-      border-radius: 8px;
-      padding: 2rem;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      animation: popup-scale 0.3s ease-out;
+    .feature-orb-sky {
+      background: linear-gradient(140deg, rgba(56, 189, 248, 0.22), rgba(56, 189, 248, 0.55));
+      border: 1px solid rgba(56, 189, 248, 0.45);
     }
-  
-    @keyframes popup-scale {
-      0% {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
+    .feature-orb-emerald {
+      background: linear-gradient(140deg, rgba(16, 185, 129, 0.22), rgba(16, 185, 129, 0.55));
+      border: 1px solid rgba(16, 185, 129, 0.45);
+    }
+    .feature-orb-indigo {
+      background: linear-gradient(140deg, rgba(79, 70, 229, 0.24), rgba(129, 140, 248, 0.55));
+      border: 1px solid rgba(99, 102, 241, 0.45);
+    }
+    .feature-orb-amber {
+      background: linear-gradient(140deg, rgba(251, 191, 36, 0.24), rgba(245, 158, 11, 0.55));
+      border: 1px solid rgba(245, 158, 11, 0.45);
+    }
+    .service-chip::before {
+      content: '';
+      width: 9px;
+      height: 9px;
+      border-radius: 9999px;
+      background: currentColor;
+      opacity: 0.85;
+      box-shadow: 0 0 10px currentColor;
+    }
+    .service-chip {
+      gap: 0.6rem;
+    }
+    .feature-bullet {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .feature-bullet::before {
+      content: '';
+      width: 9px;
+      height: 9px;
+      border-radius: 9999px;
+      margin-top: 0.4rem;
+      box-shadow: 0 0 14px rgba(59, 130, 246, 0.45);
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      flex-shrink: 0;
+    }
+    .feature-bullet-amber::before {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      box-shadow: 0 0 14px rgba(251, 191, 36, 0.45);
+    }
+    .feature-bullet-emerald::before {
+      background: linear-gradient(135deg, #10b981, #34d399);
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.45);
+    }
+    .feature-bullet-indigo::before {
+      background: linear-gradient(135deg, #6366f1, #7c3aed);
+      box-shadow: 0 0 14px rgba(99, 102, 241, 0.45);
+    }
+    .feature-bullet-rose::before {
+      background: linear-gradient(135deg, #f472b6, #f43f5e);
+      box-shadow: 0 0 14px rgba(244, 114, 182, 0.45);
+    }
+    .feature-bullet-amber.soft::before {
+      background: linear-gradient(135deg, #f97316, #f59e0b);
+    }
+    .assurance-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 1.2rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(15, 23, 42, 0.6);
+      font-weight: 500;
+    }
+    .rating-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #facc15;
     }
   </style>
 </head>
-
-<body class="bg-gray-50" onclick="if(event.target.closest('#mobile-menu')===null && event.target.closest('button[onclick^=toggleMobileMenu]')===null){toggleMobileMenu(false)}">
-  
-  
-  <!-- Trust Bar -->
-  <div class="bg-gradient-to-r from-emerald-600 to-blue-600 text-white text-center py-2 text-sm font-medium">
-    <div class="animate-pulse">🎓 Trusted by 50,000+ students across USA & Canada • 98% satisfaction rate • Human writers only</div>
-  </div>
-<!-- Header -->
-<header class="w-full bg-white shadow-sm">
-  <div class="container mx-auto px-4 py-1 flex justify-between items-center">
-    <div class="flex items-center space-x-2">
-      <div class="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-        <i class="fas fa-graduation-cap text-white text-sm"></i>
+<body>
+  <div class="headline-banner">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="headline-track py-3">
+        <div class="headline-group">
+          <div class="headline-item"><span class="notice-dot"></span>Human-crafted essays from <strong>$10/page</strong></div>
+          <div class="headline-item"><span class="notice-dot"></span>Custom pricing for assignments &amp; tests in under 15 minutes</div>
+          <div class="headline-item"><span class="notice-dot"></span>Free plagiarism &amp; AI authenticity reports on every delivery</div>
+        </div>
+        <div class="headline-group">
+          <div class="headline-item"><span class="notice-dot"></span>Human-crafted essays from <strong>$10/page</strong></div>
+          <div class="headline-item"><span class="notice-dot"></span>Custom pricing for assignments &amp; tests in under 15 minutes</div>
+          <div class="headline-item"><span class="notice-dot"></span>Free plagiarism &amp; AI authenticity reports on every delivery</div>
+        </div>
       </div>
-      <span class="text-lg font-bold gradient-text">EssayMe</span>
-    </div>
-    
-    <!-- Desktop Nav -->
-    <nav class="hidden md:flex items-center space-x-6 font-medium text-gray-700 text-sm">
-      <a href="#home" class="hover:text-blue-600 transition-colors">Home</a>
-      <a href="#services" class="hover:text-blue-600 transition-colors">Services</a>
-      <a href="#pricing" class="hover:text-blue-600 transition-colors">Pricing</a>
-      <a href="#testimonials" class="hover:text-blue-600 transition-colors">Reviews</a>
-      <a href="#contact" class="hover:text-blue-600 transition-colors">Contact</a>
-    </nav>
-
-    <!-- Mobile Hamburger -->
-    <button class="md:hidden p-1 rounded-lg border border-gray-200" onclick="toggleMobileMenu()">
-      <i class="fas fa-bars text-gray-700"></i>
-    </button>
-
-    <!-- Right actions (desktop) -->
-    <div class="hidden md:flex items-center space-x-3">
-      <button onclick="showPanel('login-popup')" class="text-gray-700 hover:text-blue-600 transition-colors text-sm">Login</button>
-      <button onclick="showPanel('signup-popup')" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium hover:shadow-md transition-all">
-        Sign Up
-      </button>
     </div>
   </div>
-</header>
 
-<!-- Mobile Menu -->
-<nav id="mobile-menu" class="md:hidden hidden bg-white border-t shadow-sm">
-  <div class="container mx-auto px-4 py-3 space-y-3">
-    <a href="#home" onclick="toggleMobileMenu(false)" class="block text-gray-700 hover:text-blue-600">Home</a>
-    <a href="#services" onclick="toggleMobileMenu(false)" class="block text-gray-700 hover:text-blue-600">Services</a>
-    <a href="#pricing" onclick="toggleMobileMenu(false)" class="block text-gray-700 hover:text-blue-600">Pricing</a>
-    <a href="#testimonials" onclick="toggleMobileMenu(false)" class="block text-gray-700 hover:text-blue-600">Reviews</a>
-    <a href="#contact" onclick="toggleMobileMenu(false)" class="block text-gray-700 hover:text-blue-600">Contact</a>
-    <div class="pt-2 flex items-center space-x-3">
-      <button onclick="toggleMobileMenu(false); showPanel('login-popup')" class="flex-1 border border-gray-200 px-4 py-2 rounded-lg text-gray-700">Login</button>
-      <button onclick="toggleMobileMenu(false); showPanel('signup-popup')" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg">Sign Up</button>
-    </div>
-  </div>
-</nav>
-
-<!-- How It Works Popup -->
-<div id="howitworks-popup" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center hidden z-50">
-  <div class="w-full h-full md:h-auto md:max-h-[85vh] md:max-w-3xl relative mx-0 md:mx-4 overflow-hidden shadow-2xl animate-fadeIn md:rounded-2xl flex flex-col bg-white">
-    
-    <!-- Header (responsive) -->
-    <div class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white p-4 md:p-6 flex items-center sticky top-0 z-10">
-      <div class="flex items-center gap-3">
-        <h2 class="text-2xl md:text-3xl font-extrabold">How It Works</h2>
-      </div>
-      <button onclick="closePanel('howitworks-popup')" class="ml-auto text-white/90 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors" aria-label="Close">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-
-    <!-- Content -->
-    <div class="flex-1 overflow-y-auto p-5 md:p-8">
-
-    <!-- Steps (Carousel) -->
-    <div id="hiw-carousel" class="relative w-full max-w-2xl mx-auto">
-      <div class="overflow-hidden rounded-xl">
-        <div id="hiw-track" class="flex transition-transform duration-500 ease-out">
-          <!-- Slide 1 -->
-          <div class="hiw-slide w-full flex-shrink-0 p-6">
-            <div class="flex flex-col items-center bg-white/80 backdrop-blur rounded-xl border border-white/60 shadow-md hover:shadow-xl transition-all p-6">
-              <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
-                <i class="fas fa-clipboard-list text-blue-600 text-2xl"></i>
-              </div>
-              <h3 class="font-semibold text-lg text-gray-800">1. Place Your Order</h3>
-              <p class="text-gray-600 text-sm mt-2">Choose subject, assignment type, pages, due date, and upload any files.</p>
-            </div>
+  <header class="sticky top-0 z-30">
+    <div class="header-shell">
+      <div class="w-full px-4 sm:px-6 lg:px-10 py-4 flex items-center gap-6">
+        <a href="#" class="brand-lockup">
+          <div class="brand-icon">E</div>
+          <div>
+            <span class="brand-title">EssayMe</span>
+            <span class="brand-sub">Human writing only</span>
           </div>
-          <!-- Slide 2 -->
-          <div class="hiw-slide w-full flex-shrink-0 p-6">
-            <div class="flex flex-col items-center bg-white/80 backdrop-blur rounded-xl border border-white/60 shadow-md hover:shadow-xl transition-all p-6">
-              <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mb-4">
-                <i class="fas fa-search-dollar text-purple-600 text-2xl"></i>
-              </div>
-              <h3 class="font-semibold text-lg text-gray-800">2. We Review & Confirm</h3>
-              <p class="text-gray-600 text-sm mt-2">A human expert reviews your order and confirms the final quote and feasibility.</p>
-            </div>
-          </div>
-          <!-- Slide 3 -->
-          <div class="hiw-slide w-full flex-shrink-0 p-6">
-            <div class="flex flex-col items-center bg-white/80 backdrop-blur rounded-xl border border-white/60 shadow-md hover:shadow-xl transition-all p-6">
-              <div class="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center mb-4">
-                <i class="fas fa-spinner text-yellow-600 text-2xl"></i>
-              </div>
-              <h3 class="font-semibold text-lg text-gray-800">3. Work In Progress</h3>
-              <p class="text-gray-600 text-sm mt-2">We start immediately. Track progress and chat with your writer anytime.</p>
-            </div>
-          </div>
-          <!-- Slide 4 -->
-          <div class="hiw-slide w-full flex-shrink-0 p-6">
-            <div class="flex flex-col items-center bg-white/80 backdrop-blur rounded-xl border border-white/60 shadow-md hover:shadow-xl transition-all p-6">
-              <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
-                <i class="fas fa-file-download text-green-600 text-2xl"></i>
-              </div>
-              <h3 class="font-semibold text-lg text-gray-800">4. Receive & Pay</h3>
-              <p class="text-gray-600 text-sm mt-2">Receive your completed assignment, request edits if needed, then pay.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Controls -->
-      <button id="hiw-prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 w-10 h-10 rounded-full shadow border border-gray-200 flex items-center justify-center" aria-label="Previous step">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      <button id="hiw-next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 w-10 h-10 rounded-full shadow border border-gray-200 flex items-center justify-center" aria-label="Next step">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-      <!-- Indicators -->
-      <div class="flex justify-center mt-4 space-x-2">
-        <button class="hiw-dot w-2.5 h-2.5 rounded-full bg-blue-600" aria-label="Go to step 1"></button>
-        <button class="hiw-dot w-2.5 h-2.5 rounded-full bg-gray-300 hover:bg-gray-400" aria-label="Go to step 2"></button>
-        <button class="hiw-dot w-2.5 h-2.5 rounded-full bg-gray-300 hover:bg-gray-400" aria-label="Go to step 3"></button>
-        <button class="hiw-dot w-2.5 h-2.5 rounded-full bg-gray-300 hover:bg-gray-400" aria-label="Go to step 4"></button>
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="text-center mt-10">
-      <div class="mb-4 inline-flex items-center px-4 py-2 rounded-full bg-green-50 border border-green-200 text-green-800">
-        <i class="fas fa-shield-alt mr-2"></i>
-        You are not charged until you receive your assignment.
-      </div>
-      <button onclick="showPanel('signup-popup'); closePanel('howitworks-popup')" 
-              class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-xl transition-all transform hover:-translate-y-0.5 w-full md:w-auto">
-        Get Started Now
-      </button>
-    </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Hero Section -->
-<section id="home" class="hero-bg text-white py-24">
-  <div class="container mx-auto px-6">
-    <div class="flex flex-col lg:flex-row items-center">
-      <!-- Left side -->
-      <div class="lg:w-1/2 text-center lg:text-left">
-        <div class="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
-          <span class="text-green-300 mr-2">●</span>
-          <span class="text-sm">100% Human Writers • No AI Content</span>
-        </div>
-        
-        <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-          Academic Excellence
-          <span class="block text-yellow-300">Made Simple</span>
-        </h1>
-        
-        <p class="text-xl mb-8 text-blue-100 leading-relaxed">
-          Professional academic writing services by expert human writers. 
-          Fast delivery, affordable pricing, and guaranteed satisfaction.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 mb-12">
-          <button onclick="showPanel('signup-popup')" class="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transition-all">
-            <i class="fas fa-user-plus mr-2"></i>
-            Sign Up
-          </button>
-          <button onclick="showPanel('howitworks-popup')" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all">
-            <i class="fas fa-play mr-2"></i>
-            How It Works
-          </button>
-        </div>
-        
-        <div class="flex items-center justify-center lg:justify-start space-x-8 text-sm">
-          <div class="text-center">
-            <div class="font-bold text-2xl text-yellow-300">4.9/5</div>
-            <div>Average Rating</div>
-          </div>
-          <div class="text-center">
-            <div class="font-bold text-2xl text-yellow-300">48hrs</div>
-            <div>Fast Delivery</div>
-          </div>
-          <div class="text-center">
-            <div class="font-bold text-2xl text-yellow-300">50k+</div>
-            <div>Happy Students</div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Right side -->
-      <div class="lg:w-1/2 mt-12 lg:mt-0">
-        <div class="relative">
-          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071" alt="Students studying" class="rounded-2xl shadow-2xl animate-float">
-          <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-xl">
-            <div class="flex items-center space-x-3">
-              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <i class="fas fa-check text-green-600 text-xl"></i>
-              </div>
-              <div>
-                <div class="font-semibold text-gray-800">Order Completed</div>
-                <div class="text-sm text-gray-500">2 minutes ago</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-</section>
-
-  <!-- Stats Section -->
-  <section class="py-16 bg-white">
-    <div class="container mx-auto px-6">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-        <div>
-          <div class="stats-counter gradient-text">50k+</div>
-          <p class="text-gray-600 mt-2">Completed Orders</p>
-        </div>
-        <div>
-          <div class="stats-counter gradient-text">98%</div>
-          <p class="text-gray-600 mt-2">Satisfaction Rate</p>
-        </div>
-        <div>
-          <div class="stats-counter gradient-text">500+</div>
-          <p class="text-gray-600 mt-2">Expert Writers</p>
-        </div>
-        <div>
-          <div class="stats-counter gradient-text">24/7</div>
-          <p class="text-gray-600 mt-2">Support Available</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Section -->
-  <section id="services" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Premium Services</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Professional academic writing services crafted by human experts with years of experience in their respective fields.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg card-hover">
-          <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6">
-            <i class="fas fa-pen-fancy text-white text-2xl"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-4">Essay Writing</h3>
-          <p class="text-gray-600 mb-6">Custom essays written from scratch by subject matter experts. Every essay is unique, well-researched, and plagiarism-free.</p>
-          <ul class="space-y-2 text-sm text-gray-600">
-            <li><i class="fas fa-check text-green-500 mr-2"></i>100% Original Content</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>MLA/APA/Chicago Formatting</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Free Revisions</li>
-          </ul>
-        </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-lg card-hover">
-          <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
-            <i class="fas fa-search text-white text-2xl"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-4">Research Papers</h3>
-          <p class="text-gray-600 mb-6">In-depth research papers with comprehensive analysis, proper citations, and scholarly sources from credible databases.</p>
-          <ul class="space-y-2 text-sm text-gray-600">
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Extensive Research</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Peer-Reviewed Sources</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Statistical Analysis</li>
-          </ul>
-        </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-lg card-hover">
-          <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6">
-            <i class="fas fa-edit text-white text-2xl"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-4">Editing & Proofreading</h3>
-          <p class="text-gray-600 mb-6">Professional editing and proofreading services to perfect your writing, improve clarity, and eliminate errors.</p>
-          <ul class="space-y-2 text-sm text-gray-600">
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Grammar & Syntax Check</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Style Enhancement</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Structure Optimization</li>
-          </ul>
-        </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-lg card-hover">
-          <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-6">
-            <i class="fas fa-chart-bar text-white text-2xl"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-4">Case Studies</h3>
-          <p class="text-gray-600 mb-6">Detailed case study analysis with real-world applications, data interpretation, and actionable recommendations.</p>
-          <ul class="space-y-2 text-sm text-gray-600">
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Real Data Analysis</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Industry Insights</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Strategic Recommendations</li>
-          </ul>
-        </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-lg card-hover">
-          <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-6">
-            <i class="fas fa-presentation-screen text-white text-2xl"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-4">Presentations</h3>
-          <p class="text-gray-600 mb-6">Engaging PowerPoint presentations with professional design, compelling content, and interactive elements.</p>
-          <ul class="space-y-2 text-sm text-gray-600">
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Professional Design</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Speaker Notes Included</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Interactive Elements</li>
-          </ul>
-        </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-lg card-hover">
-          <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6">
-            <i class="fas fa-calculator text-white text-2xl"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-4">Homework Help</h3>
-          <p class="text-gray-600 mb-6">Step-by-step homework solutions with detailed explanations to help you understand complex concepts.</p>
-          <ul class="space-y-2 text-sm text-gray-600">
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Step-by-Step Solutions</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Concept Explanations</li>
-            <li><i class="fas fa-check text-green-500 mr-2"></i>Practice Problems</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Subjects Section -->
-  <section class="py-20 bg-white">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Subjects We Cover</h2>
-        <p class="text-xl text-gray-600">Our expert writers cover all academic disciplines with specialized knowledge and experience.</p>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-flask text-blue-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">Chemistry</h4>
-        </div>
-        <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-dna text-green-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">Biology</h4>
-        </div>
-        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-atom text-purple-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">Physics</h4>
-        </div>
-        <div class="bg-gradient-to-br from-pink-50 to-pink-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-calculator text-pink-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">Mathematics</h4>
-        </div>
-        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-code text-indigo-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">Computer Science</h4>
-        </div>
-        <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-chart-line text-yellow-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">Economics</h4>
-        </div>
-        <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-balance-scale text-red-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">Law</h4>
-        </div>
-        <div class="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-user-md text-teal-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">Medicine</h4>
-        </div>
-        <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-paint-brush text-orange-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">Literature</h4>
-        </div>
-        <div class="bg-gradient-to-br from-cyan-50 to-cyan-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-landmark text-cyan-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">History</h4>
-        </div>
-        <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-brain text-emerald-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">Psychology</h4>
-        </div>
-        <div class="bg-gradient-to-br from-violet-50 to-violet-100 p-6 rounded-xl text-center hover:shadow-lg transition-all">
-          <i class="fas fa-graduation-cap text-violet-600 text-3xl mb-3"></i>
-          <h4 class="font-semibold text-gray-800">Education</h4>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why Choose Us -->
-  <section class="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Why Choose EssayMe?</h2>
-        <p class="text-xl text-gray-600">We're committed to delivering excellence through human expertise and dedication.</p>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2074" alt="Professional writers" class="rounded-2xl shadow-2xl">
-        </div>
-        
-        <div class="space-y-8">
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-user-graduate text-white"></i>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2">100% Human Writers</h3>
-              <p class="text-gray-600">Every assignment is crafted by experienced human writers with advanced degrees. No AI tools or automated content generation.</p>
-            </div>
-          </div>
-
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-clock text-white"></i>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2">Fast Turnaround</h3>
-              <p class="text-gray-600">Urgent assignments completed in as little as 3 hours. Standard delivery within 24-48 hours without compromising quality.</p>
-            </div>
-          </div>
-
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-dollar-sign text-white"></i>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2">Affordable Pricing</h3>
-              <p class="text-gray-600">Competitive rates starting from $9.99/page. Special discounts for first-time customers and bulk orders.</p>
-            </div>
-          </div>
-
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-shield-alt text-white"></i>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2">Quality Guarantee</h3>
-              <p class="text-gray-600">Free unlimited revisions until you're 100% satisfied. Money-back guarantee if we fail to meet your expectations.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing Section -->
-  <section id="pricing" class="py-20 bg-white">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Transparent Pricing</h2>
-        <p class="text-xl text-gray-600">Affordable rates with no hidden fees. Quality academic help that fits your budget.</p>
-      </div>
-
-      <div class="grid md:grid-cols-4 gap-8">
-        <div class="pricing-card bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 rounded-2xl p-8 shadow-2xl border-2 border-blue-200 transform scale-105">
-          <div class="text-center">
-            <div class="bg-yellow-400 text-yellow-900 px-4 py-1 rounded-full text-sm font-semibold mb-4 inline-flex items-center gap-2">
-              <i class="fas fa-star"></i> BEST VALUE
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-2">Writing</h3>
-            <p class="text-indigo-100 mb-6">Essays, research papers, case studies, lab reports, thesis</p>
-            <div class="mb-6">
-              <span class="text-5xl font-extrabold text-white">$13</span>
-              <span class="text-indigo-200">/page</span>
-            </div>
-            <ul class="space-y-3 text-left mb-8 text-white">
-              <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Original, researched content</li>
-              <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Free revisions</li>
-              <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Citation formatting (APA/MLA/Chicago)</li>
-              <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>24/7 support</li>
-            </ul>
-            <button onclick="showPanel('signup-popup')" class="w-full bg-white text-blue-700 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
-              Get Started
-            </button>
-          </div>
-        </div>
-
-        <div class="pricing-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-purple-200 transition-all hover:-translate-y-1 hover:shadow-2xl">
-          <div class="text-center">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Correction</h3>
-            <p class="text-gray-600 mb-6">Proofreading, editing, grammar check</p>
-            <div class="mb-6">
-              <span class="text-4xl font-bold text-purple-600">$9</span>
-              <span class="text-gray-500">/page</span>
-            </div>
-            <ul class="space-y-3 text-left mb-8">
-              <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Grammar and style improvement</li>
-              <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Clarity and flow edits</li>
-              <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Citation and formatting checks</li>
-              <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Plagiarism-safe</li>
-            </ul>
-            <button onclick="showPanel('signup-popup')" class="w-full bg-purple-600 text-white py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors">
-              Select Correction
-            </button>
-          </div>
-        </div>
-
-        <div class="pricing-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-orange-200 transition-all hover:-translate-y-1 hover:shadow-2xl">
-          <div class="text-center">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Rewriting</h3>
-            <p class="text-gray-600 mb-6">Rewrite, paraphrasing, and improvement</p>
-            <div class="mb-6">
-              <span class="text-4xl font-bold text-orange-600">$15</span>
-              <span class="text-gray-500">/page</span>
-            </div>
-            <ul class="space-y-3 text-left mb-8">
-              <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Rewrite essays and papers</li>
-              <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Paraphrase to improve originality</li>
-              <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Improve clarity and structure</li>
-            </ul>
-            <button onclick="showPanel('signup-popup')" class="w-full bg-orange-600 text-white py-3 rounded-full font-semibold hover:bg-orange-700 transition-colors">
-              Select Rewriting
-            </button>
-          </div>
-        </div>
-        <div class="pricing-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-green-200 transition-all hover:-translate-y-1 hover:shadow-2xl">
-          <div class="text-center">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Technical</h3>
-            <p class="text-gray-600 mb-6">Math, physics, programming, engineering, statistics</p>
-            <div class="mb-6">
-              <span class="text-2xl font-bold text-green-600">Custom Quote</span>
-            </div>
-            <ul class="space-y-3 text-left mb-8">
-              <li class="flex items-center"><i class="fas fa-info-circle text-green-500 mr-3"></i>Upload materials for review</li>
-              <li class="flex items-center"><i class="fas fa-info-circle text-green-500 mr-3"></i>We evaluate complexity and scope</li>
-              <li class="flex items-center"><i class="fas fa-info-circle text-green-500 mr-3"></i>Get a firm price before you pay</li>
-            </ul>
-            <button onclick="showPanel('signup-popup')" class="w-full bg-green-600 text-white py-3 rounded-full font-semibold hover:bg-green-700 transition-colors">
-              Request Quote
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Tools Section -->
-  <section class="py-20 bg-gray-50">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Professional Tools We Use</h2>
-        <p class="text-xl text-gray-600">Industry-leading software and resources to ensure the highest quality output</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="bg-white p-6 rounded-2xl shadow-lg text-center card-hover">
-          <img src="https://img.icons8.com/color/48/grammarly.png" alt="Grammarly" class="w-16 h-16 mx-auto mb-4">
-          <h3 class="font-bold text-gray-800 mb-2">Grammarly Premium</h3>
-          <p class="text-sm text-gray-600">Advanced grammar and style checking</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-lg text-center card-hover">
-          <img src="https://i.imgur.com/z5j4Xa1.png" alt="Turnitin" class="w-16 h-16 mx-auto mb-4">
-          <h3 class="font-bold text-gray-800 mb-2">Turnitin</h3>
-          <p class="text-sm text-gray-600">Plagiarism detection and originality verification</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-lg text-center card-hover">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Scholar_logo.svg/512px-Google_Scholar_logo.svg.png" alt="Google Scholar" class="w-16 h-16 mx-auto mb-4">
-          <h3 class="font-bold text-gray-800 mb-2">Google Scholar</h3>
-          <p class="text-sm text-gray-600">Academic research and citation database</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-lg text-center card-hover">
-          <img src="https://i.imgur.com/T4TuBsv_d.webp?maxwidth=760&fidelity=grand" alt="Mendeley" class="w-16 h-16 mx-auto mb-4">
-          <h3 class="font-bold text-gray-800 mb-2">Mendeley</h3>
-          <p class="text-sm text-gray-600">Reference management and collaboration</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Payment Methods -->
-  <section class="py-20 bg-white">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">Secure Payment Options</h2>
-        <p class="text-xl text-gray-600">Multiple payment methods for your convenience and security</p>
-      </div>
-
-      <div class="flex justify-center items-center space-x-8 flex-wrap">
-        <div class="bg-blue-50 p-4 rounded-xl mb-4">
-          <i class="fab fa-paypal text-4xl text-blue-600"></i>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-xl mb-4">
-          <i class="fab fa-cc-visa text-4xl text-blue-700"></i>
-        </div>
-        <div class="bg-red-50 p-4 rounded-xl mb-4">
-          <i class="fab fa-cc-mastercard text-4xl text-red-600"></i>
-        </div>
-        <div class="bg-blue-50 p-4 rounded-xl mb-4">
-          <i class="fab fa-cc-amex text-4xl text-blue-800"></i>
-        </div>
-        <div class="bg-orange-50 p-4 rounded-xl mb-4">
-          <i class="fab fa-bitcoin text-4xl text-orange-500"></i>
-        </div>
-        <div class="bg-green-50 p-4 rounded-xl mb-4">
-          <i class="fas fa-university text-4xl text-green-600"></i>
-        </div>
-      </div>
-
-      <div class="text-center mt-8">
-        <div class="inline-flex items-center bg-green-50 px-6 py-3 rounded-full">
-          <i class="fas fa-shield-alt text-green-600 mr-2"></i>
-          <span class="text-green-800 font-semibold">256-bit SSL Encryption • Money-back Guarantee</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="py-20 bg-white">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-800 mb-4">What Students Say About Us</h2>
-        <p class="text-xl text-gray-600">Real reviews from satisfied students across North America</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="testimonial-card p-8 rounded-2xl shadow-lg">
-          <div class="flex items-center mb-6">
-            <img src="https://i.pinimg.com/736x/85/5f/ed/855fedd2e8c025aa3346ca68d1b841cb.jpg" alt="Sarah M." class="w-12 h-12 rounded-full mr-4">
-            <div>
-              <h4 class="font-bold text-gray-800">Sarah M.</h4>
-              <p class="text-sm text-gray-500">Harvard University</p>
-              <div class="rating-stars text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-gray-600 italic">"Absolutely incredible service! My research paper on environmental science was delivered 2 days early and exceeded all my expectations. The writer clearly understood complex concepts and presented them beautifully. Will definitely use again!"</p>
-        </div>
-
-        <div class="testimonial-card p-8 rounded-2xl shadow-lg">
-          <div class="flex items-center mb-6">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&h=150&fit=crop&crop=face" alt="Michael T." class="w-12 h-12 rounded-full mr-4">
-            <div>
-              <h4 class="font-bold text-gray-800">Michael T.</h4>
-              <p class="text-sm text-gray-500">University of Toronto</p>
-              <div class="rating-stars text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-gray-600 italic">"I was struggling with my economics thesis and EssayMe saved my semester! The quality of writing and analysis was exceptional. Customer support was also very responsive and helpful throughout the process."</p>
-        </div>
-
-        <div class="testimonial-card p-8 rounded-2xl shadow-lg">
-          <div class="flex items-center mb-6">
-            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&h=150&fit=crop&crop=face" alt="Emma L." class="w-12 h-12 rounded-full mr-4">
-            <div>
-              <h4 class="font-bold text-gray-800">Emma L.</h4>
-              <p class="text-sm text-gray-500">Stanford University</p>
-              <div class="rating-stars text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-gray-600 italic">"Fast, professional, and affordable! Got my psychology case study done in just 24 hours without any compromise on quality. The formatting was perfect and sources were all credible. Highly recommend!"</p>
-        </div>
-
-        <div class="testimonial-card p-8 rounded-2xl shadow-lg">
-          <div class="flex items-center mb-6">
-            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&h=150&fit=crop&crop=face" alt="David R." class="w-12 h-12 rounded-full mr-4">
-            <div>
-              <h4 class="font-bold text-gray-800">David R.</h4>
-              <p class="text-sm text-gray-500">MIT</p>
-              <div class="rating-stars text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-gray-600 italic">"The computer science assignment help was outstanding. The code was clean, well-commented, and the accompanying documentation was thorough. It's clear they have real experts working on these projects."</p>
-        </div>
-
-        <div class="testimonial-card p-8 rounded-2xl shadow-lg">
-          <div class="flex items-center mb-6">
-            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&h=150&fit=crop&crop=face" alt="Jessica K." class="w-12 h-12 rounded-full mr-4">
-            <div>
-              <h4 class="font-bold text-gray-800">Jessica K.</h4>
-              <p class="text-sm text-gray-500">McGill University</p>
-              <div class="rating-stars text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-gray-600 italic">"Their editing service transformed my paper completely. Grammar, structure, and flow were all improved significantly. The final version looked like it was written by a professional. Worth every penny!"</p>
-        </div>
-
-        <div class="testimonial-card p-8 rounded-2xl shadow-lg">
-          <div class="flex items-center mb-6">
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&h=150&fit=crop&crop=face" alt="Alex P." class="w-12 h-12 rounded-full mr-4">
-            <div>
-              <h4 class="font-bold text-gray-800">Alex P.</h4>
-              <p class="text-sm text-gray-500">Yale University</p>
-              <div class="rating-stars text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-gray-600 italic">"I've used several writing services before, but EssayMe stands out for their human touch. You can tell real experts worked on my philosophy essay - the depth of analysis was impressive."</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Ratings Section -->
-  <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-800 mb-4">Trusted Across Review Platforms</h2>
-        <p class="text-xl text-gray-600">Consistently high ratings from verified customers</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i class="fas fa-star text-green-600 text-2xl"></i>
-          </div>
-          <h3 class="font-bold text-2xl text-gray-800">4.9/5</h3>
-          <p class="text-gray-600 mb-2">Trustpilot</p>
-          <div class="rating-stars">★★★★★</div>
-          <p class="text-sm text-gray-500 mt-2">2,847 reviews</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i class="fas fa-thumbs-up text-blue-600 text-2xl"></i>
-          </div>
-          <h3 class="font-bold text-2xl text-gray-800">4.8/5</h3>
-          <p class="text-gray-600 mb-2">Google Reviews</p>
-          <div class="rating-stars">★★★★★</div>
-          <p class="text-sm text-gray-500 mt-2">1,923 reviews</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
-          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i class="fas fa-medal text-purple-600 text-2xl"></i>
-          </div>
-          <h3 class="font-bold text-2xl text-gray-800">4.9/5</h3>
-          <p class="text-gray-600 mb-2">SiteJabber</p>
-          <div class="rating-stars">★★★★★</div>
-          <p class="text-sm text-gray-500 mt-2">1,456 reviews</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
-          <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i class="fas fa-award text-orange-600 text-2xl"></i>
-          </div>
-          <h3 class="font-bold text-2xl text-gray-800">4.7/5</h3>
-          <p class="text-gray-600 mb-2">Reviews.io</p>
-          <div class="rating-stars">★★★★★</div>
-          <p class="text-sm text-gray-500 mt-2">3,241 reviews</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="py-20 bg-gradient-to-br from-blue-600 to-purple-700 text-white">
-    <div class="container mx-auto px-6 text-center">
-      <h2 class="text-4xl font-bold mb-6">Ready to Boost Your Grades?</h2>
-      <p class="text-xl mb-8 text-blue-100">Join thousands of successful students who trust EssayMe for their academic success</p>
-      
-      <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-        <button onclick="showPanel('signup-popup')" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all">
-          <i class="fas fa-user-plus mr-2"></i>
-          Sign Up
-        </button>
-        <button class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-blue-600 transition-all">
-          <i class="fas fa-phone mr-2"></i>
-          Call Us Now
-        </button>
-      </div>
-
-      <div class="mt-12 flex justify-center space-x-8 text-sm">
-        <div class="flex items-center">
-          <i class="fas fa-check-circle mr-2 text-green-300"></i>
-          <span>Free Revisions</span>
-        </div>
-        <div class="flex items-center">
-          <i class="fas fa-shield-alt mr-2 text-green-300"></i>
-          <span>Money-Back Guarantee</span>
-        </div>
-        <div class="flex items-center">
-          <i class="fas fa-clock mr-2 text-green-300"></i>
-          <span>24/7 Support</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer id="contact" class="bg-gray-900 text-white py-16">
-    <div class="container mx-auto px-6">
-      <div class="grid md:grid-cols-4 gap-8">
-        <div>
-          <div class="flex items-center space-x-3 mb-6">
-            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <i class="fas fa-graduation-cap text-white"></i>
-            </div>
-            <span class="text-2xl font-bold">EssayMe</span>
-          </div>
-          <p class="text-gray-400 mb-6">Professional academic writing services by human experts. Your success is our priority.</p>
-          <div class="flex space-x-4">
-            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
-              <i class="fab fa-instagram"></i>
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <h3 class="text-lg font-bold mb-6">Services</h3>
-          <ul class="space-y-3 text-gray-400">
-            <li><a href="#" class="hover:text-white transition-colors">Essay Writing</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Research Papers</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Homework Help</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Editing Service</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Presentations</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="text-lg font-bold mb-6">Support</h3>
-          <ul class="space-y-3 text-gray-400">
-            <li><a href="#" onclick="showPanel('faq-popup')" class="hover:text-white transition-colors">FAQ</a></li>
-            <li><a href="#" onclick="showPanel('livechat-popup')" class="hover:text-white transition-colors">Live Chat</a></li>
-            <li><a href="#" onclick="showPanel('contact-popup')" class="hover:text-white transition-colors">Contact Us</a></li>
-            <li><a href="#" onclick="showPanel('privacy-popup')" class="hover:text-white transition-colors">Privacy Policy</a></li>
-            <li><a href="#" onclick="showPanel('terms-popup')" class="hover:text-white transition-colors">Terms of Service</a></li>
-            <li><a href="#" onclick="showPanel('refund-popup')" class="hover:text-white transition-colors">Refunds</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="text-lg font-bold mb-6">Contact Info</h3>
-          <div class="space-y-4 text-gray-400">
-            <div class="flex items-center">
-              <i class="fas fa-phone mr-3 text-blue-500"></i>
-              <span>+1 (555) 123-4567</span>
-            </div>
-            <div class="flex items-center">
-              <i class="fas fa-envelope mr-3 text-blue-500"></i>
-              <span>support@essayme.com</span>
-            </div>
-            <div class="flex items-center">
-              <i class="fas fa-clock mr-3 text-blue-500"></i>
-              <span>24/7 Available</span>
-            </div>
-            <div class="flex items-center">
-              <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i>
-              <span>USA & Canada</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-        <p>&copy; 2025 EssayMe. All rights reserved. | Professional Academic Writing Services</p>
-      <div class="mt-4 flex justify-center items-center space-x-2">
-                <a href="https://iyonicorp.com/" target="_blank" class="hover:underline">
-                  
         </a>
-        <span class="glitter-text">Powered by Iyonicorp</span>
+        <nav class="hidden lg:flex flex-1 justify-center">
+          <div class="nav-cluster">
+            <a href="#pricing" class="nav-link">Pricing</a>
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#custom" class="nav-link">Assignments &amp; Tests</a>
+            <a href="#reviews" class="nav-link">Reviews</a>
+            <a href="#tools" class="nav-link">Tools</a>
+          </div>
+        </nav>
+        <div class="hidden md:flex items-center gap-3 ml-auto">
+          <button onclick="scrollToPricing()" class="cta-ghost hidden xl:inline-flex"><span class="notice-dot"></span>Instant Quote</button>
+          <button onclick="openModal('login-modal')" class="secondary-btn w-auto px-5 py-2">Login</button>
+          <button onclick="openModal('signup-modal')" class="primary-btn w-auto px-5 py-2">Sign Up</button>
+        </div>
+        <button onclick="toggleMenu()" class="md:hidden ml-auto w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center text-slate-100"><span class="menu-icon"><span></span></span></button>
       </div>
+      <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800/60 bg-slate-950/95">
+        <div class="px-6 py-5 flex flex-col gap-4 text-sm text-slate-200">
+          <a href="#pricing" class="nav-link w-full" onclick="toggleMenu(true)">Pricing</a>
+          <a href="#services" class="nav-link w-full" onclick="toggleMenu(true)">Services</a>
+          <a href="#custom" class="nav-link w-full" onclick="toggleMenu(true)">Assignments &amp; Tests</a>
+          <a href="#reviews" class="nav-link w-full" onclick="toggleMenu(true)">Reviews</a>
+          <a href="#tools" class="nav-link w-full" onclick="toggleMenu(true)">Tools</a>
+          <button onclick="toggleMenu(true); scrollToPricing()" class="cta-ghost justify-center w-full"><span class="notice-dot"></span>Instant Quote</button>
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
+            <button onclick="toggleMenu(true); openModal('login-modal')" class="secondary-btn">Login</button>
+            <button onclick="toggleMenu(true); openModal('signup-modal')" class="primary-btn">Sign Up</button>
+          </div>
+        </div>
       </div>
-      
+    </div>
+  </header>
+
+  <main>
+    <section class="mesh-bg relative overflow-hidden">
+      <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 lg:py-28 flex flex-col lg:flex-row items-start gap-16">
+        <div class="flex-1 space-y-10">
+          <div class="tag-pill"><span class="dot"></span>Real experts, zero AI content</div>
+          <div class="space-y-6">
+            <h1 class="text-4xl lg:text-6xl font-semibold leading-tight tracking-tight hero-title">Human writing from <span class="block text-transparent gradient-text">just $10 per page</span></h1>
+            <p class="text-lg text-slate-300 max-w-xl">Hire award-winning writers for essays, research projects, and coursework. Complex assignments and live tests receive instant custom pricing so you always know the exact investment up front, and every delivery ships with free plagiarism and AI reports.</p>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4 text-sm">
+            <button onclick="openModal('signup-modal')" class="primary-btn text-base justify-center"><span class="notice-dot"></span>Get Started in 60 Seconds</button>
+            <button onclick="scrollToPricing()" class="secondary-btn justify-center text-base"><span class="notice-dot"></span>Explore Pricing</button>
+          </div>
+          <div class="floating-stats grid grid-cols-2 sm:grid-cols-3 gap-6 text-slate-300/90">
+            <div><span>$10</span><span>Per-page writing</span></div>
+            <div><span>15 min</span><span>Custom quotes sent</span></div>
+            <div class="hidden sm:flex"><span>24/7</span><span>Priority support</span></div>
+          </div>
+        </div>
+        <div class="flex-1 w-full">
+          <div class="glass shadow-2xl p-8 space-y-8">
+            <div class="text-center space-y-4">
+              <div class="flex items-center justify-center gap-3">
+                <h2 class="text-2xl font-bold">Instant Quote</h2>
+                <span class="service-chip">Secure & Fast</span>
+              </div>
+              <p class="text-slate-400 text-sm">Get pricing in seconds or custom quotes in 15 minutes</p>
+            </div>
+            <div class="segment-toggle bg-slate-900/60 p-2 rounded-2xl flex gap-2 shadow-inner">
+              <button data-type="writing" class="active flex-1 py-3 px-4 text-sm font-semibold rounded-xl transition-all duration-300">Writing</button>
+              <button data-type="assignments" class="flex-1 py-3 px-4 text-sm font-semibold rounded-xl transition-all duration-300">Assignments</button>
+              <button data-type="tests" class="flex-1 py-3 px-4 text-sm font-semibold rounded-xl transition-all duration-300">Live Tests</button>
+            </div>
+            <div id="quote-panel-writing" class="space-y-6">
+              <div class="space-y-2">
+                <label class="text-sm text-slate-400">Number of pages</label>
+                <div class="flex items-center gap-4">
+                  <input id="page-slider" class="quote-slider" type="range" min="1" max="25" value="3">
+                  <span id="page-value" class="text-lg font-semibold">3 pages</span>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <label class="text-sm text-slate-400">Deadline</label>
+                <div class="grid grid-cols-2 gap-3 text-sm">
+                  <button data-speed="72" class="deadline-btn active">72 hours</button>
+                  <button data-speed="48" class="deadline-btn">48 hours</button>
+                  <button data-speed="24" class="deadline-btn">24 hours</button>
+                  <button data-speed="12" class="deadline-btn">12 hours</button>
+                </div>
+              </div>
+              <div class="glass p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-sky-500/30">
+                <div>
+                  <p class="text-sm text-slate-400">Estimated total</p>
+                  <p id="quote-total" class="text-3xl font-bold gradient-text">$30</p>
+                  <span class="text-xs text-slate-500 uppercase tracking-wider">Includes plagiarism scan & formatting</span>
+                </div>
+                <button onclick="openModal('signup-modal')" class="primary-btn sm:w-auto">Continue</button>
+              </div>
+            </div>
+            <div id="quote-panel-assignments" class="hidden space-y-6">
+              <div class="text-center space-y-6">
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold text-slate-100">Custom Assignment Support</h3>
+                  <p class="text-slate-300">From coding projects to research papers, get a custom quote in under 15 minutes.</p>
+                </div>
+                <div class="glass p-6 border border-indigo-500/30">
+                  <div class="space-y-4 text-center">
+                    <div class="text-2xl font-bold gradient-text">Expert Matching</div>
+                    <p class="text-sm text-slate-400">Upload your assignment details and get paired with the perfect specialist</p>
+                    <button onclick="openModal('signup-modal')" class="primary-btn w-full text-lg py-4">Get Custom Quote</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="quote-panel-tests" class="hidden space-y-6">
+              <div class="text-center space-y-6">
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold text-slate-100">Live Test Support</h3>
+                  <p class="text-slate-300">Professional assistance for exams, quizzes, and technical interviews.</p>
+                </div>
+                <div class="glass p-6 border border-emerald-500/30">
+                  <div class="space-y-4 text-center">
+                    <div class="text-2xl font-bold gradient-text">24/7 Availability</div>
+                    <p class="text-sm text-slate-400">Connect with vetted experts across 120+ subjects</p>
+                    <button onclick="openModal('signup-modal')" class="primary-btn w-full text-lg py-4">Secure Support</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="py-20 bg-slate-950">
+      <div class="max-w-6xl mx-auto px-6 space-y-12">
+        <div class="text-center space-y-4">
+          <span class="service-chip">Transparent by default</span>
+          <h2 class="text-3xl lg:text-4xl font-semibold">Pricing built for students, not surprises</h2>
+          <p class="text-slate-400 max-w-2xl mx-auto">Every page includes human research, formatting, and two rounds of edits. Advanced coursework and live tests receive customized quotes after a quick review.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="glass p-8 feature-card border border-sky-500/25 flex flex-col gap-6">
+            <div class="service-chip">Writing</div>
+            <h3 class="text-2xl font-semibold">$10 per page</h3>
+            <p class="text-slate-400">Essays, literature reviews, research papers, reflections, speeches, and more.</p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="feature-bullet">Original content with scholar-grade sources</li>
+              <li class="feature-bullet">Citation styles: APA, MLA, Chicago, Harvard</li>
+              <li class="feature-bullet">Free revisions within 7 days</li>
+              <li class="feature-bullet">Complimentary plagiarism & AI authenticity reports</li>
+            </ul>
+            <button onclick="openModal('signup-modal')" class="primary-btn mt-auto">Start an Order</button>
+          </div>
+          <div class="glass p-8 feature-card bg-gradient-to-br from-indigo-600/30 via-slate-900/80 to-slate-950 border border-indigo-400/30 flex flex-col gap-6">
+            <div class="service-chip bg-indigo-500/20 text-indigo-200">Assignments</div>
+            <h3 class="text-2xl font-semibold">Custom estimate</h3>
+            <p class="text-slate-300">Problem sets, coding projects, lab reports, multi-step case studies, STEM coursework.</p>
+            <ul class="space-y-3 text-sm text-slate-200">
+              <li class="feature-bullet feature-bullet-amber">Expert assigned by discipline</li>
+              <li class="feature-bullet feature-bullet-amber">Iterative updates and checkpoints</li>
+              <li class="feature-bullet feature-bullet-amber">Pricing shaped by complexity & turnaround</li>
+              <li class="feature-bullet feature-bullet-amber">Free plagiarism and AI verification reports with delivery</li>
+            </ul>
+            <button onclick="openModal('signup-modal')" class="primary-btn mt-auto">Get My Quote</button>
+          </div>
+          <div class="glass p-8 feature-card border border-emerald-400/25 flex flex-col gap-6">
+            <div class="service-chip bg-emerald-500/20 text-emerald-200">Live Tests</div>
+            <h3 class="text-2xl font-semibold">Custom estimate</h3>
+            <p class="text-slate-400">Proctored exams, timed quizzes, oral defenses, technical interviews.</p>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="feature-bullet feature-bullet-emerald">Dedicated expert on standby</li>
+              <li class="feature-bullet feature-bullet-emerald">Integrity-compliant workflows</li>
+              <li class="feature-bullet feature-bullet-emerald">Real-time communication channel</li>
+              <li class="feature-bullet feature-bullet-emerald">Complimentary plagiarism and AI audit reports post-session</li>
+            </ul>
+            <button onclick="openModal('signup-modal')" class="primary-btn mt-auto">Secure Support</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="py-20 bg-slate-900">
+      <div class="max-w-6xl mx-auto px-6 space-y-12">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="space-y-6">
+            <span class="service-chip">Best-selling deliverables</span>
+            <h2 class="text-3xl font-semibold">Every page is researched, written, and proofread by humans</h2>
+            <p class="text-slate-400">From freshman composition to doctoral-level analysis, our writers handle the entire narrative arc. Need a custom structure? Attach your rubric, and we build around it—with free plagiarism and AI reports attached to every delivery.</p>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="glass p-5 feature-card">
+                <h3 class="text-lg font-semibold">Essay packages</h3>
+                <p class="text-sm text-slate-400">Argumentative, narrative, reflection, speech, admissions.</p>
+              </div>
+              <div class="glass p-5 feature-card">
+                <h3 class="text-lg font-semibold">Research builds</h3>
+                <p class="text-sm text-slate-400">Annotated bibliographies, literature reviews, policy memos.</p>
+              </div>
+              <div class="glass p-5 feature-card">
+                <h3 class="text-lg font-semibold">Presentation decks</h3>
+                <p class="text-sm text-slate-400">Slide design with speaker notes and script sync.</p>
+              </div>
+              <div class="glass p-5 feature-card">
+                <h3 class="text-lg font-semibold">Editing polish</h3>
+                <p class="text-sm text-slate-400">Line edits, restructuring, citation alignment, tone upgrades.</p>
+              </div>
+            </div>
+          </div>
+          <div class="glass p-8 space-y-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-semibold">Why students stay with EssayMe</h3>
+              <div class="service-chip bg-slate-800 text-slate-200">98% satisfaction</div>
+            </div>
+            <ul class="space-y-4 text-sm text-slate-300">
+              <li class="flex items-start gap-4"><span class="feature-orb feature-orb-sky"></span><div><strong>Human-first approach:</strong> No AI drafting. Every sentence is built by degree-holding specialists and delivered with AI authenticity proof.</div></li>
+              <li class="flex items-start gap-4"><span class="feature-orb feature-orb-emerald"></span><div><strong>Dedicated account pods:</strong> Chat with the same project manager from draft to delivery, plus receive free plagiarism snapshots at every milestone.</div></li>
+              <li class="flex items-start gap-4"><span class="feature-orb feature-orb-indigo"></span><div><strong>Deadline resilience:</strong> Rush turnarounds without quality drop-offs. Transparent ETA at checkout and proof of originality on delivery.</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="custom" class="py-20 bg-slate-950">
+      <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-14 items-center">
+        <div class="glass p-8 space-y-6">
+          <div class="service-chip bg-amber-500/15 text-amber-200">Custom assignments</div>
+          <h2 class="text-3xl font-semibold">Complex builds deserve custom pricing</h2>
+          <p class="text-slate-400">Engineering labs, econometrics, Java Spring projects, organic chemistry reactions – these require deeper scoping. We listen first, map complexity, then quote exactly what you need.</p>
+          <div class="space-y-3 text-sm text-slate-300">
+            <div class="feature-bullet feature-bullet-amber soft">Upload briefs, datasets, or starter code to match with a specialist.</div>
+            <div class="feature-bullet feature-bullet-amber soft">Receive timeline + investment within 15 minutes of review.</div>
+            <div class="feature-bullet feature-bullet-amber soft">Iterative delivery with milestone approvals built in.</div>
+            <div class="feature-bullet feature-bullet-amber soft">Final package includes free plagiarism and AI authenticity certificates.</div>
+          </div>
+          <button onclick="openModal('signup-modal')" class="primary-btn w-full sm:w-auto">Share My Assignment</button>
+        </div>
+        <div class="glass p-8 space-y-6 border border-emerald-400/20">
+          <div class="service-chip bg-emerald-500/15 text-emerald-200">Live test support</div>
+          <h3 class="text-2xl font-semibold">Verified pros on standby for tests</h3>
+          <p class="text-slate-400">Need backup for a calculus quiz or nursing pharmacology exam? We assemble a verified proctor-safe workflow and share custom pricing before you commit.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <div class="glass p-4 bg-slate-900/60 border border-emerald-500/15">
+              <p class="text-slate-400 text-xs uppercase">Connection</p>
+              <p class="text-lg font-semibold">Encrypted channels</p>
+            </div>
+            <div class="glass p-4 bg-slate-900/60 border border-emerald-500/15">
+              <p class="text-slate-400 text-xs uppercase">Response time</p>
+              <p class="text-lg font-semibold">Under 5 minutes</p>
+            </div>
+            <div class="glass p-4 bg-slate-900/60 border border-emerald-500/15">
+              <p class="text-slate-400 text-xs uppercase">Coverage</p>
+              <p class="text-lg font-semibold">Across 120+ subjects</p>
+            </div>
+            <div class="glass p-4 bg-slate-900/60 border border-emerald-500/15">
+              <p class="text-slate-400 text-xs uppercase">Availability</p>
+              <p class="text-lg font-semibold">24/7 global</p>
+            </div>
+          </div>
+          <div class="text-sm text-slate-300">After every test we send the completed work plus free plagiarism and AI verification summaries for your records.</div>
+          <button onclick="openModal('signup-modal')" class="secondary-btn">Schedule A Strategy Call</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="tools" class="py-20 bg-slate-900">
+      <div class="max-w-6xl mx-auto px-6 space-y-12">
+        <div class="text-center space-y-4">
+          <span class="service-chip">Tools powering every submission</span>
+          <h2 class="text-3xl lg:text-4xl font-semibold">Professional platforms we use on your assignments</h2>
+          <p class="text-slate-400 max-w-3xl mx-auto">Every order includes documented plagiarism and AI screening reports—delivered for free alongside the final files.</p>
+        </div>
+        <div class="grid lg:grid-cols-3 gap-8">
+          <div class="glass p-6 space-y-4 border border-sky-500/20">
+            <div class="service-chip">Research</div>
+            <h3 class="text-xl font-semibold">Scholarly discovery</h3>
+            <ul class="space-y-2 text-sm text-slate-300">
+              <li class="feature-bullet">Google Scholar & IEEE Xplore</li>
+              <li class="feature-bullet">JSTOR & EBSCOhost access</li>
+              <li class="feature-bullet">Statista, Gale, and industry whitepapers</li>
+            </ul>
+          </div>
+          <div class="glass p-6 space-y-4 border border-emerald-500/20">
+            <div class="service-chip bg-emerald-500/15 text-emerald-200">Grammar</div>
+            <h3 class="text-xl font-semibold">Polish & readability</h3>
+            <ul class="space-y-2 text-sm text-slate-300">
+              <li class="feature-bullet feature-bullet-emerald">Grammarly Premium & ProWritingAid</li>
+              <li class="feature-bullet feature-bullet-emerald">Style guides for APA, MLA, Chicago</li>
+              <li class="feature-bullet feature-bullet-emerald">Readability tuning for academic tone</li>
+            </ul>
+          </div>
+          <div class="glass p-6 space-y-4 border border-indigo-500/20">
+            <div class="service-chip bg-indigo-500/15 text-indigo-200">Plagiarism</div>
+            <h3 class="text-xl font-semibold">Zero-copy assurance</h3>
+            <ul class="space-y-2 text-sm text-slate-300">
+              <li class="feature-bullet feature-bullet-indigo">Turnitin & Copyscape Premium scans</li>
+              <li class="feature-bullet feature-bullet-indigo">Side-by-side originality proof</li>
+              <li class="feature-bullet feature-bullet-indigo">Plagiarism report delivered free</li>
+            </ul>
+          </div>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div class="glass p-6 space-y-4 border border-rose-500/20">
+            <div class="service-chip bg-rose-500/15 text-rose-200">References</div>
+            <h3 class="text-xl font-semibold">Citation & sources</h3>
+            <ul class="space-y-2 text-sm text-slate-300">
+              <li class="feature-bullet feature-bullet-rose">Zotero & Mendeley libraries</li>
+              <li class="feature-bullet feature-bullet-rose">CrossRef DOI validation</li>
+              <li class="feature-bullet feature-bullet-rose">Annotated bibliographies on request</li>
+            </ul>
+          </div>
+          <div class="glass p-6 space-y-4 border border-amber-500/20">
+            <div class="service-chip bg-amber-500/15 text-amber-200">AI Reports</div>
+            <h3 class="text-xl font-semibold">Human-authored proof</h3>
+            <ul class="space-y-2 text-sm text-slate-300">
+              <li class="feature-bullet feature-bullet-amber">Originality.ai & GPTZero screenings</li>
+              <li class="feature-bullet feature-bullet-amber">Explainable AI detection summaries</li>
+              <li class="feature-bullet feature-bullet-amber">Delivered with every order at no cost</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-slate-950/90 border-t border-slate-800/60">
+      <div class="max-w-6xl mx-auto px-6 space-y-12">
+        <div class="text-center space-y-4">
+          <span class="service-chip">Privacy, payments, and control</span>
+          <h2 class="text-3xl lg:text-4xl font-semibold">Everything about your order stays secure and adjustable</h2>
+          <p class="text-slate-400 max-w-3xl mx-auto">We designed EssayMe so your coursework remains private, your wallet stays flexible, and every conversation lives in a customizable workspace built for real students.</p>
+        </div>
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div class="glass p-6 space-y-3 border border-sky-500/25">
+            <div class="service-chip">Private assignments</div>
+            <h3 class="text-xl font-semibold">Maximum confidentiality</h3>
+            <p class="text-slate-300 text-sm">Every brief, draft, and attachment sits in encrypted storage with writer access limited to your project team only.</p>
+          </div>
+          <div class="glass p-6 space-y-3 border border-emerald-500/25">
+            <div class="service-chip bg-emerald-500/15 text-emerald-200">Flexible payments</div>
+            <h3 class="text-xl font-semibold">Pay your way</h3>
+            <p class="text-slate-300 text-sm">Split bills across cards or wallets, choose installment milestones, and update payment methods mid-project without penalties.</p>
+          </div>
+          <div class="glass p-6 space-y-3 border border-amber-500/25">
+            <div class="service-chip bg-amber-500/15 text-amber-200">Refund ready</div>
+            <h3 class="text-xl font-semibold">Withdraw or cash out</h3>
+            <p class="text-slate-300 text-sm">Request balance withdrawals or full refunds straight from your dashboard—approved payouts land in your account within 1–3 days.</p>
+          </div>
+          <div class="glass p-6 space-y-3 border border-indigo-500/25">
+            <div class="service-chip bg-indigo-500/15 text-indigo-200">Private messaging</div>
+            <h3 class="text-xl font-semibold">Dedicated assignment chat</h3>
+            <p class="text-slate-300 text-sm">Collaborate with your writer in a secure thread for each task, share files, and keep every decision archived automatically.</p>
+          </div>
+          <div class="glass p-6 space-y-3 border border-rose-500/25">
+            <div class="service-chip bg-rose-500/15 text-rose-200">Personal themes</div>
+            <h3 class="text-xl font-semibold">Tailor your workspace</h3>
+            <p class="text-slate-300 text-sm">Switch between light, dark, and high-contrast chat themes, adjust fonts, and pin priority conversations across devices.</p>
+          </div>
+          <div class="glass p-6 space-y-3 border border-sky-500/25">
+            <div class="service-chip">Referral rewards</div>
+            <h3 class="text-xl font-semibold">Boost savings</h3>
+            <p class="text-slate-300 text-sm">Invite friends with a unique link and both of you receive the deepest tier discounts on future orders instantly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="py-20 bg-slate-900">
+      <div class="max-w-6xl mx-auto px-6 space-y-12">
+        <div class="flex flex-col lg:flex-row gap-12 items-start">
+          <div class="space-y-6 lg:w-1/3">
+            <span class="service-chip">Trusted by 50,000+ students</span>
+            <h2 class="text-3xl font-semibold">Students rate EssayMe 4.9/5 across major platforms</h2>
+            <div class="testimonials flex flex-wrap gap-2">
+              <button data-review="human" class="active">Human touch</button>
+              <button data-review="deadline">Deadlines</button>
+              <button data-review="quality">Quality</button>
+              <button data-review="support">Support</button>
+            </div>
+          </div>
+          <div class="glass p-8 flex-1 space-y-6" id="review-display"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-gradient-to-br from-sky-500/30 via-indigo-600/30 to-slate-950">
+      <div class="max-w-6xl mx-auto px-6 text-center space-y-8">
+        <h2 class="text-3xl lg:text-4xl font-semibold">Upgrade your semester with human-crafted work</h2>
+        <p class="text-slate-200 max-w-3xl mx-auto">Start with a $10 page, or request a custom quote in minutes. No subscriptions, no hidden fees – just expert help plus free plagiarism and AI authenticity reports every single time.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button onclick="openModal('signup-modal')" class="primary-btn sm:w-auto px-6"><span class="notice-dot"></span>Create My Account</button>
+          <button onclick="openModal('login-modal')" class="secondary-btn sm:w-auto px-6"><span class="notice-dot"></span>I already have an account</button>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6 text-sm text-slate-100/80">
+          <span class="assurance-pill">Money-back guarantee</span>
+          <span class="assurance-pill">Free plagiarism & AI reports</span>
+          <span class="assurance-pill">Live chat support</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-slate-950 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 py-20 space-y-16">
+      <!-- Newsletter Section -->
+      <div class="text-center space-y-8">
+        <div class="space-y-4">
+          <h3 class="text-3xl font-semibold text-slate-100">Stay Ahead in Your Studies</h3>
+          <p class="text-slate-400 max-w-2xl mx-auto text-lg">Get exclusive tips on academic success, early access to promotions, and updates on our human-crafted writing services.</p>
+        </div>
+        <div class="glass p-8 max-w-lg mx-auto space-y-6">
+          <div class="flex flex-col sm:flex-row gap-4">
+            <input type="email" placeholder="Enter your email address" class="flex-1 input-field text-base">
+            <button class="primary-btn sm:w-auto px-8 py-3 text-base">Subscribe Now</button>
+          </div>
+          <p class="text-xs text-slate-500">Join 50,000+ students. Unsubscribe anytime.</p>
+        </div>
+      </div>
+
+      <!-- Main Footer Grid -->
+      <div class="grid lg:grid-cols-4 gap-12 text-sm text-slate-400">
+        <div class="space-y-6">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-500 flex items-center justify-center text-2xl font-bold text-slate-950 shadow-lg">E</div>
+            <div>
+              <span class="text-2xl font-bold text-slate-100">EssayMe</span>
+              <p class="text-sm text-slate-500">Human writing only</p>
+            </div>
+          </div>
+          <p class="text-base leading-relaxed">Premium academic writing services with no AI shortcuts. Trusted by 50,000+ students across USA and Canada since 2016.</p>
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+              <span class="text-sm">Free plagiarism & AI reports</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 rounded-full bg-sky-400"></div>
+              <span class="text-sm">24/7 priority support</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+              <span class="text-sm">Money-back guarantee</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h4 class="text-slate-100 font-semibold text-lg">Services</h4>
+          <div class="space-y-3">
+            <a href="#pricing" class="block hover:text-white transition-colors text-base">$10/page Essays</a>
+            <a href="#services" class="block hover:text-white transition-colors">Research Papers</a>
+            <a href="#custom" class="block hover:text-white transition-colors">Custom Assignments</a>
+            <a href="#custom" class="block hover:text-white transition-colors">Live Test Support</a>
+            <a href="#tools" class="block hover:text-white transition-colors">Professional Tools</a>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h4 class="text-slate-100 font-semibold text-lg">Quick Links</h4>
+          <div class="space-y-3">
+            <a href="#pricing" class="block hover:text-white transition-colors">Pricing Calculator</a>
+            <a href="#reviews" class="block hover:text-white transition-colors">Student Reviews</a>
+            <a href="about.html" class="block hover:text-white transition-colors">About EssayMe</a>
+            <a href="contact.html" class="block hover:text-white transition-colors">Contact Us</a>
+            <button onclick="openModal('signup-modal')" class="block text-left hover:text-white transition-colors">Get Started</button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h4 class="text-slate-100 font-semibold text-lg">Support</h4>
+          <div class="space-y-3">
+            <a href="mailto:hello@iyonicorp.com" class="block hover:text-white transition-colors">hello@iyonicorp.com</a>
+            <a href="tel:+19408608596" class="block hover:text-white transition-colors">+1 (940) 860-8596</a>
+            <button onclick="openModal('signup-modal')" class="block text-left hover:text-white transition-colors">Live Chat</button>
+            <span class="block text-slate-500">Available 24/7</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Indicators -->
+      <div class="border-t border-slate-800 pt-12">
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+          <div class="space-y-3">
+            <div class="text-3xl font-bold text-slate-100">98%</div>
+            <div class="text-sm text-slate-400">Customer Satisfaction</div>
+          </div>
+          <div class="space-y-3">
+            <div class="text-3xl font-bold text-slate-100">50K+</div>
+            <div class="text-sm text-slate-400">Students Served</div>
+          </div>
+          <div class="space-y-3">
+            <div class="text-3xl font-bold text-slate-100">15 min</div>
+            <div class="text-sm text-slate-400">Average Quote Time</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Section -->
+      <div class="border-t border-slate-800 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-500">
+          <div class="text-center md:text-left">
+            <span class="block">© 2025 EssayMe. All rights reserved.</span>
+            <span class="block text-xs mt-1">Privacy-first • Encrypted • FERPA-compliant</span>
+          </div>
+          <div class="flex flex-wrap justify-center gap-4">
+            <span class="assurance-pill">Money-back guarantee</span>
+            <span class="assurance-pill">Free plagiarism reports</span>
+            <span class="assurance-pill">Human writers only</span>
+          </div>
+        </div>
+      </div>
     </div>
   </footer>
 
-
-    <!-- Styles -->
-  <style>
-    .glitter-text {
-      background: linear-gradient(90deg, #9333EA, #00ffd5, #ff008c, #3B82F6);
-      background-size: 300% 300%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: glitter 5s ease infinite;
-    }
-    @keyframes glitter {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .shaking-logo {
-      animation: shake 1s infinite ease-in-out;
-    }
-    @keyframes shake {
-      0%, 100% { transform: rotate(0); }
-      25% { transform: rotate(-3deg); }
-      50% { transform: rotate(3deg); }
-      75% { transform: rotate(-2deg); }
-    }
-  </style>
-  <!-- Panels -->
-  <!-- Shared side-panel container styles -->
-  <style>
-    .panel-bg { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: none; z-index: 1000; }
-    .panel-bg.active { display: block; }
-    .side-panel { position: absolute; right: 0; top: 0; height: 100%; width: 100%; max-width: 560px; background: #fff; box-shadow: -10px 0 40px rgba(0,0,0,.2); transform: translateX(100%); opacity: .9; }
-    .side-panel.active { transform: translateX(0); opacity: 1; }
-    .side-panel { transition: transform .4s cubic-bezier(.4,0,.2,1), opacity .3s ease; }
-    .panel-header-gradient { background: linear-gradient(135deg, #3B82F6, #9333EA); }
-    .popup-panel { position: absolute; inset: 0; background: #fff; display: flex; flex-direction: column; transform: scale(.98); opacity: .95; transition: transform .3s ease, opacity .3s ease; }
-    .popup-panel.active { transform: scale(1); opacity: 1; }
-  </style>
-
-  <!-- Login Panel -->
-  <div id="login-popup" class="panel-bg">
-    <div class="side-panel active">
-      <div class="h-40 panel-header-gradient text-white p-6 flex items-end">
+  <div id="login-modal" class="modal-backdrop">
+    <div class="modal-card space-y-6">
+      <div class="flex items-start justify-between">
         <div>
-          <h2 class="text-3xl font-extrabold">Welcome Back</h2>
-          <p class="text-white/80">Sign in to continue</p>
+          <h3 class="text-2xl font-semibold">Welcome back</h3>
+          <p class="text-slate-300 text-sm">Access your dashboard and recent orders</p>
         </div>
-        <button class="ml-auto text-white/80 hover:text-white" onclick="closePanel('login-popup')"><i class="fas fa-times text-2xl"></i></button>
+        <button onclick="closeModal('login-modal')" class="text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
       </div>
-
-      <div class="p-6 space-y-4">
-        <form id="login-form" class="space-y-4">
-          <input id="login-email" type="email" placeholder="Email Address" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-          <input id="login-password" type="password" placeholder="Password" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-          <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white p-3 rounded-lg font-semibold hover:shadow-lg">Login</button>
-        </form>
-
-        <div class="flex justify-between items-center text-sm text-gray-600">
-          <button onclick="startResetFlow()" class="text-blue-600 hover:underline">Forgot password?</button>
-          <button onclick="switchPanel('login-popup','signup-popup')" class="hover:underline">New here? Sign up</button>
-        </div>
-
-        <!-- Reset password stepper -->
-        <div id="reset-container" class="mt-4 hidden">
-          <div id="reset-step-send" class="space-y-3">
-            <p class="text-sm text-gray-600">Enter your email to receive an OTP.</p>
-            <div class="flex gap-2">
-              <input id="reset-email" type="email" placeholder="Email Address" class="flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
-              <button onclick="sendResetOtp()" class="px-4 bg-blue-600 text-white rounded-lg">Send OTP</button>
-            </div>
-          </div>
-          <div id="reset-step-verify" class="space-y-3 hidden">
-            <p class="text-sm text-gray-600">Enter the OTP sent to your email.</p>
-            <input id="reset-otp" type="text" placeholder="6-digit OTP" class="w-full p-3 border rounded-lg">
-            <button onclick="verifyResetOtp()" class="w-full bg-emerald-600 text-white p-3 rounded-lg">Verify OTP</button>
-          </div>
-          <div id="reset-step-newpass" class="space-y-3 hidden">
-            <p class="text-sm text-gray-600">Set a new password.</p>
-            <input id="reset-newpass" type="password" placeholder="New Password" class="w-full p-3 border rounded-lg">
-            <button onclick="confirmResetPassword()" class="w-full bg-purple-600 text-white p-3 rounded-lg">Reset Password</button>
-          </div>
-          <p id="reset-msg" class="text-sm mt-2"></p>
-        </div>
+      <form id="login-form" class="space-y-4">
+        <input id="login-email" type="email" class="input-field" placeholder="Email address" required>
+        <input id="login-password" type="password" class="input-field" placeholder="Password" required>
+        <button type="submit" class="primary-btn">Login</button>
+      </form>
+      <div class="flex items-center justify-between text-xs text-slate-400">
+        <button onclick="openReset()" class="hover:text-white">Forgot password?</button>
+        <button onclick="switchModal('login-modal','signup-modal')" class="hover:text-white">New here? Create account</button>
+      </div>
+      <div id="reset-block" class="hidden space-y-3 border-t border-slate-700 pt-4 text-sm">
+        <input id="reset-email" class="input-field" placeholder="Your email">
+        <button onclick="sendResetOtp()" class="secondary-btn">Send reset link</button>
+        <p id="reset-message" class="text-xs text-slate-400"></p>
       </div>
     </div>
   </div>
 
-  <!-- Signup Panel -->
-  <div id="signup-popup" class="panel-bg">
-    <div class="side-panel active">
-      <div class="h-40 panel-header-gradient text-white p-6 flex items-end">
+  <div id="signup-modal" class="modal-backdrop">
+    <div class="modal-card space-y-6">
+      <div class="flex items-start justify-between">
         <div>
-          <h2 class="text-3xl font-extrabold">Create Account</h2>
-          <p class="text-white/80">Join thousands of happy students</p>
+          <h3 class="text-2xl font-semibold">Create your EssayMe account</h3>
+          <p class="text-slate-300 text-sm">Track orders, approve drafts, and chat with your writer</p>
         </div>
-        <button class="ml-auto text-white/80 hover:text-white" onclick="closePanel('signup-popup')"><i class="fas fa-times text-2xl"></i></button>
+        <button onclick="closeModal('signup-modal')" class="text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
       </div>
-
-      <div class="p-6 space-y-4">
-        <form id="signup-form" class="space-y-4">
-          <input id="signup-name" type="text" placeholder="Full Name" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-          <input id="signup-email" type="email" placeholder="Email Address" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-          <input id="signup-password" type="password" placeholder="Password (min 6 chars)" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-          <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white p-3 rounded-lg font-semibold hover:shadow-lg">Sign Up</button>
-        </form>
-        <div class="text-sm text-gray-600 flex justify-between">
-          <span></span>
-          <button onclick="switchPanel('signup-popup','login-popup')" class="hover:underline">Have an account? Login</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer Fullscreen Popups -->
-  <!-- FAQ Popup -->
-  <div id="faq-popup" class="panel-bg">
-    <div class="popup-panel">
-      <div class="h-24 panel-header-gradient text-white p-6 flex items-end">
-        <div>
-          <h2 class="text-3xl font-extrabold">FAQ</h2>
-          <p class="text-white/80 text-sm">Common questions answered</p>
-        </div>
-        <button class="ml-auto text-white/90 hover:text-white" onclick="closePanel('faq-popup')"><i class="fas fa-times text-2xl"></i></button>
-      </div>
-      <div class="flex-1 overflow-y-auto p-6 md:p-8 bg-gradient-to-br from-gray-50 to-white">
-        <div class="max-w-3xl mx-auto space-y-6">
-            <div class="flex items-center gap-4 bg-white rounded-xl p-4 shadow border border-gray-100">
-              <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=600" alt="FAQ" class="w-20 h-20 object-cover rounded-lg">
-              <div>
-                <h3 class="text-lg font-semibold text-gray-800">Find answers fast</h3>
-                <p class="text-sm text-gray-600">Browse common questions or chat with support.</p>
-              </div>
-            </div>
-          <details class="group bg-white rounded-xl p-5 shadow border border-gray-100">
-            <summary class="cursor-pointer font-semibold text-gray-800 flex items-center justify-between">
-              What subjects do you cover?
-              <i class="fas fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
-            </summary>
-            <p class="text-gray-600 mt-3">We cover over 50+ subjects including Liberal Arts, Business, Sciences, Technical courses (custom pricing), and more.</p>
-          </details>
-          <details class="group bg-white rounded-xl p-5 shadow border border-gray-100">
-            <summary class="cursor-pointer font-semibold text-gray-800 flex items-center justify-between">
-              How does pricing work?
-              <i class="fas fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
-            </summary>
-            <p class="text-gray-600 mt-3">Writing starts at $13/page, Correction at $9/page, Rewriting at $15/page. Technical assignments receive a custom quote after review.</p>
-          </details>
-          <details class="group bg-white rounded-xl p-5 shadow border border-gray-100">
-            <summary class="cursor-pointer font-semibold text-gray-800 flex items-center justify-between">
-              When am I charged?
-              <i class="fas fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
-            </summary>
-            <p class="text-gray-600 mt-3">You are not charged until you receive your assignment and confirm you’re happy with it.</p>
-          </details>
-          <details class="group bg-white rounded-xl p-5 shadow border border-gray-100">
-            <summary class="cursor-pointer font-semibold text-gray-800 flex items-center justify-between">
-              Do you use AI to write papers?
-              <i class="fas fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
-            </summary>
-            <p class="text-gray-600 mt-3">No. All assignments are completed by experienced human writers.</p>
-          </details>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <!-- Contact Us Popup -->
-  <div id="contact-popup" class="panel-bg">
-    <div class="popup-panel">
-      <div class="h-24 panel-header-gradient text-white p-6 flex items-end">
-        <div>
-          <h2 class="text-3xl font-extrabold">Contact Us</h2>
-          <p class="text-white/80 text-sm">We usually reply within minutes</p>
-        </div>
-        <button class="ml-auto text-white/90 hover:text-white" onclick="closePanel('contact-popup')"><i class="fas fa-times text-2xl"></i></button>
-      </div>
-      <div class="flex-1 overflow-y-auto p-6 md:p-8 bg-gradient-to-br from-emerald-50 to-white">
-        <form class="max-w-3xl mx-auto bg-white rounded-2xl shadow p-6 space-y-4 border border-emerald-100">
-          <div class="flex items-center gap-4 bg-emerald-50 border border-emerald-200 rounded-xl p-4">
-            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=600" alt="Contact" class="w-20 h-20 object-cover rounded-lg">
-            <div>
-              <h3 class="text-lg font-semibold text-emerald-800">We’re here to help</h3>
-              <p class="text-sm text-emerald-700">Send us a message or use live chat for faster support.</p>
-            </div>
-          </div>
-          <div class="grid md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700">Name</label>
-              <input type="text" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500" placeholder="Your full name">
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700">Email</label>
-              <input type="email" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500" placeholder="you@example.com">
-            </div>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Subject</label>
-            <input type="text" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500" placeholder="How can we help?">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Message</label>
-            <textarea rows="6" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500" placeholder="Tell us a bit more..."></textarea>
-          </div>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-500">We’ll get back to you within 1–2 hours.</p>
-            <button type="button" class="px-6 py-3 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow">Send Message</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Privacy Policy Popup -->
-  <div id="privacy-popup" class="panel-bg">
-    <div class="popup-panel">
-      <div class="h-24 panel-header-gradient text-white p-6 flex items-end">
-        <div>
-          <h2 class="text-3xl font-extrabold">Privacy Policy</h2>
-          <p class="text-white/80 text-sm">Your privacy, protected by design</p>
-        </div>
-        <button class="ml-auto text-white/90 hover:text-white" onclick="closePanel('privacy-popup')"><i class="fas fa-times text-2xl"></i></button>
-      </div>
-      <div class="flex-1 overflow-y-auto p-6 md:p-8 bg-gradient-to-br from-gray-50 to-white">
-        <div class="max-w-3xl mx-auto space-y-6">
-          <section class="bg-white rounded-xl p-6 shadow border border-gray-100">
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200" alt="Privacy" class="w-full h-40 object-cover rounded-lg mb-4">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">Overview</h3>
-            <p class="text-gray-600">We collect minimal personal data to provide our services: account info, order details, and necessary communication. We never sell your data.</p>
-          </section>
-          <section class="bg-white rounded-xl p-6 shadow border border-gray-100">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">Data We Collect</h3>
-            <ul class="list-disc pl-6 text-gray-600 space-y-1">
-              <li>Account details: name, email, password (hashed)</li>
-              <li>Order information: subjects, instructions, deadlines</li>
-              <li>Payment references (no card numbers stored)</li>
-            </ul>
-          </section>
-          <section class="bg-white rounded-xl p-6 shadow border border-gray-100">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">Your Rights</h3>
-            <p class="text-gray-600">You can request deletion or export of your data at any time via Contact Us. We comply with applicable data protection laws.</p>
-            <ul class="list-disc pl-6 text-gray-600 mt-2 space-y-1">
-              <li>Access your data by emailing support@essayme.com</li>
-              <li>Request corrections to inaccurate information</li>
-              <li>Opt-out of non-essential communications anytime</li>
-            </ul>
-          </section>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Terms of Service Popup -->
-  <div id="terms-popup" class="panel-bg">
-    <div class="popup-panel">
-      <div class="h-24 panel-header-gradient text-white p-6 flex items-end">
-        <div>
-          <h2 class="text-3xl font-extrabold">Terms of Service</h2>
-          <p class="text-white/80 text-sm">Please review our terms before using the service</p>
-        </div>
-        <button class="ml-auto text-white/90 hover:text-white" onclick="closePanel('terms-popup')"><i class="fas fa-times text-2xl"></i></button>
-      </div>
-      <div class="flex-1 overflow-y-auto p-6 md:p-8 bg-gradient-to-br from-gray-50 to-white">
-        <div class="max-w-3xl mx-auto space-y-6">
-          <section class="bg-white rounded-xl p-6 shadow border border-gray-100">
-            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200" alt="Terms" class="w-full h-40 object-cover rounded-lg mb-4">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">Use of Service</h3>
-            <p class="text-gray-600">All work is provided for academic assistance. You agree to use materials responsibly and in accordance with your institution’s policies.</p>
-          </section>
-          <section class="bg-white rounded-xl p-6 shadow border border-gray-100">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">Payments & Refunds</h3>
-            <p class="text-gray-600">You are not charged until you receive your assignment. Refunds are assessed per our quality guarantee and delivery terms.</p>
-          </section>
-          <section class="bg-white rounded-xl p-6 shadow border border-gray-100">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">Revisions</h3>
-            <p class="text-gray-600">We provide free revisions within scope as outlined in the order details and subject to fair use.</p>
-            <ul class="list-disc pl-6 text-gray-600 mt-2 space-y-1">
-              <li>Requests must align with the original instructions.</li>
-              <li>Submit revision requests within 7 days of delivery.</li>
-              <li>Major scope changes may require a new order.</li>
-            </ul>
-          </section>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  
-  <!-- Refunds Popup -->
-  <div id="refund-popup" class="panel-bg">
-    <div class="popup-panel">
-      <div class="h-24 panel-header-gradient text-white p-6 flex items-end">
-        <div>
-          <h2 class="text-3xl font-extrabold">Refunds & Disputes</h2>
-          <p class="text-white/80 text-sm">You're not charged until you receive your assignment</p>
-        </div>
-        <button class="ml-auto text-white/90 hover:text-white" onclick="closePanel('refund-popup')"><i class="fas fa-times text-2xl"></i></button>
-      </div>
-      <div class="flex-1 overflow-y-auto p-6 md:p-8 bg-gradient-to-br from-rose-50 to-white">
-        <div class="max-w-5xl mx-auto grid lg:grid-cols-2 gap-6">
-          <div class="lg:col-span-2">
-            <div class="relative overflow-hidden rounded-2xl border border-rose-100 shadow bg-white">
-              <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200" alt="Refunds" class="w-full h-40 object-cover">
-              <div class="p-6">
-                <div class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-800 text-sm border border-green-200"><i class="fas fa-shield-alt mr-2"></i>No charge until delivery</div>
-                <h3 class="text-xl font-semibold text-gray-800 mt-3">Request a refund with confidence</h3>
-                <p class="text-gray-600">If something isn't right, submit a refund request. Our team reviews within 1–12 hours.</p>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white rounded-2xl shadow p-6 border border-rose-100">
-            <h4 class="text-lg font-semibold text-gray-800 mb-4">Request a Refund</h4>
-            <form id="refund-form" class="space-y-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Order ID</label>
-                <input id="refund-order" type="text" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rose-500" placeholder="e.g. ORD-12345" required>
-              </div>
-              <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">Email</label>
-                  <input id="refund-email" type="email" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rose-500" placeholder="you@example.com" required>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">Amount (optional)</label>
-                  <input id="refund-amount" type="number" step="0.01" min="0" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rose-500" placeholder="e.g. 25.00">
-                </div>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Reason</label>
-                <textarea id="refund-reason" rows="4" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rose-500" placeholder="Describe the issue in detail" required></textarea>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Attachment (optional)</label>
-                <input id="refund-file" type="file" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rose-500">
-              </div>
-              <div class="flex items-start gap-2">
-                <input id="refund-ack" type="checkbox" class="mt-1" required>
-                <label for="refund-ack" class="text-sm text-gray-600">I understand refunds are reviewed per the Terms of Service and Quality Guarantee.</label>
-              </div>
-              <button type="submit" class="w-full bg-rose-600 text-white py-3 rounded-lg font-semibold hover:bg-rose-700 transition">Submit Refund Request</button>
-              <p id="refund-msg" class="text-sm mt-2"></p>
-            </form>
-          </div>
-          <div class="bg-white rounded-2xl shadow p-6 border border-rose-100">
-            <h4 class="text-lg font-semibold text-gray-800 mb-4">Refund Policy Highlights</h4>
-            <ul class="space-y-2 text-gray-700">
-              <li class="flex items-start gap-3"><i class="fas fa-check text-green-500 mt-1"></i><span>Not charged until your assignment is delivered and approved.</span></li>
-              <li class="flex items-start gap-3"><i class="fas fa-check text-green-500 mt-1"></i><span>Partial or full refunds considered for missed deadlines or quality issues.</span></li>
-              <li class="flex items-start gap-3"><i class="fas fa-check text-green-500 mt-1"></i><span>Free revisions within scope before a refund is required.</span></li>
-              <li class="flex items-start gap-3"><i class="fas fa-check text-green-500 mt-1"></i><span>Technical assignments may require verification of provided materials.</span></li>
-            </ul>
-            <div class="mt-4 rounded-xl overflow-hidden border border-gray-100">
-              <img src="https://images.unsplash.com/photo-1551281044-8e8b5f7b7d0e?q=80&w=1200" alt="Policy" class="w-full h-40 object-cover">
-            </div>
-            <p class="text-xs text-gray-500 mt-3">By submitting, you agree to our <a href="#" onclick="showPanel('terms-popup'); closePanel('refund-popup')" class="text-blue-600 hover:underline">Terms</a> and <a href="#" onclick="showPanel('privacy-popup'); closePanel('refund-popup')" class="text-blue-600 hover:underline">Privacy Policy</a>.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- How it works Panel (animated steps) -->
-  <div id="howitworks-popup" class="panel-bg">
-    <div class="side-panel active">
-      <div class="h-40 panel-header-gradient text-white p-6 flex items-end">
-        <div>
-          <h2 class="text-3xl font-extrabold">How It Works</h2>
-          <p class="text-white/80">A quick animated guide</p>
-        </div>
-        <button class="ml-auto text-white/80 hover:text-white" onclick="closePanel('howitworks-popup')"><i class="fas fa-times text-2xl"></i></button>
-      </div>
-
-      <div class="p-6 space-y-6">
-        <!-- Animated guide using simple step cards -->
-        <div class="space-y-4">
-          <div class="p-4 bg-white rounded-xl shadow flex items-center gap-4 transform transition-all duration-500 animate-[fadeIn_.6s_ease-out_forwards] opacity-0" style="animation-delay:.05s">
-            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl">1</div>
-            <div>
-              <h3 class="font-semibold">Create your account</h3>
-              <p class="text-sm text-gray-600">Click Sign Up and enter your name, email, and password.</p>
-              <p class="text-xs text-gray-500">Already have an account? Click Login.</p>
-            </div>
-          </div>
-          <div class="p-4 bg-white rounded-xl shadow flex items-center gap-4 transform transition-all duration-500 animate-[fadeIn_.6s_ease-out_forwards] opacity-0" style="animation-delay:.25s">
-            <img src="https://images.unsplash.com/photo-1584697964198-0bd4f1f0b43b?q=80&w=600" alt="Order form" class="w-16 h-16 object-cover rounded-lg">
-            <div>
-              <h3 class="font-semibold">Fill the order form</h3>
-              <p class="text-sm text-gray-600">Choose subject, deadline, pages/words, and add instructions.</p>
-              <ul class="text-xs text-gray-500 list-disc pl-4 mt-1">
-                <li>Attach files: syllabus, rubric, samples</li>
-                <li>Over 50+ subjects and citation styles</li>
-                <li>Deadlines from 6 hours to 14 days</li>
-              </ul>
-            </div>
-          </div>
-          <div class="p-4 bg-white rounded-xl shadow flex items-center gap-4 transform transition-all duration-500 animate-[fadeIn_.6s_ease-out_forwards] opacity-0" style="animation-delay:.45s">
-            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600" alt="Expert writer" class="w-16 h-16 object-cover rounded-lg">
-            <div>
-              <h3 class="font-semibold">Make a secure payment</h3>
-              <p class="text-sm text-gray-600">Confirm the quote and pay to start the order.</p>
-              <ul class="text-xs text-gray-500 list-disc pl-4 mt-1">
-                <li>Multiple methods supported</li>
-                <li>Instant order activation</li>
-                <li>24/7 support available</li>
-              </ul>
-            </div>
-          </div>
-          <div class="p-4 bg-white rounded-xl shadow flex items-center gap-4 transform transition-all duration-500 animate-[fadeIn_.6s_ease-out_forwards] opacity-0" style="animation-delay:.65s">
-            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600" alt="Download" class="w-16 h-16 object-cover rounded-lg">
-            <div>
-              <h3 class="font-semibold">Track, review, and download</h3>
-              <p class="text-sm text-gray-600">Chat with your writer, request edits, and download the final paper.</p>
-              <ul class="text-xs text-gray-500 list-disc pl-4 mt-1">
-                <li>Unlimited free revisions within scope</li>
-                <li>Proof of originality on request</li>
-                <li>On-time delivery guaranteed</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Playlike control to re-run animations -->
-        <div class="flex items-center gap-3">
-          <button onclick="replayHowItWorks()" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"><i class="fas fa-rotate-right mr-2"></i>Replay</button>
-          <span class="text-sm text-gray-500">These are animated step cards (no video).</span>
-        </div>
-      </div>
+      <form id="signup-form" class="space-y-4">
+        <input id="signup-name" type="text" class="input-field" placeholder="Full name" required>
+        <input id="signup-email" type="email" class="input-field" placeholder="Email address" required>
+        <input id="signup-password" type="password" class="input-field" placeholder="Password (min 6 characters)" required>
+        <button type="submit" class="primary-btn">Sign Up</button>
+      </form>
+      <div class="text-xs text-slate-400 text-center">By continuing, you agree to secure usage and academic integrity standards.</div>
+      <button onclick="switchModal('signup-modal','login-modal')" class="secondary-btn">I already have an account</button>
     </div>
   </div>
 
   <script>
-// Replay how-it-works animations
-function replayHowItWorks(){
-  const cards = document.querySelectorAll('#howitworks-popup [class*="animate-"]');
-  cards.forEach((c)=>{
-    c.style.animation = 'none';
-    // force reflow
-    void c.offsetWidth;
-    c.style.animation = '';
-  });
-}
+    const deadlineMatrix = { '72': 1, '48': 1.2, '24': 1.4, '12': 1.8 };
+    const segmentButtons = document.querySelectorAll('.segment-toggle button');
+    const panels = {
+      writing: document.getElementById('quote-panel-writing'),
+      assignments: document.getElementById('quote-panel-assignments'),
+      tests: document.getElementById('quote-panel-tests')
+    };
+    segmentButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        segmentButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        Object.values(panels).forEach(p => p.classList.add('hidden'));
+        panels[btn.dataset.type].classList.remove('hidden');
+      });
+    });
 
-function showPanel(id){
-  const bg = document.getElementById(id);
-  if(!bg) return;
+    const pageSlider = document.getElementById('page-slider');
+    const pageValue = document.getElementById('page-value');
+    const quoteTotal = document.getElementById('quote-total');
+    const deadlineButtons = document.querySelectorAll('.deadline-btn');
+    let currentDeadline = '72';
 
-  // Always make visible
-  bg.style.display = 'flex';
-  bg.classList.add('active');
+    function refreshQuote() {
+      const pages = parseInt(pageSlider.value, 10);
+      const multiplier = deadlineMatrix[currentDeadline];
+      const total = Math.round(pages * 10 * multiplier);
+      pageValue.textContent = pages === 1 ? '1 page' : `${pages} pages`;
+      quoteTotal.textContent = `$${total}`;
+    }
 
-  // Handle side-panel vs popup
-  const panel = bg.querySelector('.side-panel') || bg.querySelector('.popup-panel');
-  if(panel){
-    requestAnimationFrame(()=> panel.classList.add('active'));
-  }
-}
+    if (pageSlider) {
+      pageSlider.addEventListener('input', refreshQuote);
+      refreshQuote();
+    }
 
-function closePanel(id){
-  const bg = document.getElementById(id);
-  if(!bg) return;
+    deadlineButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        deadlineButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentDeadline = btn.dataset.speed;
+        refreshQuote();
+      });
+    });
 
-  const panel = bg.querySelector('.side-panel') || bg.querySelector('.popup-panel');
-  if(panel){
-    panel.classList.remove('active');
-    setTimeout(()=>{
-      bg.style.display = 'none';
-      bg.classList.remove('active');
-    }, 350);
-  } else {
-    // If no inner panel, just hide background
-    bg.style.display = 'none';
-    bg.classList.remove('active');
-  }
-}
+    function openModal(id) {
+      const backdrop = document.getElementById(id);
+      if (!backdrop) return;
+      backdrop.classList.add('active');
+      requestAnimationFrame(() => {
+        const card = backdrop.querySelector('.modal-card');
+        card.classList.add('active');
+      });
+    }
 
-function switchPanel(fromId,toId){
-  closePanel(fromId);
-  setTimeout(()=>showPanel(toId), 360);
-}
+    function closeModal(id) {
+      const backdrop = document.getElementById(id);
+      if (!backdrop) return;
+      const card = backdrop.querySelector('.modal-card');
+      card.classList.remove('active');
+      setTimeout(() => backdrop.classList.remove('active'), 220);
+    }
 
-    // Mobile menu toggle
-    function toggleMobileMenu(force){
+    function switchModal(from, to) {
+      closeModal(from);
+      setTimeout(() => openModal(to), 240);
+    }
+
+    function toggleMenu(forceClose) {
       const menu = document.getElementById('mobile-menu');
-      if(!menu) return;
-      const isOpen = !menu.classList.contains('hidden');
-      const shouldOpen = typeof force === 'boolean' ? force : !isOpen;
-      if(shouldOpen){ menu.classList.remove('hidden'); }
-      else { menu.classList.add('hidden'); }
+      if (!menu) return;
+      if (forceClose) { menu.classList.add('hidden'); return; }
+      menu.classList.toggle('hidden');
     }
 
-    // Close when clicking backdrop
-    document.addEventListener('click', (e)=>{
-      if(e.target.classList.contains('panel-bg')) closePanel(e.target.id);
+    function scrollToPricing() {
+      const section = document.getElementById('pricing');
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+      backdrop.addEventListener('click', e => {
+        if (e.target === backdrop) closeModal(backdrop.id);
+      });
     });
 
-    // Signup submit -> POST /signup
-    document.addEventListener('DOMContentLoaded', ()=>{
-      const signupForm = document.getElementById('signup-form');
-      if(signupForm){
-        signupForm.addEventListener('submit', async (e)=>{
-          e.preventDefault();
-          const name = document.getElementById('signup-name').value.trim();
-          const email = document.getElementById('signup-email').value.trim();
-          const password = document.getElementById('signup-password').value;
-          const btn = signupForm.querySelector('button[type="submit"]');
-          btn.disabled = true; btn.textContent = 'Creating...';
-          try{
-            const res = await fetch('https://meme-s6lb.onrender.com/signup', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, password }) });
-            const data = await res.json();
-            if(data.success){
-              // Auto-login effect for smooth UX: store basics and redirect
-              localStorage.setItem('userId', data.userId);
-              localStorage.setItem('userEmail', (email||'').toLowerCase());
-              localStorage.setItem('userName', name);
-              localStorage.setItem('userType', 'student');
-              window.location.href = '../dashboard';
-            } else {
-              alert(data.message || 'Signup failed');
-              btn.disabled = false; btn.textContent = 'Sign Up';
-            }
-          }catch(err){
-            alert('Network error'); btn.disabled = false; btn.textContent = 'Sign Up';
-          }
-        });
+    const testimonials = {
+      human: {
+        name: 'Amelia R. • UCLA',
+        meta: 'Verified writing order • 9 pages • $10/page',
+        text: 'Nine pages turned around in 48 hours and it still read like a polished seminar paper. They actually called me to clarify the thesis before drafting. Real people, real care.',
+        image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=160&auto=format&fit=crop',
+        imageAlt: 'Portrait of Amelia R from UCLA',
+        rating: '4.9/5 Trustpilot'
+      },
+      deadline: {
+        name: 'Hassan T. • University of Toronto',
+        meta: 'Data science assignment • custom quote • 36 hours',
+        text: 'The project manager mapped the scope, set milestones, and we hit every deadline. Pricing was transparent and included two checkpoints for feedback.',
+        image: 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=160&auto=format&fit=crop',
+        imageAlt: 'Portrait of Hassan T from University of Toronto',
+        rating: '5.0/5 SiteJabber'
+      },
+      quality: {
+        name: 'Jess K. • NYU',
+        meta: 'Marketing strategy deck • 14 slides • $10/page base',
+        text: 'The deck matched my brand voice perfectly. Speaker notes, APA references, call-to-action copy – everything was ready to present.',
+        image: 'https://images.unsplash.com/photo-1528892952291-009c663ce843?q=80&w=160&auto=format&fit=crop',
+        imageAlt: 'Portrait of Jess K from NYU',
+        rating: '4.8/5 Google Reviews'
+      },
+      support: {
+        name: 'Leo M. • University of Michigan',
+        meta: 'Linear algebra test support • custom quote • 90 minute session',
+        text: 'Support responded in under five minutes, paired me with a PhD tutor, and we rehearsed sample problems on a secure whiteboard before the test.',
+        image: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=160&auto=format&fit=crop',
+        imageAlt: 'Portrait of Leo M from University of Michigan',
+        rating: '4.9/5 Trustpilot'
       }
+    };
 
-      // Login submit -> POST /login
-      const loginForm = document.getElementById('login-form');
-      if(loginForm){
-        loginForm.addEventListener('submit', async (e)=>{
-          e.preventDefault();
-          const email = document.getElementById('login-email').value.trim();
-          const password = document.getElementById('login-password').value;
-          const btn = loginForm.querySelector('button[type="submit"]');
-          btn.disabled = true; btn.textContent = 'Signing in...';
-          try{
-            const res = await fetch('https://meme-s6lb.onrender.com/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password }) });
-            const data = await res.json();
-            if(data.success){
-              // store minimal session info
-              localStorage.setItem('userId', data.userId);
-              localStorage.setItem('userEmail', (email||'').toLowerCase());
-              localStorage.setItem('userName', data.user?.name || '');
-              localStorage.setItem('userType', data.user?.role || 'student');
-              btn.textContent = 'Success';
-              // redirect to student dashboard
-              window.location.href = '../dashboard';
-            } else {
-              alert(data.message || 'Login failed');
-              btn.disabled = false; btn.textContent = 'Login';
-            }
-          }catch(err){
-            alert('Network error'); btn.disabled = false; btn.textContent = 'Login';
-          }
-        });
-      }
+    const reviewDisplay = document.getElementById('review-display');
+
+    function renderTestimonial(key) {
+      const payload = testimonials[key];
+      if (!payload || !reviewDisplay) return;
+      reviewDisplay.innerHTML = `
+        <div class="flex items-center gap-4">
+          <img src="${payload.image}" class="w-14 h-14 rounded-full object-cover" alt="${payload.imageAlt}">
+          <div>
+            <p class="font-semibold">${payload.name}</p>
+            <p class="text-xs text-slate-400">${payload.meta}</p>
+          </div>
+        </div>
+        <p class="text-lg text-slate-200">“${payload.text}”</p>
+        <div class="rating-note">
+          <span class="notice-dot"></span>
+          <span>${payload.rating}</span>
+        </div>
+      `;
+    }
+
+    document.querySelectorAll('.testimonials button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.testimonials button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderTestimonial(btn.dataset.review);
+      });
     });
 
-    // Reset password flow (frontend only; expects /auth/* endpoints)
-    let resetEmailCache = '';
-    function startResetFlow(){
-      document.getElementById('reset-container').classList.remove('hidden');
-      document.getElementById('reset-step-send').classList.remove('hidden');
-      document.getElementById('reset-step-verify').classList.add('hidden');
-      document.getElementById('reset-step-newpass').classList.add('hidden');
-      document.getElementById('reset-msg').textContent='';
-    }
-    async function sendResetOtp(){
-      const email = document.getElementById('reset-email').value.trim().toLowerCase();
-      if(!email) return;
-      resetEmailCache = email;
-      try{
-        const res = await fetch('https://meme-s6lb.onrender.com/auth/request-reset-otp', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email }) });
-        const data = await res.json();
-        if(data.success){
-          document.getElementById('reset-step-send').classList.add('hidden');
-          document.getElementById('reset-step-verify').classList.remove('hidden');
-          document.getElementById('reset-msg').textContent='OTP sent. Check your email.';
-          document.getElementById('reset-msg').className='text-sm text-emerald-600';
-        } else {
-          document.getElementById('reset-msg').textContent=data.message || 'Failed to send OTP';
-          document.getElementById('reset-msg').className='text-sm text-red-600';
-        }
-      }catch(e){
-        document.getElementById('reset-msg').textContent='Network error';
-        document.getElementById('reset-msg').className='text-sm text-red-600';
-      }
-    }
-    async function verifyResetOtp(){
-      const otp = document.getElementById('reset-otp').value.trim();
-      try{
-        const res = await fetch('https://meme-s6lb.onrender.com/auth/verify-reset-otp', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: resetEmailCache, otp }) });
-        const data = await res.json();
-        if(data.success){
-          document.getElementById('reset-step-verify').classList.add('hidden');
-          document.getElementById('reset-step-newpass').classList.remove('hidden');
-          document.getElementById('reset-msg').textContent='OTP verified. Set your new password.';
-          document.getElementById('reset-msg').className='text-sm text-emerald-600';
-        } else {
-          document.getElementById('reset-msg').textContent=data.message || 'Invalid OTP';
-          document.getElementById('reset-msg').className='text-sm text-red-600';
-        }
-      }catch(e){
-        document.getElementById('reset-msg').textContent='Network error';
-        document.getElementById('reset-msg').className='text-sm text-red-600';
-      }
-    }
-    async function confirmResetPassword(){
-      const newPassword = document.getElementById('reset-newpass').value;
-      try{
-        const res = await fetch('https://meme-s6lb.onrender.com/auth/confirm-reset', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: resetEmailCache, newPassword }) });
-        const data = await res.json();
-        if(data.success){
-          document.getElementById('reset-msg').textContent='Password reset successful. You can now log in.';
-          document.getElementById('reset-msg').className='text-sm text-emerald-600';
-          setTimeout(()=>{ closePanel('login-popup'); }, 800);
-        } else {
-          document.getElementById('reset-msg').textContent=data.message || 'Failed to reset password';
-          document.getElementById('reset-msg').className='text-sm text-red-600';
-        }
-      }catch(e){
-        document.getElementById('reset-msg').textContent='Network error';
-        document.getElementById('reset-msg').className='text-sm text-red-600';
-      }
-    }
+    renderTestimonial('human');
 
-   
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+      loginForm.addEventListener('submit', async e => {
         e.preventDefault();
-        const href = this.getAttribute('href');
-        if (!href || href === '#') return;
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+        const email = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value;
+        const button = loginForm.querySelector('button[type="submit"]');
+        button.disabled = true;
+        button.textContent = 'Signing in…';
+        try {
+          const res = await fetch('https://meme-s6lb.onrender.com/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
           });
-        }
-      });
-    });
-
-    // Counter animation for stats
-    function animateCounters() {
-      const counters = document.querySelectorAll('.stats-counter');
-      counters.forEach(counter => {
-        const target = parseInt(counter.textContent.replace(/[^\d]/g, ''));
-        const increment = target / 100;
-        let current = 0;
-        
-        const timer = setInterval(() => {
-          current += increment;
-          if (current >= target) {
-            counter.textContent = counter.textContent.replace(/\d+/, target);
-            clearInterval(timer);
+          const data = await res.json();
+          if (data.success) {
+            localStorage.setItem('userId', data.userId);
+            localStorage.setItem('userEmail', email.toLowerCase());
+            localStorage.setItem('userName', data.user?.name || '');
+            localStorage.setItem('userType', data.user?.role || 'student');
+            window.location.href = '../dashboard';
           } else {
-            counter.textContent = counter.textContent.replace(/\d+/, Math.floor(current));
+            alert(data.message || 'Login failed');
+            button.disabled = false;
+            button.textContent = 'Login';
           }
-        }, 20);
-      });
-    }
-
-    // Trigger counter animation when section comes into view
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCounters();
-          observer.unobserve(entry.target);
+        } catch (err) {
+          alert('Network error');
+          button.disabled = false;
+          button.textContent = 'Login';
         }
       });
-    });
-
-    const statsSection = document.querySelector('.stats-counter').closest('section');
-    if (statsSection) {
-      observer.observe(statsSection);
     }
 
-    // Update order total dynamically
-    function updateOrderTotal() {
-      const deadlineSelect = document.querySelector('select');
-      const pagesInput = document.querySelector('input[type="number"]');
-      const totalElement = document.querySelector('.text-2xl.font-bold.text-blue-600');
-      
-      if (deadlineSelect && pagesInput && totalElement) {
-        const pricePerPage = parseFloat(deadlineSelect.value.match(/\$(\d+\.\d+)/)[1]);
-        const pages = parseInt(pagesInput.value) || 1;
-        const total = (pricePerPage * pages).toFixed(2);
-        totalElement.textContent = `${total}`;
-      }
-    }
-
-    // Add event listeners for order form
-    document.addEventListener('DOMContentLoaded', function() {
-      const orderForm = document.querySelector('#order-popup form');
-      if (orderForm) {
-        const deadlineSelect = orderForm.querySelector('select');
-        const pagesInput = orderForm.querySelector('input[type="number"]');
-        
-        if (deadlineSelect) deadlineSelect.addEventListener('change', updateOrderTotal);
-        if (pagesInput) pagesInput.addEventListener('input', updateOrderTotal);
-      }
-    });
-
-    // File upload handling
-    document.addEventListener('DOMContentLoaded', function() {
-      const uploadArea = document.querySelector('.border-dashed');
-      const fileInput = document.querySelector('input[type="file"]');
-      
-      if (uploadArea && fileInput) {
-        uploadArea.addEventListener('click', () => fileInput.click());
-        
-        uploadArea.addEventListener('dragover', (e) => {
-          e.preventDefault();
-          uploadArea.classList.add('border-blue-500', 'bg-blue-50');
-        });
-        
-        uploadArea.addEventListener('dragleave', (e) => {
-          e.preventDefault();
-          uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
-        });
-        
-        uploadArea.addEventListener('drop', (e) => {
-          e.preventDefault();
-          uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
-          const files = e.dataTransfer.files;
-          fileInput.files = files;
-        });
-      }
-    });
-  // How It Works - Carousel logic
-    let hiwIndex = 0;
-    let hiwAutoplay = null;
-    let hiwPaused = false;
-
-    function updateHIW(idx){
-      const track = document.getElementById('hiw-track');
-      const slides = track ? track.querySelectorAll('.hiw-slide') : null;
-      const dots = document.querySelectorAll('#hiw-carousel .hiw-dot');
-      if(!track || !slides || slides.length === 0) return;
-      hiwIndex = (idx + slides.length) % slides.length;
-      track.style.transform = `translateX(-${hiwIndex * 100}%)`;
-      dots.forEach((d,i)=>{
-        d.classList.toggle('bg-blue-600', i===hiwIndex);
-        d.classList.toggle('bg-gray-300', i!==hiwIndex);
+    const signupForm = document.getElementById('signup-form');
+    if (signupForm) {
+      signupForm.addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = document.getElementById('signup-name').value.trim();
+        const email = document.getElementById('signup-email').value.trim();
+        const password = document.getElementById('signup-password').value;
+        const button = signupForm.querySelector('button[type="submit"]');
+        button.disabled = true;
+        button.textContent = 'Creating…';
+        try {
+          const res = await fetch('https://meme-s6lb.onrender.com/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, password })
+          });
+          const data = await res.json();
+          if (data.success) {
+            localStorage.setItem('userId', data.userId);
+            localStorage.setItem('userEmail', email.toLowerCase());
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userType', 'student');
+            window.location.href = '../dashboard';
+          } else {
+            alert(data.message || 'Signup failed');
+            button.disabled = false;
+            button.textContent = 'Sign Up';
+          }
+        } catch (err) {
+          alert('Network error');
+          button.disabled = false;
+          button.textContent = 'Sign Up';
+        }
       });
     }
-    function nextHIW(){ updateHIW(hiwIndex+1); }
-    function prevHIW(){ updateHIW(hiwIndex-1); }
-    function startHIW(){ stopHIW(); hiwAutoplay = setInterval(()=>{
-      const hw = document.getElementById('howitworks-popup');
-      if(!hiwPaused && hw && hw.classList.contains('active')) nextHIW();
-    }, 3500); }
-    function stopHIW(){ if(hiwAutoplay){ clearInterval(hiwAutoplay); hiwAutoplay = null; } }
 
-    document.addEventListener('DOMContentLoaded', function(){
-      updateHIW(0);
-      const prev = document.getElementById('hiw-prev');
-      const next = document.getElementById('hiw-next');
-      prev?.addEventListener('click', prevHIW);
-      next?.addEventListener('click', nextHIW);
-      document.querySelectorAll('#hiw-carousel .hiw-dot').forEach((dot, idx)=>{
-        dot.addEventListener('click', ()=> updateHIW(idx));
-      });
-      const carousel = document.getElementById('hiw-carousel');
-      if(carousel){
-        carousel.addEventListener('mouseenter', ()=> hiwPaused = true);
-        carousel.addEventListener('mouseleave', ()=> hiwPaused = false);
-      }
-      const hw = document.getElementById('howitworks-popup');
-      if(hw){
-        const obs = new MutationObserver(()=>{
-          if(hw.classList.contains('active')) startHIW(); else stopHIW();
-        });
-        obs.observe(hw, { attributes:true, attributeFilter:['class'] });
-      }
-    });
-  // Live Chat demo interactions
-  document.addEventListener('DOMContentLoaded', function(){
-    const sendBtn = document.getElementById('livechat-send');
-    const input = document.getElementById('livechat-input');
-    const msgs = document.getElementById('livechat-messages');
-    if(sendBtn && input && msgs){
-      function append(text, self){
-        const el = document.createElement('div');
-        el.className = `max-w-[80%] mb-2 ${self?'ml-auto text-right':''}`;
-        el.innerHTML = `<div class="inline-block px-4 py-2 rounded-2xl ${self?'bg-blue-600 text-white':'bg-gray-100 text-gray-800'} shadow">${text}</div>`;
-        msgs.appendChild(el);
-        msgs.scrollTop = msgs.scrollHeight;
-      }
-      sendBtn.addEventListener('click', ()=>{
-        const t = input.value.trim(); if(!t) return;
-        append(t, true); input.value='';
-        setTimeout(()=>append('Thanks! A support agent will respond shortly.', false), 700);
-      });
-      input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); sendBtn.click(); }});
+    function openReset() {
+      const block = document.getElementById('reset-block');
+      if (block) block.classList.toggle('hidden');
     }
-  });
+
+    async function sendResetOtp() {
+      const emailField = document.getElementById('reset-email');
+      const message = document.getElementById('reset-message');
+      if (!emailField.value.trim()) return;
+      message.textContent = 'Sending…';
+      try {
+        const res = await fetch('https://meme-s6lb.onrender.com/auth/request-reset-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: emailField.value.trim().toLowerCase() })
+        });
+        const data = await res.json();
+        message.textContent = data.success ? 'OTP sent. Check your inbox.' : (data.message || 'Unable to send reset email.');
+      } catch (err) {
+        message.textContent = 'Network error. Try again.';
+      }
+    }
   </script>
 </body>
 </html>

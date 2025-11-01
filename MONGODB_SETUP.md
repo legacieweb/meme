@@ -15,6 +15,8 @@
 MONGODB_URI=mongodb+srv://essayme_user:YOUR_PASSWORD@cluster0.xxxxx.mongodb.net/essayme?retryWrites=true&w=majority
 ```
 
+
+
 ## Option 2: Local MongoDB
 
 1. Download and install MongoDB Community Server

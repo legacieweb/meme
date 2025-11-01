@@ -35,11 +35,6 @@
 
 <body class="bg-gray-100 font-sans">
 
-<!-- Header (Mobile only) -->
-<header class="bg-white shadow-md fixed top-0 left-0 right-0 z-20 px-4 py-3 flex items-center justify-center lg:hidden">
-  <h1 id="tutor-section-title" class="text-xl font-semibold text-gray-800">Dashboard Overview</h1>
-</header>
-
 <!-- Bottom Navigation for small screens -->
 <nav class="tutor-bottom-nav fixed bottom-0 left-0 right-0 bg-gray-800 text-white justify-around items-center p-2 lg:hidden z-20">
   <button onclick="showSection('overview', event)" class="flex flex-col items-center">
@@ -61,6 +56,8 @@
 </nav>
   
   <!-- Sidebar -->
+  <audio id="tutor-update-audio" src="audio/notify.mp3" preload="auto"></audio>
+
   <div class="sidebar hidden lg:block fixed left-0 top-0 h-full w-64 text-white p-6 shadow-lg">
     <div class="mb-8">
       <h1 class="text-2xl font-bold">Tutor Dashboard</h1>
@@ -75,14 +72,17 @@
       <a href="#" onclick="showSection('assignments', event)" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link">
         <i class="fas fa-tasks"></i>
         <span>Assignments</span>
+        <span id="tutor-assignments-badge" class="ml-auto bg-gradient-to-r from-orange-400 via-orange-500 to-rose-500 text-white text-xs font-semibold rounded-full px-2 py-0.5 shadow hidden">0</span>
       </a>
       <a href="#" onclick="showSection('students', event)" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link">
         <i class="fas fa-users"></i>
         <span>Students</span>
+        <span id="tutor-students-badge" class="ml-auto bg-gradient-to-r from-emerald-400 via-green-500 to-teal-500 text-white text-xs font-semibold rounded-full px-2 py-0.5 shadow hidden">0</span>
       </a>
       <a href="#" onclick="showSection('payments', event)" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link">
         <i class="fas fa-credit-card"></i>
         <span>Payment Approvals</span>
+        <span id="tutor-payments-badge" class="ml-auto bg-gradient-to-r from-purple-400 via-purple-500 to-fuchsia-500 text-white text-xs font-semibold rounded-full px-2 py-0.5 shadow hidden">0</span>
       </a>
       <a href="#" onclick="showSection('chat', event)" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:bg-opacity-20 transition duration-200 nav-link relative" id="tutor-chat-nav">
         <i class="fas fa-comments"></i>
@@ -107,7 +107,7 @@
   </div>
 
   <!-- Main Content -->
-  <div class="p-4 pt-20 lg:pt-8 lg:ml-64 lg:p-8">
+  <div class="p-4 pt-6 pb-24 lg:pt-8 lg:pb-8 lg:ml-64 lg:p-8">
     
     <!-- Overview Section -->
     <section id="overview" class="space-y-6">
@@ -361,6 +361,72 @@
     let currentAssignments = [];
     let currentStudents = [];
     let currentPayments = [];
+    const sidebarBadgeData = { assignments: [], students: [], payments: [] };
+    const sidebarBadgeKeys = { assignments: 'tutorSeenAssignmentsIds', students: 'tutorSeenStudentsIds', payments: 'tutorSeenPaymentsIds' };
+    const sidebarBadgePreviousCounts = { assignments: 0, students: 0, payments: 0 };
+    let sidebarBadgesInitialized = false;
+
+    function getSeenIds(section){
+      const key = sidebarBadgeKeys[section];
+      if(!key) return new Set();
+      try{
+        const raw = localStorage.getItem(key);
+        if(!raw) return new Set();
+        const parsed = JSON.parse(raw);
+        if(Array.isArray(parsed)) return new Set(parsed.map(String));
+      }catch(_){ }
+      return new Set();
+    }
+
+    function setSeenIds(section, ids){
+      const key = sidebarBadgeKeys[section];
+      if(!key) return;
+      try{
+        const unique = Array.from(new Set((ids||[]).map(String)));
+        localStorage.setItem(key, JSON.stringify(unique));
+      }catch(_){ }
+    }
+
+    function computeNewCount(section){
+      const seen = getSeenIds(section);
+      const ids = sidebarBadgeData[section] || [];
+      let count = 0;
+      ids.forEach(id => { if(id && !seen.has(id)) count += 1; });
+      return count;
+    }
+
+    function applyBadge(badgeEl, count){
+      if(!badgeEl) return;
+      if(count>0){
+        badgeEl.textContent = count>99 ? '99+' : String(count);
+        badgeEl.classList.remove('hidden');
+      } else {
+        badgeEl.classList.add('hidden');
+      }
+    }
+
+    function refreshSidebarBadges(options = {}){
+      const playSound = options.playSound !== false;
+      const sections = ['assignments', 'students', 'payments'];
+      const shouldSound = sidebarBadgesInitialized && playSound;
+      sections.forEach(section => {
+        const count = computeNewCount(section);
+        const badgeEl = document.getElementById(`tutor-${section}-badge`);
+        applyBadge(badgeEl, count);
+        if (shouldSound && count > (sidebarBadgePreviousCounts[section] || 0) && count > 0) {
+          const audio = document.getElementById('tutor-update-audio');
+          audio?.play?.().catch(()=>{});
+        }
+        sidebarBadgePreviousCounts[section] = count;
+      });
+      sidebarBadgesInitialized = true;
+    }
+
+    function markSidebarSectionSeen(section){
+      setSeenIds(section, sidebarBadgeData[section] || []);
+      sidebarBadgePreviousCounts[section] = 0;
+      refreshSidebarBadges({ playSound: false });
+    }
 
     // Initialize dashboard
     document.addEventListener('DOMContentLoaded', function() {
@@ -850,7 +916,13 @@
         if (linkEl) linkEl.classList.add('active', 'bg-white', 'bg-opacity-20');
       }
       
-      // If chat section is opened, mark unread for active assignment as read
+      if(sectionId === 'assignments'){
+        markSidebarSectionSeen('assignments');
+      } else if(sectionId === 'students'){
+        markSidebarSectionSeen('students');
+      } else if(sectionId === 'payments'){
+        markSidebarSectionSeen('payments');
+      }
       if(sectionId === 'chat'){
         clearTutorUnread(tutorActiveAssignment?.id);
       }
@@ -959,8 +1031,16 @@
         const result = await response.json();
 
         if (result.success) {
-          currentAssignments = result.assignments;
-          displayAssignments(currentAssignments);
+          const assignments = Array.isArray(result.assignments) ? result.assignments : [];
+          currentAssignments = assignments;
+          sidebarBadgeData.assignments = assignments.map(a => String(a?.id || a?._id || '')).filter(Boolean);
+          const assignmentsSection = document.getElementById('assignments');
+          if (assignmentsSection && !assignmentsSection.classList.contains('hidden')) {
+            markSidebarSectionSeen('assignments');
+          } else {
+            refreshSidebarBadges();
+          }
+          displayAssignments(assignments);
         }
       } catch (error) {
         console.error('Error loading assignments:', error);
@@ -1257,8 +1337,16 @@
         const result = await response.json();
 
         if (result.success) {
-          currentStudents = result.students;
-          displayStudents(currentStudents);
+          const students = Array.isArray(result.students) ? result.students : [];
+          currentStudents = students;
+          sidebarBadgeData.students = students.map(s => String(s?.id || s?._id || s?.userId || '')).filter(Boolean);
+          const studentsSection = document.getElementById('students');
+          if (studentsSection && !studentsSection.classList.contains('hidden')) {
+            markSidebarSectionSeen('students');
+          } else {
+            refreshSidebarBadges();
+          }
+          displayStudents(students);
         }
       } catch (error) {
         console.error('Error loading students:', error);
@@ -1321,8 +1409,16 @@
         const result = await response.json();
 
         if (result.success) {
-          currentPayments = result.payments;
-          displayPendingPayments(currentPayments);
+          const payments = Array.isArray(result.payments) ? result.payments : [];
+          currentPayments = payments;
+          sidebarBadgeData.payments = payments.map(p => String(p?.id || p?._id || '')).filter(Boolean);
+          const paymentsSection = document.getElementById('payments');
+          if (paymentsSection && !paymentsSection.classList.contains('hidden')) {
+            markSidebarSectionSeen('payments');
+          } else {
+            refreshSidebarBadges();
+          }
+          displayPendingPayments(payments);
         }
       } catch (error) {
         console.error('Error loading pending payments:', error);

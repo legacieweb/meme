@@ -381,6 +381,7 @@
   <a href="#" class="relative mb-6 p-4" onclick="showSection('assignments')">
     <i class="fas fa-book text-xl text-gray-700"></i>
     <span class="tooltip">Assignments</span>
+    <span id="student-assignments-badge" class="absolute -top-0.5 -right-0.5 bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 text-white text-[10px] font-semibold rounded-full px-1.5 py-0.5 shadow hidden">0</span>
   </a>
   <a href="#" class="relative mb-6 p-4" onclick="showSection('messages')">
     <i class="fas fa-comments text-xl text-gray-700"></i>
@@ -390,6 +391,7 @@
   <a href="#" class="relative mb-6 p-4" onclick="showSection('payments')">
     <i class="fas fa-wallet text-xl text-gray-700"></i>
     <span class="tooltip">Payments</span>
+    <span id="student-payments-badge" class="absolute -top-0.5 -right-0.5 bg-gradient-to-r from-purple-400 via-purple-500 to-pink-500 text-white text-[10px] font-semibold rounded-full px-1.5 py-0.5 shadow hidden">0</span>
   </a>
   <a href="#" class="relative mb-6 p-4" onclick="showSection('profile')">
     <i class="fas fa-user text-xl text-pink-700"></i>
@@ -398,23 +400,25 @@
 </div>
 
 <!-- Bottom Navigation for Medium Screens -->
-<nav class="fixed bottom-0 left-0 right-0 bg-gray-800 text-white flex justify-around items-center p-2 md:flex lg:hidden z-20">
+<nav class="student-bottom-nav fixed bottom-0 left-0 right-0 bg-gray-800 text-white flex justify-around items-center p-2 md:flex lg:hidden z-20">
   <button onclick="showSection('overview')" class="flex flex-col items-center">
     <i class="fas fa-home text-xl"></i>
     <span class="text-xs"></span>
   </button>
-  <button onclick="showSection('assignments')" class="flex flex-col items-center">
+  <button onclick="showSection('assignments')" class="flex flex-col items-center relative">
     <i class="fas fa-book text-xl"></i>
     <span class="text-xs"></span>
+    <span id="student-assignments-badge-mobile" class="absolute -top-1 -right-1 bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 text-white text-[10px] font-semibold rounded-full px-1.5 py-0.5 shadow hidden">0</span>
   </button>
   <button onclick="showSection('messages')" class="flex flex-col items-center relative">
     <i class="fas fa-comments text-xl"></i>
     <span class="text-xs"></span>
     <span id="student-chat-badge-mobile" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] rounded-full px-1.5 py-0.5 hidden">0</span>
   </button>
-  <button onclick="showSection('payments')" class="flex flex-col items-center">
+  <button onclick="showSection('payments')" class="flex flex-col items-center relative">
     <i class="fas fa-wallet text-xl"></i>
     <span class="text-xs"></span>
+    <span id="student-payments-badge-mobile" class="absolute -top-1 -right-1 bg-gradient-to-r from-purple-400 via-purple-500 to-pink-500 text-white text-[10px] font-semibold rounded-full px-1.5 py-0.5 shadow hidden">0</span>
   </button>
   <button onclick="showSection('profile')" class="flex flex-col items-center">
     <i class="fas fa-user text-xl"></i>
@@ -422,42 +426,11 @@
   </button>
 </nav>
 
-<!-- Header -->
-<header class="bg-white shadow-md fixed top-0 left-0 right-0 z-10 px-6 py-4 flex items-center justify-between">
-  
-  <!-- Small Screens: Back Button + Section Name -->
-  <div id="mobile-header" class="flex items-center space-x-4 lg:hidden">
-    <h1 id="section-title-mobile" class="text-xl font-semibold text-gray-800"></h1>
-  </div>
-
-  <!-- Large Screens: Section Name in Center -->
-  <h1 id="section-title-large" class="hidden lg:block text-2xl font-bold text-gray-800 mx-auto"></h1>
-
-  <!-- Profile Icon (Large Screens Only) -->
-  <div id="profile-section" class="hidden lg:flex relative">
-    <div 
-      class="w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-gray-300 text-white font-bold overflow-hidden ring-2 ring-blue-400 hover:ring-4 hover:scale-105 transition-transform shadow-lg"
-      onclick="toggleDropdown()"
-      id="profile-icon"
-    >
-      <img id="profile-icon-image" src="" alt="Profile" class="w-10 h-10 object-cover rounded-full hidden">
-      <span id="profile-initials" class="text-xl">👾</span>
-    </div>
-
-    <!-- Dropdown Menu -->
-    <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-md">
-      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100" onclick="showSection('profile')">View Profile</a>
-      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100" onclick="confirmLogout()">Logout</a>
-    </div>
-  </div>
-
-</header>
-
 
 <!-- Main Content (Ensuring Proper Layout for All Screens) -->
-<main class="md:ml-16 md:pl-6 lg:ml-16 lg:pl-6 pt-20 pb-20 md:pb-6">  
+<main class="md:ml-16 md:pl-6 lg:ml-16 lg:pl-6 pt-6 pb-24 md:pb-6">  
 <!-- Overview Section -->
-<section id="overview" class="p-6 mb-4 md:mb-16 max-h-[calc(100vh-140px)] md:max-h-[calc(100vh-100px)] overflow-y-auto">
+<section id="overview" class="p-6 mb-4 md:mb-16 overflow-y-auto">
 
   <!-- Quick Action Button -->
   <div class="mb-6">
@@ -623,6 +596,7 @@
 
   <audio id="student-new-message-audio" src="audio/receive.mp3" preload="auto"></audio>
   <audio id="student-send-audio" src="audio/send.mp3" preload="auto"></audio>
+  <audio id="student-update-audio" src="audio/notify.mp3" preload="auto"></audio>
 </section>
 
 
@@ -689,22 +663,26 @@
           <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <i class="fas fa-credit-card text-2xl text-blue-600"></i>
           </div>
-          <h3 class="font-semibold text-gray-800 mb-2">Paystack</h3>
-          <p class="text-sm text-gray-600">Credit/Debit Cards</p>
+          <h3 class="font-semibold text-gray-800 mb-2">online payment</h3>
+          <p class="text-sm text-gray-600">Google Pay, Apple Pay, Android Pay, or Credit/Debit Cards</p>
           <p class="text-xs text-green-600 mt-2">✓ Instant Processing</p>
         </div>
       </div>
 
       <!-- PayPal -->
-      <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow border-2 border-transparent hover:border-blue-500"
-           onclick="selectPaymentMethod('paypal')">
+      <div class="bg-white rounded-lg shadow-md p-6 transition-shadow border-2 border-gray-300 opacity-60 cursor-not-allowed relative"
+           style="pointer-events: none; filter: grayscale(50%);">
         <div class="text-center">
           <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <i class="fab fa-paypal text-2xl text-blue-600"></i>
           </div>
           <h3 class="font-semibold text-gray-800 mb-2">PayPal</h3>
           <p class="text-sm text-gray-600">Secure Online Payment</p>
-          <p class="text-xs text-green-600 mt-2">✓ Instant Processing</p>
+          <p class="text-xs text-red-600 mt-2">
+            <span class="inline-block bg-red-100 text-red-800 px-3 py-1 rounded-full font-semibold">
+              Currently Disabled
+            </span>
+          </p>
         </div>
       </div>
 
@@ -1048,77 +1026,39 @@
             
             <!-- Writing Assignments -->
             <div class="mb-6">
-              <h4 class="font-medium text-gray-700 mb-3">Writing Assignments ($13 per page - ~250 words)</h4>
+              <h4 class="font-medium text-gray-700 mb-3">Writing Assignments ($10 per page - ~250 words)</h4>
               <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="essay" data-price="13" data-category="writing" class="mr-2">
+                  <input type="radio" name="assignmentType" value="essay" data-price="10" data-category="writing" class="mr-2">
                   <span>Essay</span>
                 </label>
                 <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="research-paper" data-price="13" data-category="writing" class="mr-2">
+                  <input type="radio" name="assignmentType" value="research-paper" data-price="10" data-category="writing" class="mr-2">
                   <span>Research Paper</span>
                 </label>
                 <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="discussion-post" data-price="13" data-category="writing" class="mr-2">
+                  <input type="radio" name="assignmentType" value="discussion-post" data-price="10" data-category="writing" class="mr-2">
                   <span>Discussion Post</span>
                 </label>
                 <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="summary" data-price="13" data-category="writing" class="mr-2">
+                  <input type="radio" name="assignmentType" value="summary" data-price="10" data-category="writing" class="mr-2">
                   <span>Summary</span>
                 </label>
                 <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="book-review" data-price="13" data-category="writing" class="mr-2">
+                  <input type="radio" name="assignmentType" value="book-review" data-price="10" data-category="writing" class="mr-2">
                   <span>Book Review</span>
                 </label>
                 <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="case-study" data-price="13" data-category="writing" class="mr-2">
+                  <input type="radio" name="assignmentType" value="case-study" data-price="10" data-category="writing" class="mr-2">
                   <span>Case Study</span>
                 </label>
                 <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="lab-report" data-price="13" data-category="writing" class="mr-2">
+                  <input type="radio" name="assignmentType" value="lab-report" data-price="10" data-category="writing" class="mr-2">
                   <span>Lab Report</span>
                 </label>
                 <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="thesis" data-price="13" data-category="writing" class="mr-2">
+                  <input type="radio" name="assignmentType" value="thesis" data-price="10" data-category="writing" class="mr-2">
                   <span>Thesis</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Rewriting Assignments -->
-            <div class="mb-6">
-              <h4 class="font-medium text-gray-700 mb-3">Rewriting Services ($15 per page)</h4>
-              <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="rewrite-essay" data-price="15" data-category="rewriting" class="mr-2">
-                  <span>Rewrite Essay</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="rewrite-paper" data-price="15" data-category="rewriting" class="mr-2">
-                  <span>Rewrite Paper</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="paraphrase" data-price="15" data-category="rewriting" class="mr-2">
-                  <span>Paraphrasing</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Correction Services -->
-            <div class="mb-6">
-              <h4 class="font-medium text-gray-700 mb-3">Correction Services ($9 per page)</h4>
-              <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="proofreading" data-price="9" data-category="correction" class="mr-2">
-                  <span>Proofreading</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="editing" data-price="9" data-category="correction" class="mr-2">
-                  <span>Editing</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="assignmentType" value="grammar-check" data-price="9" data-category="correction" class="mr-2">
-                  <span>Grammar Check</span>
                 </label>
               </div>
             </div>
@@ -1318,9 +1258,10 @@ function goBack() {
 }
 
 function updateHeader(sectionName) {
-  // Update Mobile & Large screen headers
-  document.getElementById("section-title-mobile").textContent = sectionName;
-  document.getElementById("section-title-large").textContent = sectionName;
+  const mobile = document.getElementById("section-title-mobile");
+  const large = document.getElementById("section-title-large");
+  if(mobile) mobile.textContent = sectionName;
+  if(large) large.textContent = sectionName;
 }
 
 // Example: Call this when switching sections
@@ -1659,19 +1600,21 @@ async function saveProfile() {
         throw new Error(result.message || 'Failed to fetch orders');
       }
       
-      const assignments = result.orders;
+      const assignments = Array.isArray(result.orders) ? result.orders : [];
       const assignmentsContainer = document.getElementById("assignments-container");
+      studentBadgeData.assignments = assignments.map(a => String(a.id || a._id || '')).filter(Boolean);
+      refreshStudentSectionBadges();
       
-      if (!assignments || assignments.length === 0) {
+      if (assignments.length === 0) {
         assignmentsContainer.innerHTML = `
           <div class="col-span-full text-center py-8">
             <div class="bg-gray-100 rounded-lg p-8">
               <i class="fas fa-book text-4xl text-gray-400 mb-4"></i>
               <h3 class="text-lg font-semibold text-gray-600 mb-2">No Orders Yet</h3>
               <p class="text-gray-500 mb-4">Your orders will appear here once you place them.</p>
-              <a href="place-order.html" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+              <button onclick="openOrderModal()" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
                 <i class="fas fa-plus mr-2"></i>Place Your First Order
-              </a>
+              </button>
             </div>
           </div>
         `;
@@ -1904,20 +1847,36 @@ function toggleSendButton() {
   let studentSeenMessageIds = new Set();
   function updateStudentSidebarBadge(){
     const total = Array.from(window.studentUnread?.values()||[]).reduce((a,b)=>a+b,0);
-    
-    // Update desktop sidebar badge
-    const el = document.getElementById('student-chat-badge');
-    if(el) {
-      if(total>0){ el.textContent = String(total); el.classList.remove('hidden'); }
+    const chatBadge = document.getElementById('student-chat-badge');
+    if(chatBadge) {
+      if(total>0){ chatBadge.textContent = String(total); chatBadge.classList.remove('hidden'); }
+      else { chatBadge.classList.add('hidden'); }
+    }
+    const chatBadgeMobile = document.getElementById('student-chat-badge-mobile');
+    if(chatBadgeMobile) {
+      if(total>0){ chatBadgeMobile.textContent = String(total); chatBadgeMobile.classList.remove('hidden'); }
+      else { chatBadgeMobile.classList.add('hidden'); }
+    }
+  }
+  function updateStudentAssignmentsBadge(count){
+    const badge = document.getElementById('student-assignments-badge');
+    const badgeMobile = document.getElementById('student-assignments-badge-mobile');
+    const targetCount = count>99 ? '99+' : String(count);
+    [badge, badgeMobile].forEach(el => {
+      if(!el) return;
+      if(count>0){ el.textContent = targetCount; el.classList.remove('hidden'); }
       else { el.classList.add('hidden'); }
-    }
-    
-    // Update mobile bottom navigation badge
-    const mobileEl = document.getElementById('student-chat-badge-mobile');
-    if(mobileEl) {
-      if(total>0){ mobileEl.textContent = String(total); mobileEl.classList.remove('hidden'); }
-      else { mobileEl.classList.add('hidden'); }
-    }
+    });
+  }
+  function updateStudentPaymentsBadge(count){
+    const badge = document.getElementById('student-payments-badge');
+    const badgeMobile = document.getElementById('student-payments-badge-mobile');
+    const targetCount = count>99 ? '99+' : String(count);
+    [badge, badgeMobile].forEach(el => {
+      if(!el) return;
+      if(count>0){ el.textContent = targetCount; el.classList.remove('hidden'); }
+      else { el.classList.add('hidden'); }
+    });
   }
   function updateStudentListBadge(assignmentId){
     const btn = document.querySelector(`#assignment-chat-list button[data-id="${CSS.escape(String(assignmentId))}"]`);
@@ -2071,14 +2030,63 @@ function toggleSendButton() {
     }
   }
 
+  const studentBadgeData = { assignments: [], payments: [] };
+  const studentBadgeSeenKeys = { assignments: 'studentSeenAssignments', payments: 'studentSeenPayments' };
+  const studentBadgePreviousCounts = { assignments: 0, payments: 0 };
+  let studentBadgesInitialized = false;
+
+  function getStudentSeenIds(section){
+    const key = studentBadgeSeenKeys[section];
+    if(!key) return new Set();
+    try{
+      const raw = localStorage.getItem(key);
+      if(!raw) return new Set();
+      const parsed = JSON.parse(raw);
+      if(Array.isArray(parsed)) return new Set(parsed.map(String));
+    }catch(_){ }
+    return new Set();
+  }
+
+  function setStudentSeenIds(section, ids){
+    const key = studentBadgeSeenKeys[section];
+    if(!key) return;
+    try{
+      const unique = Array.from(new Set((ids||[]).map(String)));
+      localStorage.setItem(key, JSON.stringify(unique));
+    }catch(_){ }
+  }
+
+  function refreshStudentSectionBadges(){
+    const shouldSound = studentBadgesInitialized;
+    const updateSections = [
+      { section: 'assignments', ids: studentBadgeData.assignments, updateFn: updateStudentAssignmentsBadge },
+      { section: 'payments', ids: studentBadgeData.payments, updateFn: updateStudentPaymentsBadge }
+    ];
+    updateSections.forEach(({ section, ids, updateFn }) => {
+      const seen = getStudentSeenIds(section);
+      const unseenIds = (ids||[]).filter(id => id && !seen.has(String(id)));
+      updateFn(unseenIds.length);
+      if (shouldSound && unseenIds.length > (studentBadgePreviousCounts[section] || 0) && unseenIds.length > 0) {
+        document.getElementById('student-update-audio')?.play?.().catch(()=>{});
+      }
+      studentBadgePreviousCounts[section] = unseenIds.length;
+    });
+    studentBadgesInitialized = true;
+  }
+
+  function markStudentSectionSeen(section){
+    setStudentSeenIds(section, studentBadgeData[section] || []);
+    studentBadgePreviousCounts[section] = 0;
+    refreshStudentSectionBadges();
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("send-message").addEventListener("click", sendMessage);
     document.getElementById("chat-box").addEventListener("input", toggleSendButton);
     toggleSendButton();
     document.getElementById("refresh-assignments")?.addEventListener("click", loadAssignmentList);
     document.getElementById("back-to-assignments")?.addEventListener("click", switchToAssignmentView);
-    // init unread map for student
-    window.studentUnread = new Map(); // assignmentId -> count
+    window.studentUnread = new Map();
     fetchProfile();
     loadAssignmentList();
   });
@@ -2377,7 +2385,10 @@ async function loadUserPayments() {
         const result = await response.json();
         
         if (result.success) {
-            displayPaymentHistory(result.payments);
+            const payments = Array.isArray(result.payments) ? result.payments : [];
+            studentBadgeData.payments = payments.filter(p => p.status && p.status.toLowerCase() === 'pending').map(p => String(p.id || p._id || '')).filter(Boolean);
+            refreshStudentSectionBadges();
+            displayPaymentHistory(payments);
         }
     } catch (error) {
         console.error('Error loading payments:', error);
@@ -2480,15 +2491,17 @@ function showSection(sectionId) {
   };
   
   const title = sectionTitles[sectionId] || 'Dashboard';
-  document.getElementById('section-title-mobile').textContent = title;
-  document.getElementById('section-title-large').textContent = title;
+  const titleMobile = document.getElementById('section-title-mobile');
+  const titleLarge = document.getElementById('section-title-large');
+  if(titleMobile) titleMobile.textContent = title;
+  if(titleLarge) titleLarge.textContent = title;
   
-  // Load data when specific sections are shown
   if (sectionId === 'assignments') {
+    markStudentSectionSeen('assignments');
     fetchHomework();
   } else if (sectionId === 'messages') {
-    // Messages are loaded via SSE when assignment is selected
   } else if (sectionId === 'payments') {
+    markStudentSectionSeen('payments');
     loadUserPayments();
     checkBalanceNotification();
   } else if (sectionId === 'overview') {
@@ -2930,7 +2943,7 @@ function closePaymentModal() {
 function processPaystackPayment() {
     // Initialize Paystack payment
     const handler = PaystackPop.setup({
-        key: 'pk_test_232531a5c927ef2cc67ed1b85af3f26e3b8ed2f2',
+        key: 'pk_live_7ab8e015626516d7d00210b2e7fe169805c226b8',
         email: (localStorage.getItem('userEmail') || document.getElementById('user-email')?.textContent?.trim() || ''),
         amount: selectedPaymentAmount * 100, // Amount in kobo
         currency: 'USD',
