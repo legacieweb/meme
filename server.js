@@ -17,6 +17,15 @@ const mailTransporter = nodemailer.createTransport({
   tls: { rejectUnauthorized: false }
 });
 
+// Verify email transporter on startup
+mailTransporter.verify((error, success) => {
+  if (error) {
+    console.error('❌ Email transporter verification failed:', error.message);
+  } else {
+    console.log('✅ Email transporter is ready to send emails');
+  }
+});
+
 // Simple mail helper that fails safely
 async function sendMailSafe({ to, subject, text, html }) {
   try {
@@ -28,10 +37,177 @@ async function sendMailSafe({ to, subject, text, html }) {
       text: text || (html ? html.replace(/<[^>]+>/g, ' ') : ''),
       html: html || undefined
     });
+    console.log('✓ Email sent to:', to, '| Subject:', subject);
   } catch (e) {
-    console.error('Email send failed:', subject, to, e?.message || e);
+    console.error('✗ Email send failed:', subject, 'to:', to, '| Error:', e?.message || e);
   }
 }
+
+// Email template functions
+const emailTemplates = {
+  welcome: (name) => ({
+    subject: 'Welcome to EssayMe',
+    html: `<p>Hi ${name},</p>
+           <p>Welcome to EssayMe! Your account has been created successfully.</p>
+           <p>You can now submit assignments, chat with tutors, and track your progress.</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  loginNotification: (name, time) => ({
+    subject: 'Login Notification - EssayMe',
+    html: `<p>Hi ${name},</p>
+           <p>You have successfully logged in to your EssayMe account.</p>
+           <p>Login time: ${time}</p>
+           <p>If this wasn't you, please contact support immediately.</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  assignmentReceived: (name, order) => ({
+    subject: 'Your assignment has been received',
+    html: `<p>Hi ${name},</p>
+           <p>We received your assignment: <strong>${order.assignmentTitle}</strong>.</p>
+           <ul>
+             <li>Subject: ${order.subject}</li>
+             <li>Type: ${order.orderType}</li>
+             <li>Deadline: ${new Date(order.deadline).toLocaleString()}</li>
+             <li>Total: ${fmtMoney(order.totalCost)}</li>
+             <li>Status: ${order.status}</li>
+           </ul>
+           <p>We will keep you updated.</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  assignmentAccepted: (name, order) => ({
+    subject: 'Your assignment has been accepted by a tutor',
+    html: `<p>Hi ${name},</p>
+           <p>Great news! Your assignment has been accepted by a tutor and work has begun.</p>
+           <ul>
+             <li>Assignment: <strong>${order.assignmentTitle}</strong></li>
+             <li>Subject: ${order.subject}</li>
+             <li>Type: ${order.orderType}</li>
+             <li>Deadline: ${new Date(order.deadline).toLocaleString()}</li>
+             <li>Status: In Progress</li>
+           </ul>
+           <p>You can now communicate with your tutor through the chat system.</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  assignmentCompleted: (name, order) => ({
+    subject: 'Your assignment has been completed',
+    html: `<p>Hi ${name},</p>
+           <p>Your assignment <strong>${order.assignmentTitle}</strong> has been completed.</p>
+           <p>You can download any completed files from your dashboard.</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  balanceUpdated: (name, amount, method, reference, balance) => ({
+    subject: 'Balance Updated - EssayMe',
+    html: `<p>Hi ${name},</p>
+           <p>Your account balance has been updated.</p>
+           <ul>
+             <li>Amount Added: ${fmtMoney(amount)}</li>
+             <li>Method: ${method?.toUpperCase() || 'N/A'}</li>
+             <li>Reference: ${reference || 'N/A'}</li>
+             <li>New Balance: ${fmtMoney(balance)}</li>
+           </ul>
+           <p>You can now place orders or continue with your assignments.</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  paymentProofReceived: (name, amount, method, reference) => ({
+    subject: 'Payment proof received',
+    html: `<p>Hi ${name},</p>
+           <p>We received your ${method.toUpperCase()} payment proof.</p>
+           <ul>
+             <li>Amount: ${fmtMoney(amount)}</li>
+             <li>Reference: ${reference}</li>
+             <li>Status: Pending approval</li>
+           </ul>
+           <p>We will review and approve it shortly.</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  paymentApproved: (name, amount, method, reference, balance) => ({
+    subject: 'Payment approved',
+    html: `<p>Hi ${name},</p>
+           <p>Your payment has been approved and your account has been credited.</p>
+           <ul>
+             <li>Amount: ${fmtMoney(amount)}</li>
+             <li>Method: ${method.toUpperCase()}</li>
+             <li>Reference: ${reference}</li>
+             <li>New Balance: ${fmtMoney(balance)}</li>
+           </ul>
+           <p>You can now proceed with your assignments.</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  paymentRejected: (name, amount, method, reference, reason) => ({
+    subject: 'Payment rejection notice',
+    html: `<p>Hi ${name},</p>
+           <p>Unfortunately, your payment was rejected and not processed.</p>
+           <ul>
+             <li>Amount: ${fmtMoney(amount)}</li>
+             <li>Method: ${method.toUpperCase()}</li>
+             <li>Reference: ${reference}</li>
+             <li>Reason: ${reason || 'Not specified'}</li>
+           </ul>
+           <p>Please contact our support team or resubmit your payment with the correct information.</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  tutorAssignmentSubmitted: (tutorName, student, order) => ({
+    subject: 'New assignment assigned to you',
+    html: `<p>Hi ${tutorName},</p>
+           <p>A new assignment has been assigned to you.</p>
+           <ul>
+             <li>Student: ${student.name} (${student.email})</li>
+             <li>Assignment: <strong>${order.assignmentTitle}</strong></li>
+             <li>Subject: ${order.subject}</li>
+             <li>Type: ${order.orderType}</li>
+             <li>Pages: ${order.pages}</li>
+             <li>Deadline: ${new Date(order.deadline).toLocaleString()}</li>
+             <li>Total Payment: ${fmtMoney(order.totalCost)}</li>
+           </ul>
+           <p>Please log in to your dashboard to start working on this assignment.</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  tutorAssignmentStarted: (tutorName, order) => ({
+    subject: 'Assignment marked as in progress',
+    html: `<p>Hi ${tutorName},</p>
+           <p>The assignment <strong>${order.assignmentTitle}</strong> has been marked as in progress.</p>
+           <p>Deadline: ${new Date(order.deadline).toLocaleString()}</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  tutorAssignmentCompleted: (tutorName, order) => ({
+    subject: 'Assignment marked completed',
+    html: `<p>Hi ${tutorName},</p>
+           <p>The assignment <strong>${order.assignmentTitle}</strong> has been marked as completed.</p>
+           <p>— EssayMe Team</p>`
+  }),
+  
+  adminNewAssignment: (studentName, studentEmail, order) => ({
+    subject: 'New assignment submitted',
+    html: `<p>New assignment from ${studentName} (${studentEmail})</p>
+           <p><strong>${order.assignmentTitle}</strong> — ${order.orderType}</p>
+           <p>Subject: ${order.subject} • Due: ${new Date(order.deadline).toLocaleString()}</p>
+           <p>Total: ${fmtMoney(order.totalCost)} • Status: ${order.status}</p>
+           <p>Pages: ${order.pages}</p>`
+  }),
+  
+  adminPaymentProofPending: (studentName, studentEmail, amount, method, reference, paymentId) => ({
+    subject: 'New payment proof pending approval',
+    html: `<p>${studentName} (${studentEmail}) submitted a payment proof.</p>
+           <ul>
+             <li>Amount: ${fmtMoney(amount)}</li>
+             <li>Method: ${method.toUpperCase()}</li>
+             <li>Reference: ${reference}</li>
+             <li>Payment ID: ${paymentId}</li>
+           </ul>
+           <p>Please review and approve this payment in your admin dashboard.</p>`
+  })
+};
 
 function fmtMoney(n){ return `$${Number(n||0).toFixed(2)}`; }
 
@@ -448,13 +624,11 @@ app.post('/signup', async (req, res) => {
     console.log('User created successfully:', user._id);
 
     // Send signup email (non-blocking)
+    const welcomeEmail = emailTemplates.welcome(user.name);
     sendMailSafe({
       to: user.email,
-      subject: 'Welcome to EssayMe',
-      html: `<p>Hi ${user.name},</p>
-             <p>Welcome to EssayMe! Your account has been created successfully.</p>
-             <p>You can now submit assignments, chat with tutors, and track your progress.</p>
-             <p>— EssayMe Team</p>`
+      subject: welcomeEmail.subject,
+      html: welcomeEmail.html
     });
 
     res.status(201).json({
@@ -520,6 +694,14 @@ app.post('/login', async (req, res) => {
     user.lastLogin = new Date();
     await user.save();
     console.log('Login successful for user:', user._id);
+
+    // Send login notification email (non-blocking)
+    const loginEmail = emailTemplates.loginNotification(user.name, new Date().toLocaleString());
+    sendMailSafe({
+      to: user.email,
+      subject: loginEmail.subject,
+      html: loginEmail.html
+    });
 
     res.json({
       success: true,
@@ -736,30 +918,38 @@ app.post('/place-order', uploadMem.array('files', 5), async (req, res) => {
 
     // Email notifications (non-blocking)
     // Notify student
+    const assignmentReceivedEmail = emailTemplates.assignmentReceived(user.name, order);
     sendMailSafe({
       to: user.email,
-      subject: 'Your assignment has been received',
-      html: `<p>Hi ${user.name},</p>
-             <p>We received your assignment: <strong>${order.assignmentTitle}</strong>.</p>
-             <ul>
-               <li>Subject: ${order.subject}</li>
-               <li>Type: ${order.orderType}</li>
-               <li>Deadline: ${new Date(order.deadline).toLocaleString()}</li>
-               <li>Total: ${fmtMoney(order.totalCost)}</li>
-               <li>Status: ${order.status}</li>
-             </ul>
-             <p>We will keep you updated.</p>`
+      subject: assignmentReceivedEmail.subject,
+      html: assignmentReceivedEmail.html
     });
-    // Notify tutors/admin inbox (optional): use SMTP_TUTOR_NOTIFY
+    
+    // Notify tutors/admin inbox (optional): use TUTOR_NOTIFY_EMAIL
     if (process.env.TUTOR_NOTIFY_EMAIL) {
+      const adminAssignmentEmail = emailTemplates.adminNewAssignment(user.name, user.email, order);
       sendMailSafe({
         to: process.env.TUTOR_NOTIFY_EMAIL,
-        subject: 'New assignment submitted',
-        html: `<p>New assignment from ${user.name} (${user.email})</p>
-               <p><strong>${order.assignmentTitle}</strong> — ${order.orderType}</p>
-               <p>Subject: ${order.subject} • Due: ${new Date(order.deadline).toLocaleString()}</p>
-               <p>Total: ${fmtMoney(order.totalCost)} • Status: ${order.status}</p>`
+        subject: adminAssignmentEmail.subject,
+        html: adminAssignmentEmail.html
       });
+    }
+    
+    // Notify all tutors (role: 'tutor')
+    try {
+      const tutors = await User.find({ role: 'tutor' }).select('name email');
+      for (const tutor of tutors) {
+        if (tutor?.email) {
+          const tutorAssignmentEmail = emailTemplates.tutorAssignmentSubmitted(tutor.name, user, order);
+          sendMailSafe({
+            to: tutor.email,
+            subject: tutorAssignmentEmail.subject,
+            html: tutorAssignmentEmail.html
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to notify tutors:', e?.message);
     }
 
     res.status(201).json({
@@ -1031,15 +1221,39 @@ app.post('/tutor/update-status', async (req, res) => {
     );
 
     if (!order) {
-      return res.status(404).json({ 
-        success: false, 
-        message: 'Assignment not found' 
+      return res.status(404).json({
+        success: false,
+        message: 'Assignment not found'
       });
     }
 
     // If status is changed to 'checking-balance', notify student
     if (status === 'checking-balance') {
       console.log(`Student ${order.userId} needs to top up account for assignment ${assignmentId}`);
+    }
+
+    // Send completion email if status changed to completed
+    if (status === 'completed') {
+      try {
+        const student = await User.findById(order.userId);
+        const tutor = order.assignedTutor ? await User.findById(order.assignedTutor) : null;
+        if (student?.email) {
+          const completionEmail = emailTemplates.assignmentCompleted(student.name || 'Student', order);
+          sendMailSafe({
+            to: student.email,
+            subject: completionEmail.subject,
+            html: completionEmail.html
+          });
+        }
+        if (tutor?.email) {
+          const tutorCompletionEmail = emailTemplates.tutorAssignmentCompleted(tutor.name || 'Tutor', order);
+          sendMailSafe({
+            to: tutor.email,
+            subject: tutorCompletionEmail.subject,
+            html: tutorCompletionEmail.html
+          });
+        }
+      } catch (e) { console.warn('Completion email warn:', e?.message || e); }
     }
 
     res.json({
@@ -1097,20 +1311,19 @@ app.post('/tutor/upload-completed', async (req, res) => {
       const student = await User.findById(order.userId).lean();
       const tutor = order.assignedTutor ? await User.findById(order.assignedTutor).lean() : null;
       if (student?.email) {
+        const completionEmail = emailTemplates.assignmentCompleted(student.name || 'Student', order);
         sendMailSafe({
           to: student.email,
-          subject: 'Your assignment has been completed',
-          html: `<p>Hi ${student.name || 'Student'},</p>
-                 <p>Your assignment <strong>${order.assignmentTitle}</strong> has been completed and uploaded.</p>
-                 <p>You can download the files from your dashboard.</p>`
+          subject: completionEmail.subject,
+          html: completionEmail.html
         });
       }
       if (tutor?.email) {
+        const tutorCompletionEmail = emailTemplates.tutorAssignmentCompleted(tutor.name || 'Tutor', order);
         sendMailSafe({
           to: tutor.email,
-          subject: 'Assignment marked completed',
-          html: `<p>Hi ${tutor.name || 'Tutor'},</p>
-                 <p>The assignment <strong>${order.assignmentTitle}</strong> has been marked as completed.</p>`
+          subject: tutorCompletionEmail.subject,
+          html: tutorCompletionEmail.html
         });
       }
     } catch (e) { console.warn('Completion email warn:', e?.message || e); }
@@ -1383,6 +1596,34 @@ app.post('/tutor/update-assignment-status', async (req, res) => {
       await assignment.save();
     }
 
+    // Send completion email if status changed to completed
+    if (status === 'completed') {
+      console.log(`📧 Sending completion email for assignment ${assignment._id} to student ${assignment.userId}`);
+      try {
+        const student = await User.findById(assignment.userId);
+        const tutor = assignment.assignedTutor ? await User.findById(assignment.assignedTutor) : null;
+        console.log(`📧 Student found: ${student?.email}, Tutor found: ${tutor?.email}`);
+        if (student?.email) {
+          const completionEmail = emailTemplates.assignmentCompleted(student.name || 'Student', assignment);
+          console.log(`📧 Sending email to student: ${student.email}, Subject: ${completionEmail.subject}`);
+          sendMailSafe({
+            to: student.email,
+            subject: completionEmail.subject,
+            html: completionEmail.html
+          });
+        }
+        if (tutor?.email) {
+          const tutorCompletionEmail = emailTemplates.tutorAssignmentCompleted(tutor.name || 'Tutor', assignment);
+          console.log(`📧 Sending email to tutor: ${tutor.email}, Subject: ${tutorCompletionEmail.subject}`);
+          sendMailSafe({
+            to: tutor.email,
+            subject: tutorCompletionEmail.subject,
+            html: tutorCompletionEmail.html
+          });
+        }
+      } catch (e) { console.warn('Completion email warn:', e?.message || e); }
+    }
+
     res.json({
       success: true,
       message: 'Assignment status updated successfully',
@@ -1567,6 +1808,16 @@ app.post('/tutor/approve-payment', async (req, res) => {
         await order.save();
       }
     }
+    
+    // Send approval email to user
+    if (user?.email) {
+      const approvalEmail = emailTemplates.paymentApproved(user.name, payment.amount, payment.method, payment.reference, user.balance);
+      sendMailSafe({
+        to: user.email,
+        subject: approvalEmail.subject,
+        html: approvalEmail.html
+      });
+    }
 
     res.json({
       success: true,
@@ -1608,25 +1859,19 @@ app.post('/tutor/reject-payment', async (req, res) => {
     payment.approvedBy = tutorId;
     payment.approvedAt = new Date();
     payment.updatedAt = new Date();
-    payment.reference = reason || 'Payment rejected by tutor';
     await payment.save();
 
     // Email rejection notice
     try {
       const user = await User.findById(payment.userId);
       if (user?.email) {
+        const rejectionEmail = emailTemplates.paymentRejected(user.name, payment.amount, payment.method, payment.reference, reason);
         sendMailSafe({
           to: user.email,
-          subject: 'Payment rejected',
-          html: `<p>Hi ${user.name},</p>
-                 <p>Your payment was rejected.</p>
-                 <ul>
-                   <li>Amount: ${fmtMoney(payment.amount)}</li>
-                   <li>Method: ${payment.method.toUpperCase()}</li>
-                   <li>Reference: ${payment.reference}</li>
-                   <li>Reason: ${reason || 'Not specified'}</li>
-                 </ul>`
+          subject: rejectionEmail.subject,
+          html: rejectionEmail.html
         });
+        console.log(`✗ Payment rejected email sent to ${user.email}: $${payment.amount} (${reason || 'No reason provided'})`);
       }
     } catch (e) { console.warn('Payment rejection email warn:', e?.message || e); }
 
@@ -1685,9 +1930,9 @@ app.post('/update-balance', async (req, res) => {
     await payment.save();
 
     // Check if user now has sufficient balance for checking-balance assignments
-    const checkingBalanceOrders = await Order.find({ 
-      userId: userId, 
-      status: 'checking-balance' 
+    const checkingBalanceOrders = await Order.find({
+      userId: userId,
+      status: 'checking-balance'
     });
 
     for (const order of checkingBalanceOrders) {
@@ -1696,6 +1941,33 @@ app.post('/update-balance', async (req, res) => {
         order.updatedAt = new Date();
         await order.save();
       }
+    }
+
+    // Email notification for balance update (non-blocking)
+    if (user.email) {
+      const balanceEmail = emailTemplates.balanceUpdated(user.name, amount, method, reference, user.balance);
+      sendMailSafe({
+        to: user.email,
+        subject: balanceEmail.subject,
+        html: balanceEmail.html
+      });
+    }
+    
+    // Notify tutor/admin of payment
+    if (process.env.BILLING_NOTIFY_EMAIL) {
+      const balanceEmail = emailTemplates.balanceUpdated(user.name, amount, method, reference, user.balance);
+      sendMailSafe({
+        to: process.env.BILLING_NOTIFY_EMAIL,
+        subject: `Payment Confirmation - ${user.name} - ${method.toUpperCase()} $${amount}`,
+        html: `<p>New payment received from ${user.name} (${user.email})</p>
+               <ul>
+                 <li>Amount: $${amount}</li>
+                 <li>Method: ${method.toUpperCase()}</li>
+                 <li>Reference: ${reference}</li>
+                 <li>New Balance: $${user.balance}</li>
+               </ul>
+               <p>Account balance has been updated.</p>`
+      });
     }
 
     res.json({
@@ -1783,31 +2055,48 @@ app.post('/submit-payment-proof', uploadMem.single('proof'), async (req, res) =>
     console.log(`📄 Payment ID: ${payment._id} | Status: PENDING APPROVAL`);
 
     // Email receipts (non-blocking)
+    // Send to user
     if (user?.email) {
+      const proofEmail = emailTemplates.paymentProofReceived(user.name || 'Student', amount, method, payment.reference);
       sendMailSafe({
         to: user.email,
-        subject: 'Payment proof received',
-        html: `<p>Hi ${user.name || 'Student'},</p>
-               <p>We received your ${method.toUpperCase()} payment proof.</p>
-               <ul>
-                 <li>Amount: ${fmtMoney(amount)}</li>
-                 <li>Reference: ${payment.reference}</li>
-                 <li>Status: Pending approval</li>
-               </ul>`
+        subject: proofEmail.subject,
+        html: proofEmail.html
       });
     }
+    // Send to admin/billing
     if (process.env.BILLING_NOTIFY_EMAIL) {
+      const adminProofEmail = emailTemplates.adminPaymentProofPending(user?.name || 'User', user?.email || '', amount, method, payment.reference, payment._id);
       sendMailSafe({
         to: process.env.BILLING_NOTIFY_EMAIL,
-        subject: 'New payment proof pending approval',
-        html: `<p>${user?.name || 'User'} (${user?.email || ''}) submitted a payment proof.</p>
-               <ul>
-                 <li>Amount: ${fmtMoney(amount)}</li>
-                 <li>Method: ${method.toUpperCase()}</li>
-                 <li>Reference: ${payment.reference}</li>
-                 <li>Payment ID: ${payment._id}</li>
-               </ul>`
+        subject: adminProofEmail.subject,
+        html: adminProofEmail.html
       });
+    }
+    // Send to tutors
+    try {
+      const tutors = await User.find({ role: 'tutor' }).select('email name');
+      for (const tutor of tutors) {
+        if (tutor?.email) {
+          sendMailSafe({
+            to: tutor.email,
+            subject: `Payment Proof Received - ${user?.name || 'Student'} - $${amount}`,
+            html: `<p>Hi ${tutor.name},</p>
+                   <p>A new payment proof has been submitted and is pending approval.</p>
+                   <ul>
+                     <li>Student: ${user?.name} (${user?.email})</li>
+                     <li>Amount: $${amount}</li>
+                     <li>Method: ${method.toUpperCase()}</li>
+                     <li>Reference: ${payment.reference}</li>
+                     <li>Payment ID: ${payment._id}</li>
+                   </ul>
+                   <p>Please review and approve this payment in your admin dashboard.</p>
+                   <p>— EssayMe Team</p>`
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to notify tutors of payment proof:', e?.message);
     }
 
     res.json({
@@ -2173,6 +2462,27 @@ app.post('/tutor/upload-completed-files-legacy/:assignmentId', upload.array('fil
     console.log(`✅ ASSIGNMENT COMPLETED: ${order.assignmentTitle} for ${student?.name || 'Student'}`);
     console.log(`📁 Files uploaded: ${files?.length || 0} | Comments: ${comments ? 'Yes' : 'No'}`);
 
+    // Send completion email (non-blocking)
+    try {
+      const tutor = order.assignedTutor ? await User.findById(order.assignedTutor) : null;
+      if (student?.email) {
+        const completionEmail = emailTemplates.assignmentCompleted(student.name || 'Student', order);
+        sendMailSafe({
+          to: student.email,
+          subject: completionEmail.subject,
+          html: completionEmail.html
+        });
+      }
+      if (tutor?.email) {
+        const tutorCompletionEmail = emailTemplates.tutorAssignmentCompleted(tutor.name || 'Tutor', order);
+        sendMailSafe({
+          to: tutor.email,
+          subject: tutorCompletionEmail.subject,
+          html: tutorCompletionEmail.html
+        });
+      }
+    } catch (e) { console.warn('Completion email warn:', e?.message || e); }
+
     res.json({
       success: true,
       message: 'Files uploaded and assignment completed successfully'
@@ -2207,6 +2517,25 @@ app.post('/tutor/accept-assignment', async (req, res) => {
     const student = await User.findById(order.userId);
     console.log(`✅ ASSIGNMENT ACCEPTED: ${order.assignmentTitle} by tutor for ${student?.name || 'Student'}`);
     console.log(`📚 Subject: ${order.subject} | Pages: ${order.pages} | Cost: $${order.totalCost}`);
+
+    // Email notification to student (non-blocking)
+    if (student?.email) {
+      sendMailSafe({
+        to: student.email,
+        subject: 'Your assignment has been accepted by a tutor',
+        html: `<p>Hi ${student.name},</p>
+               <p>Great news! Your assignment has been accepted by a tutor and work has begun.</p>
+               <ul>
+                 <li>Assignment: <strong>${order.assignmentTitle}</strong></li>
+                 <li>Subject: ${order.subject}</li>
+                 <li>Type: ${order.orderType}</li>
+                 <li>Deadline: ${new Date(order.deadline).toLocaleString()}</li>
+                 <li>Status: In Progress</li>
+               </ul>
+               <p>You can now communicate with your tutor through the chat system.</p>
+               <p>— EssayMe Team</p>`
+      });
+    }
 
     res.json({
       success: true,
@@ -2244,31 +2573,20 @@ app.post('/tutor/approve-payment', async (req, res) => {
 
       // Email summary to student
       if (user.email) {
+        const approvalEmail = emailTemplates.paymentApproved(user.name, payment.amount, payment.method, payment.reference, user.balance);
         sendMailSafe({
           to: user.email,
-          subject: 'Payment approved',
-          html: `<p>Hi ${user.name},</p>
-                 <p>Your payment has been approved.</p>
-                 <ul>
-                   <li>Amount: ${fmtMoney(payment.amount)}</li>
-                   <li>Method: ${payment.method.toUpperCase()}</li>
-                   <li>Reference: ${payment.reference}</li>
-                   <li>New Balance: ${fmtMoney(user.balance)}</li>
-                 </ul>`
+          subject: approvalEmail.subject,
+          html: approvalEmail.html
         });
       }
       // Optional notify billing
       if (process.env.BILLING_NOTIFY_EMAIL) {
+        const adminApprovalEmail = emailTemplates.paymentApproved(user.name, payment.amount, payment.method, payment.reference, user.balance);
         sendMailSafe({
           to: process.env.BILLING_NOTIFY_EMAIL,
-          subject: 'Payment approved',
-          html: `<p>Payment approved for ${user.name} (${user.email})</p>
-                 <ul>
-                   <li>Amount: ${fmtMoney(payment.amount)}</li>
-                   <li>Method: ${payment.method.toUpperCase()}</li>
-                   <li>Reference: ${payment.reference}</li>
-                   <li>New Balance: ${fmtMoney(user.balance)}</li>
-                 </ul>`
+          subject: 'Payment approved - ' + adminApprovalEmail.subject,
+          html: `<p>Payment approved for ${user.name} (${user.email})</p>${adminApprovalEmail.html}`
         });
       }
     }
@@ -2298,6 +2616,19 @@ app.post('/tutor/reject-payment', async (req, res) => {
     payment.rejectedAt = new Date();
     payment.rejectionReason = reason;
     await payment.save();
+
+    // Send rejection email to user
+    try {
+      const user = await User.findById(payment.userId);
+      if (user?.email) {
+        const rejectionEmail = emailTemplates.paymentRejected(user.name, payment.amount, payment.method, payment.reference, reason);
+        sendMailSafe({
+          to: user.email,
+          subject: rejectionEmail.subject,
+          html: rejectionEmail.html
+        });
+      }
+    } catch (e) { console.warn('Payment rejection email warn:', e?.message || e); }
 
     res.json({
       success: true,

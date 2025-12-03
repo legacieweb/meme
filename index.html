@@ -1210,7 +1210,7 @@
             localStorage.setItem('userEmail', email.toLowerCase());
             localStorage.setItem('userName', data.user?.name || '');
             localStorage.setItem('userType', data.user?.role || 'student');
-            window.location.href = '../dashboard';
+            window.location.href = './dashboard';
           } else {
             alert(data.message || 'Login failed');
             button.disabled = false;

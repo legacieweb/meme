@@ -84,17 +84,13 @@
                 
                 if (response.ok) {
                     // Store user info in localStorage
-                    localStorage.setItem('userId', result.userId);
-                    localStorage.setItem('userType', result.userType);
-                    localStorage.setItem('userName', result.name);
-                    localStorage.setItem('userEmail', result.email);
+                    localStorage.setItem('userId', result.userId || result.user.id);
+                    localStorage.setItem('userRole', result.user.role);
+                    localStorage.setItem('userName', result.user.name);
+                    localStorage.setItem('userEmail', result.user.email);
                     
-                    // Redirect based on user type
-                    if (result.userType === 'tutor') {
-                        window.location.href = 'tutor.html';
-                    } else {
-                        window.location.href = 'student.html';
-                    }
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard/index.html';
                 } else {
                     alert(result.message || 'Login failed. Please try again.');
                 }

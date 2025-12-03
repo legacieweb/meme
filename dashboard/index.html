@@ -789,6 +789,10 @@
       class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-xl hover:bg-blue-700 transition-all duration-300">
       Edit Profile
   </button>
+  <button onclick="logout()" 
+      class="px-6 py-3 bg-red-600 text-white font-semibold rounded-full shadow-xl hover:bg-red-700 transition-all duration-300 flex items-center justify-center">
+      <i class="fas fa-sign-out-alt mr-2"></i>Logout
+  </button>
 </div>
 
 
@@ -2307,9 +2311,7 @@ function forgotPassword() {
 
 // Logout Functions
 function confirmLogout() {
-    if (confirm("Are you sure you want to logout?")) {
-        logout();
-    }
+    logout();
 }
 
 function logout() {
@@ -2319,8 +2321,13 @@ function logout() {
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userRole');
     
-    // Redirect to home page
-    window.location.href = 'index.html';
+    // Show logout notification
+    showNotification('Logging out... Redirecting to home page', 'success');
+    
+    // Redirect to home page after 1.5 seconds
+    setTimeout(() => {
+        window.location.href = '../index.html';
+    }, 1500);
 }
 
 // Toggle dropdown menu
