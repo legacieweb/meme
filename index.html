@@ -19,6 +19,8 @@
   <meta name="twitter:description" content="Fresh academic help blooms at EssayMe. Human-written essays from $10/page with free plagiarism and AI reports.">
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1920">
   <link rel="canonical" href="https://essayme.iyonicorp.com">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/tY9LcXu.png">
+
   <title>EssayMe | Fresh $10/Page Human Essays - Spring 2026</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1419,7 +1421,7 @@
           body: JSON.stringify({ email: emailField.value.trim().toLowerCase() })
         });
         const data = await res.json();
-        message.textContent = data.success ? 'OTP sent. Check your inbox.' : (data.message || 'Unable to send reset email.');
+        message.textContent = data.success ? 'OTP sent. Check your inbox.' : data.message || 'Unable to send reset email.';
       } catch (err) {
         message.textContent = 'Network error. Try again.';
       }
